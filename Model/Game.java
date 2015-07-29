@@ -14,7 +14,7 @@ public class Game {
 	private final static String[] WEAPON_NAME = { "Candelstick", "Wrench", "Rope", "Lead Pipe", "Knife", "Revolver", "Axe", "Poison" };
 	private final static String[] ROOM_NAME = { "Kitchen", "Ball Room","Conservatory", "Billiard Room", "Library", "Study", "Hall", "Lounge", "Dinning Room" };
 	
-	private final static int MIN_PLAYERS = 2;
+	private final static int MIN_PLAYERS = 3;
 	private final static int MAX_PLAYERS = 6;
 	private final static int NUM_WEAPONS = 2;
 	private final static int NUM_CHARACTERS = 6;
