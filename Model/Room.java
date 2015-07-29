@@ -6,7 +6,8 @@ package Model;
  * @author Kieran Mckay
  *
  */
-public class Room {
+public class Room extends Tile{
+	
 	String name;
 
 	public Room(String name) {

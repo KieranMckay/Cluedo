@@ -6,24 +6,8 @@ package Model;
  * @author Kieran Mckay
  *
  */
-public class Location {
-	private int x;
-	private int y;
-
-	private Room room;
-
-	//do I need these?????????
-	private Location north;
-	private Location east;
-	private Location south;
-	private Location west;
-
-	public Location(int x, int y){
-		this.x = x;
-		this.y = y;
-	}
-
-	public Room getRoom(){
-		return room;
-	}
+public class Location extends Tile{
+	
+	Location(){}
+	
 }
