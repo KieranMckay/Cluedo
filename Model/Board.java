@@ -36,14 +36,15 @@ public class Board {
 	 */
 	private void parseBoard(String[][] stringBoard) {
 		Map<String, Tile> rooms = new HashMap<String, Tile>();
-		board = new Tile[stringBoard.length][stringBoard[0].length];
+		board = new Tile[BOARD_HEIGHT][BOARD_WIDTH];
 
 		// fill map of rooms
 		for (int i = 0; i < stringBoard.length; i++) {
 			for (int j = 0; j < stringBoard[i].length; j++) {
-				if (!stringBoard[i][j].startsWith("t")) {// must be a room
+				if (!stringBoard[i][j].startsWith("t") && !stringBoard[i][j].equals("")) {// must be a room
 					String room[] = stringBoard[i][j].split("-"); //may have a teleport
-					rooms.put(room[0], new Room(room[0])); 
+					rooms.put(room[0], new Room(room[0])); //map name to room object
+					System.out.println("room: "+ room[0]);
 				}
 			}
 		}
@@ -57,10 +58,10 @@ public class Board {
 					if (squareVal.startsWith("t-")) {// also has a character
 						// TODO
 					}
-				} else { // is room
+				} else if(!squareVal.equals("")){ // is room and square not empty
 					String roomCouple[] = squareVal.split("-");
 
-					board[i][j] = rooms.get(squareVal);
+					board[i][j] = rooms.get(roomCouple[0]);
 					if (roomCouple.length > 1) {// has a teleport
 						board[i][j].addNeighbour(Tile.direction.TELE, rooms.get(roomCouple[0]));
 					}
@@ -69,7 +70,7 @@ public class Board {
 		}
 		
 		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board.length; j++) {
+			for (int j = 0; j < board[i].length; j++) {
 				if(board[i][j] != null){
 					if(i > 0 && board[i-1][j] != null){ //dont go over the edge
 						board[i][j].addNeighbour(Tile.direction.NORTH, board[i-1][j]);
@@ -80,7 +81,7 @@ public class Board {
 					if(j > 0 && board[i][j-1] != null){ //dont go over the edge
 						board[i][j].addNeighbour(Tile.direction.WEST, board[i-1][j]);
 					}
-					if(i < board[i].length-1 && board[i][j+1] != null){ 
+					if(j < board[i].length-1 && board[i][j+1] != null){ 
 						board[i][j].addNeighbour(Tile.direction.EAST, board[i][j+1]);
 					}
 				}
@@ -97,7 +98,9 @@ public class Board {
 	 */
 	private String[][] csvToArray(Scanner sc) {
 		this.BOARD_WIDTH = sc.nextInt();
+		
 		this.BOARD_HEIGHT = sc.nextInt();
+		System.out.println(BOARD_WIDTH + " " + BOARD_HEIGHT);
 		String line = sc.nextLine();
 		String initialBoard[][] = new String[BOARD_HEIGHT][BOARD_WIDTH];
 
@@ -120,6 +123,7 @@ public class Board {
 				}else{
 					boardString += "x";
 				}
+				boardString+= " ";
 			}
 			boardString += "\n";
 		}
@@ -137,7 +141,7 @@ public class Board {
 				+ " col: " + col);
 	}
 	
-	void main(String[] args){
-		new Board();
+	public static void main(String [] args){
+		System.out.println(new Board("board_parse_2.csv").toString());;
 	}
 }

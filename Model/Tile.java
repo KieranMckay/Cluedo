@@ -10,6 +10,13 @@ public abstract class Tile {
 	
 	Map<direction,Tile> neighbours;
 	
+	public Tile(){
+		neighbours = new HashMap<Tile.direction, Tile>();
+	}
+	
+	public Tile getNeighbour(direction dir){
+		return neighbours.get(dir);
+	}
 	public List<direction> getDirections(){
 		return new ArrayList(neighbours.keySet());
 	}

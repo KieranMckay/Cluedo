@@ -7,7 +7,7 @@ package Model;
  *
  */
 public class Location extends Tile{
-	
-	Location(){}
-	
+	public char toChar(){
+		return '.';
+	}
 }
