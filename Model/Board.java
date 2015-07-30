@@ -42,8 +42,8 @@ public class Board {
 		for (int i = 0; i < stringBoard.length; i++) {
 			for (int j = 0; j < stringBoard[i].length; j++) {
 				if (!stringBoard[i][j].startsWith("t")) {// must be a room
-					String room[] = stringBoard[i][j].split("-");
-					rooms.put(room[0], new Room(room[0]));
+					String room[] = stringBoard[i][j].split("-"); //may have a teleport
+					rooms.put(room[0], new Room(room[0])); 
 				}
 			}
 		}
@@ -110,6 +110,21 @@ public class Board {
 		}
 		return initialBoard;
 	}
+	
+	public String toString(){
+		String boardString = "";
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if(board[i][j] !=null){
+					boardString += board[i][j].toChar();
+				}else{
+					boardString += "x";
+				}
+			}
+			boardString += "\n";
+		}
+		return boardString;
+	}
 
 	/**
 	 * fail parsing
@@ -120,5 +135,9 @@ public class Board {
 	private void fail(int row, int col, String data) {
 		throw new RuntimeException("Parse Exception: " + data + "@ row: " + row
 				+ " col: " + col);
+	}
+	
+	void main(String[] args){
+		new Board();
 	}
 }

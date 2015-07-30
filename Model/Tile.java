@@ -21,4 +21,8 @@ public abstract class Tile {
 	public void addNeighbour(direction dir, Tile tile){
 		neighbours.put(dir,tile);
 	}
+	
+	public char toChar(){
+		return ' ';
+	}
 }

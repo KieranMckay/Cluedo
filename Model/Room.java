@@ -17,4 +17,8 @@ public class Room extends Tile{
 	public String toString(){
 		return name;
 	}
+	
+	public char toChar(){
+		return this.name.charAt(0);
+	}
 }
