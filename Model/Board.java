@@ -28,6 +28,14 @@ public class Board {
 		}
 
 	}
+	
+	public Tile getTile(int x, int y){
+		if(x < BOARD_WIDTH && x > -1 && y < BOARD_HEIGHT && y > -1 ){
+			return board[y][x];
+		}
+		throw new IndexOutOfBoundsException();
+	}
+	
 
 	/**
 	 * Populate board field with Tiles
