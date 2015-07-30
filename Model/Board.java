@@ -68,7 +68,7 @@ public class Board {
 				}
 			}
 		}
-		
+		//Go through the board linkin neighbouring tiles
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if(board[i][j] != null){
@@ -113,7 +113,9 @@ public class Board {
 		}
 		return initialBoard;
 	}
-	
+	/**
+	 * returns a string representation of the board
+	 */
 	public String toString(){
 		String boardString = "";
 		for (int i = 0; i < board.length; i++) {
