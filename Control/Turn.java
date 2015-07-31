@@ -1,7 +1,7 @@
-package Control;
+package control;
 
-import Model.Player;
-import View.Menu;
+import model.Player;
+import view.Menu;
 
 /**
  * A basic class for handling a players move

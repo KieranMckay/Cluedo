@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /**
  * A class representing the token of a Character for moving around the Board in the game Cluedo.

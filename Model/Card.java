@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /**
  * An interface for representing a card in the Cluedo game
