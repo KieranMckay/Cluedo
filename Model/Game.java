@@ -19,9 +19,9 @@ public class Game {
 		
 	private final static int MIN_PLAYERS = 3;
 	private final static int MAX_PLAYERS = 6;
-	private final static int NUM_WEAPONS = 2;
+	private final static int NUM_WEAPONS = 6;
 	private final static int NUM_CHARACTERS = 6;
-	private final static int NUM_ROOMS = 6;
+	private final static int NUM_ROOMS = 9;
 	
 	private static int numPlayers;
 	private static boolean gameOver = false;
