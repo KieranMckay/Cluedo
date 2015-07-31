@@ -1,6 +1,6 @@
 package Model;
 
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * A class for talking to the user and receiving responses from the user through console.
@@ -72,5 +72,37 @@ public class Menu {
 	    } catch (Exception e) {
 	    	System.out.println("Exception thrown trying to clear console: "+e);
 	    }
+	}
+
+	/**
+	 * Console asks the user to select a character from a list of available characters
+	 * 
+	 * @param playerNum - the player number of the person choosing their character
+	 * @param availableCharacters - a List of remaining available characters
+	 * @return a String representing the players choosen character
+	 */
+	public String newPlayer(int playerNum, List<String> availableCharacters) {
+		int choice = -1;
+		System.out.println("You are player number: "+playerNum+". Please select a Character");
+		
+		//loop to display all available players
+		for(int i = 0; i < availableCharacters.size(); i++){
+			System.out.println("	"+(i+1)+". "+availableCharacters.get(i));
+		}
+		Scanner input = new Scanner(System.in);		
+		
+		//loop while player has made an invalid choice
+		while(choice < 1 || choice > availableCharacters.size() ){			
+			if(input.hasNextInt()){
+				choice = input.nextInt();
+			}else if(input.hasNext()){  //TODO fix loop control. currently not working
+				input.next();
+			}
+		}
+		String character = availableCharacters.get(choice-1);
+		availableCharacters.remove(choice-1);
+		System.out.println("Player "+playerNum+" is now playing as "+ character);		
+		input.close();
+		return character;
 	}
 }

@@ -53,4 +53,15 @@ public class Player {
 		//not sure if this method is required yet
 		hand.remove(card);
 	}
+
+	/**
+	 * Get this players Token
+	 * 
+	 * @return the myCharacter
+	 */
+	public Token getMyCharacter() {
+		return myCharacter;
+	}
+	
+	
 }
