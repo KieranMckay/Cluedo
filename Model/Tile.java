@@ -7,7 +7,7 @@ import java.util.*;
  * @author JTFM
  *
  */
-public abstract class Tile {
+public class Tile {
 	
 	public static enum direction{ //possible directions to move
 		NORTH,EAST,SOUTH,WEST,TELE
@@ -52,6 +52,6 @@ public abstract class Tile {
 	}
 	
 	public char toChar(){
-		return ' ';
+		return '.';
 	}
 }
