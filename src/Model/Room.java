@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /**
  * A class representing a Room in the game Cluedo
@@ -6,7 +6,8 @@ package Model;
  * @author Kieran Mckay
  *
  */
-public class Room {
+public class Room extends Tile{
+	
 	String name;
 
 	public Room(String name) {
@@ -15,5 +16,9 @@ public class Room {
 	
 	public String toString(){
 		return name;
+	}
+	
+	public char toChar(){
+		return this.name.charAt(0);
 	}
 }
