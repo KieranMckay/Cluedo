@@ -1,4 +1,4 @@
-package Model;
+package View;
 
 import java.util.*;
 
@@ -111,8 +111,7 @@ public class Menu {
 	 * Utility method for clearing console screen.
 	 * Because of system dependence on how to do this code taken from stackoverflow
 	 */
-	private void clear()
-	{
+	private void clear(){
 		//currently not working
 	    try{
 	        String os = System.getProperty("os.name");

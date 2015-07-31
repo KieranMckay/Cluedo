@@ -1,6 +1,15 @@
-package Model;
+package Control;
 
 import java.util.*;
+
+import Model.Board;
+import Model.Card;
+import Model.Player;
+import Model.Room;
+import Model.Tile;
+import Model.Token;
+import Model.Weapon;
+import View.Menu;
 
 /**
  * Wrapper class for cluedo game. 
