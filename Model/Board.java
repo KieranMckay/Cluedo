@@ -16,7 +16,10 @@ public class Board {
 	private int BOARD_HEIGHT;
 
 	Tile board[][];
-
+	/**
+	 * constructs new board given csv file
+	 * @param boardFile
+	 */
 	public Board(String boardFile) {
 		try {
 			Scanner sc = new Scanner(new File(boardFile));
@@ -28,7 +31,13 @@ public class Board {
 		}
 
 	}
-	
+	/**
+	 * returns a Tile given the x and y coordinates
+	 * null if no tile present
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Tile getTile(int x, int y){
 		if(x < BOARD_WIDTH && x > -1 && y < BOARD_HEIGHT && y > -1 ){
 			return board[y][x];
@@ -113,10 +122,8 @@ public class Board {
 		String initialBoard[][] = new String[BOARD_HEIGHT][BOARD_WIDTH];
 
 		for (int i = 0; i < initialBoard.length; i++) { // scan lines vertically
-			// for (int j = 0; j < initialBoard[i].length; j++) {
 			String lineTiles[] = line.split(",");
 			initialBoard[i] = lineTiles;
-
 			line = sc.nextLine();
 		}
 		return initialBoard;
