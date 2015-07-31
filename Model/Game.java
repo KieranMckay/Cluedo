@@ -11,8 +11,8 @@ import java.util.*;
  */
 public class Game {
 	private final static String[] CHARACTER_NAME = { "Miss Scarlet", "Colonel Mustard","Mrs White", "Reverend Green", "Mrs Peacock", "Professor Plum" };
-	private final static int CHARACTER_X = { , , , , , };
-	private final static int CHARACTER_Y = { , , , , , };
+	//private final static int CHARACTER_X = { , , , , , };
+	//private final static int CHARACTER_Y = { , , , , , };
 	
 	private final static String[] WEAPON_NAME = { "Candelstick", "Wrench", "Rope", "Lead Pipe", "Knife", "Revolver", "Axe", "Poison" };
 	private final static String[] ROOM_NAME = { "Kitchen", "Ball Room","Conservatory", "Billiard Room", "Library", "Study", "Hall", "Lounge", "Dinning Room" };
@@ -58,9 +58,11 @@ public class Game {
 		board = new Board("board.csv");
 		//initialise characters and character cards
 		for (int i = 0; i < NUM_CHARACTERS; i++){
-			Location loc = board.getTile(x, y);
+			int x = 0;
+			int y = 0;			
+			Tile loc = board.getTile(x, y);
 			Token t = new Token(CHARACTER_NAME[i], loc);		
-			Card c = new CharacterCard(CHARACTER_NAME[i]);
+			Card c = new Card(CHARACTER_NAME[i]);
 			characters.add(t);
 			cards.add(c);
 		}
@@ -68,7 +70,7 @@ public class Game {
 		//initialise weapons and weapon cards
 		for (int i = 0; i < NUM_WEAPONS; i++){
 			Weapon w = new Weapon(WEAPON_NAME[i]);
-			Card c = new WeaponCard(WEAPON_NAME[i]);
+			Card c = new Card(WEAPON_NAME[i]);
 			weapons.add(w);
 			cards.add(c);
 		}
@@ -76,7 +78,7 @@ public class Game {
 		//initialise rooms and room cards
 		for (int i = 0; i < NUM_ROOMS; i++){
 			Room r = new Room(ROOM_NAME[i]);
-			Card c = new RoomCard(ROOM_NAME[i]);
+			Card c = new Card(ROOM_NAME[i]);
 			rooms.add(r);
 			cards.add(c);
 		}		

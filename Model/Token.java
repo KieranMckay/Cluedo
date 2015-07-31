@@ -8,11 +8,11 @@ package Model;
  */
 public class Token {
 	private String name;
-	private Location start;
-	private Location location;
+	private Tile start;
+	private Tile location;
 	//private Room room;
 	
-	public Token(String name, Location start) {
+	public Token(String name, Tile start) {
 		this.name = name;
 		this.start = start;
 		this.location = start;
@@ -33,7 +33,7 @@ public class Token {
 	 *
 	 * @return Location - players current location.
 	 */
-	public Location getLocation() {
+	public Tile getLocation() {
 		return location;
 	}
 
@@ -52,7 +52,7 @@ public class Token {
 	 *
 	 * @return start - Location.
 	 */
-	public Location getStart() {
+	public Tile getStart() {
 		return start;
 	}
 
