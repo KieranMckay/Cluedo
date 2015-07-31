@@ -13,8 +13,8 @@ import java.util.*;
 public class Game {
 	//All the characters names
 	private final static String[] CHARACTER_NAME = { "Miss Scarlet", "Colonel Mustard","Mrs White", "Reverend Green", "Mrs Peacock", "Professor Plum" };
-	//private final static int CHARACTER_X = { , , , , , };
-	//private final static int CHARACTER_Y = { , , , , , };
+	private final static int[] CHARACTER_X = { 7, 0, 9, 14, 23, 23};  	//initial X coords for respective characters in CHARACTER_NAME
+	private final static int[] CHARACTER_Y = { 24, 17, 0, 0, 6, 19};	//initial Y coords for respective characters in CHARACTER_NAME
 	
 	//all the weapons names
 	private final static String[] WEAPON_NAME = { "Candelstick", "Wrench", "Rope", "Lead Pipe", "Knife", "Revolver", "Axe", "Poison" };
@@ -93,9 +93,8 @@ public class Game {
 		//initialise characters and character cards
 		for (int i = 0; i < NUM_CHARACTERS; i++){
 			
-			//TODO assign x and y to starting coords of appropriate character
-			int x = 0;
-			int y = 0;			
+			int x = CHARACTER_X[i]; //appropriate characters initial X coords
+			int y = CHARACTER_Y[i];	//appropriate characters initial Y coords		
 			
 			Tile loc = board.getTile(x, y);
 			Token t = new Token(CHARACTER_NAME[i], loc);				
@@ -139,8 +138,7 @@ public class Game {
 				cards.put(c.toString(), c);;
 			}
 		}	
-	}
-	
+	}	
 	
 	/**
 	 * Handles the creating of players and them picking their characters.

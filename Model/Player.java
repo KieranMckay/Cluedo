@@ -16,7 +16,7 @@ public class Player {
 	/**
 	 * Create a new player card.
 	 *
-	 * @param - ????.
+	 * @param - Token the character belonging to this player.
 	 */
 	public Player(Token myCharacter) {
 		this.myCharacter = myCharacter;

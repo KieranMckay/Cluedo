@@ -46,7 +46,6 @@ public class Token {
 		this.location = location;
 	}
 
-
 	/**
 	 * Returns the Tokens current start point.
 	 *
