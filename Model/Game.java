@@ -39,9 +39,11 @@ public class Game {
 		numPlayers = menu.promptNumberPlayers(MIN_PLAYERS, MAX_PLAYERS);
 		
 		initialise();
+		assignPlayers();
+		dealCards();
 		menu.drawGame();
 	}
-	
+
 	/**
 	 * Controls the game logic in a loop until the game is over
 	 */
@@ -55,53 +57,71 @@ public class Game {
 	}
 
 	private static void initialise() {	
+		Random random = new Random();
 		board = new Board("board.csv");
+
+		int murderCard = random.nextInt(NUM_CHARACTERS);		
 		//initialise characters and character cards
 		for (int i = 0; i < NUM_CHARACTERS; i++){
 			int x = 0;
 			int y = 0;			
 			Tile loc = board.getTile(x, y);
-			Token t = new Token(CHARACTER_NAME[i], loc);		
+			Token t = new Token(CHARACTER_NAME[i], loc);				
 			Card c = new Card(CHARACTER_NAME[i]);
 			characters.add(t);
-			cards.add(c);
+			
+			if (i == murderCard){
+				envelope[0] = c;
+			} else {
+				cards.add(c);
+			}
 		}
 		
+		murderCard = random.nextInt(NUM_WEAPONS);
 		//initialise weapons and weapon cards
 		for (int i = 0; i < NUM_WEAPONS; i++){
 			Weapon w = new Weapon(WEAPON_NAME[i]);
 			Card c = new Card(WEAPON_NAME[i]);
 			weapons.add(w);
 			cards.add(c);
+			
+			if (i == murderCard){
+				envelope[1] = c;
+			} else {
+				cards.add(c);
+			}
 		}
 		
+		murderCard = random.nextInt(NUM_ROOMS);
 		//initialise rooms and room cards
 		for (int i = 0; i < NUM_ROOMS; i++){
 			Room r = new Room(ROOM_NAME[i]);
 			Card c = new Card(ROOM_NAME[i]);
 			rooms.add(r);
 			cards.add(c);
-		}		
-		
-		
-		fillEnvelope();
-		
-		
+			
+			if (i == murderCard){
+				envelope[2] = c;
+			} else {
+				cards.add(c);
+			}
+		}	
 	}
 	
-	private static void fillEnvelope(){
-		Random random = new Random();
+	/**
+	 * Handles the creating of players and them picking their characters.
+	 */
+	private static void assignPlayers() {
+		// TODO Auto-generated method stub
+		//use numPlayers variable
+	}
+	
+	/**
+	 * Deal out the clue cards to the players.
+	 */
+	private static void dealCards() {
+		// TODO Auto-generated method stub
+		//use numPlayers variable and cards set
 		
-		//get random weapon and move its card from cards into envelope
-		
-		//envelope[0] = 		
-		
-		//get random room and move its card from cards into envelope
-		
-		//envelope[1] = 	
-		
-		//get random character and move its card from cards into envelope
-		
-		//envelope[2] = 
 	}
 }
