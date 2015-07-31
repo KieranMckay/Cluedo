@@ -23,7 +23,7 @@ public class Player {
 		this.hand = new HashSet<Card>();
 		this.suspects = new HashSet<Card>();
 
-		//populate suspects with all possible weapons, rooms and characters
+		//TODO populate suspects with all possible weapons, rooms and characters
 	}
 
 	/**
