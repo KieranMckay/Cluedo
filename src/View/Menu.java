@@ -108,6 +108,13 @@ public class Menu {
 	}
 	
 	/**
+	 * get the next char entered by the user
+	 */
+	public char getChar(){
+		return input.next(".").charAt(0);
+	}
+	
+	/**
 	 * Utility method for clearing console screen.
 	 * Because of system dependence on how to do this code taken from stackoverflow
 	 */
