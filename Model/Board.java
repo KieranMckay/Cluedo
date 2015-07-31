@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * A class representing the Board in the game Cluedo
  * 
- * @author Kieran Mckay
+ * @author Johnny Denford, Kieran Mckay
  *
  */
 public class Board {
@@ -151,7 +151,9 @@ public class Board {
 				+ " col: " + col);
 	}
 	
+	/*
 	public static void main(String [] args){
-		System.out.println(new Board("board_parse_2.csv").toString());;
+		System.out.println(new Board("board.csv").toString());;
 	}
+	*/
 }

@@ -11,9 +11,12 @@ import java.util.*;
  */
 public class Game {
 	private final static String[] CHARACTER_NAME = { "Miss Scarlet", "Colonel Mustard","Mrs White", "Reverend Green", "Mrs Peacock", "Professor Plum" };
+	private final static int CHARACTER_X = { , , , , , };
+	private final static int CHARACTER_Y = { , , , , , };
+	
 	private final static String[] WEAPON_NAME = { "Candelstick", "Wrench", "Rope", "Lead Pipe", "Knife", "Revolver", "Axe", "Poison" };
 	private final static String[] ROOM_NAME = { "Kitchen", "Ball Room","Conservatory", "Billiard Room", "Library", "Study", "Hall", "Lounge", "Dinning Room" };
-	
+		
 	private final static int MIN_PLAYERS = 3;
 	private final static int MAX_PLAYERS = 6;
 	private final static int NUM_WEAPONS = 2;
@@ -26,7 +29,7 @@ public class Game {
 	public static Board board;
 	public static Card[] envelope = new Card[3];
 		
-	public static List<Player> players = new ArrayList<Player>();
+	public static Set<Token> characters = new HashSet<Token>();
 	public static Set<Card> cards = new HashSet<Card>();
 	public static Set<Weapon> weapons = new HashSet<Weapon>();
 	public static Set<Room> rooms = new HashSet<Room>();
@@ -52,12 +55,13 @@ public class Game {
 	}
 
 	private static void initialise() {	
-		
-		//initialise players and player cards
+		board = new Board("board.csv");
+		//initialise characters and character cards
 		for (int i = 0; i < NUM_CHARACTERS; i++){
-			Player p = new Player(CHARACTER_NAME[i]);
+			Location loc = board.getTile(x, y);
+			Token t = new Token(CHARACTER_NAME[i], loc);		
 			Card c = new CharacterCard(CHARACTER_NAME[i]);
-			players.add(p);
+			characters.add(t);
 			cards.add(c);
 		}
 		
@@ -77,7 +81,9 @@ public class Game {
 			cards.add(c);
 		}		
 		
+		
 		fillEnvelope();
+		
 		
 	}
 	
