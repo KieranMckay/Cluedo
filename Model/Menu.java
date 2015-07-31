@@ -88,7 +88,11 @@ public class Menu {
 		System.out.println("Enter any key to continue: ");
 		//loop while player has not made an input
 		while( !input.hasNext() ){	
-			
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				System.out.println("pressToContinue() sleep interupted");
+			}
 		}
 	}
 	
