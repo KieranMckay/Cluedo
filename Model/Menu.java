@@ -93,6 +93,13 @@ public class Menu {
 	}
 	
 	/**
+	 * get the next char entered by the user
+	 */
+	public char getChar(){
+		return input.next(".").charAt(0);
+	}
+	
+	/**
 	 * Draws the game in its current state. 
 	 * Should be called before every other menu interaction so it is constantly drawn at the top.
 	 * Clears the graphics every time its called.
