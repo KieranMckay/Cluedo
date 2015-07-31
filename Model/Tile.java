@@ -18,11 +18,11 @@ public abstract class Tile {
 		return neighbours.get(dir);
 	}
 	public List<direction> getDirections(){
-		return new ArrayList(neighbours.keySet());
+		return new ArrayList<direction>(neighbours.keySet());
 	}
 	
 	public List<Tile> getNeighbours(){
-		return new ArrayList(this.neighbours.values());
+		return new ArrayList<Tile>(this.neighbours.values());
 	}
 	
 	public void addNeighbour(direction dir, Tile tile){
