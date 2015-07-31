@@ -42,7 +42,7 @@ public class Token {
 	 *
 	 * @param Location - The location of the Token.
 	 */
-	public void setLocation(Location location) {
+	public void setLocation(Tile location) {
 		this.location = location;
 	}
 
@@ -63,7 +63,7 @@ public class Token {
 	 * @param start
 	 *            - Location
 	 */
-	public void setEntrance(Location start) {
+	public void setEntrance(Tile start) {
 		this.start = start;
 	}
 	

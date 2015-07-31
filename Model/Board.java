@@ -71,7 +71,7 @@ public class Board {
 			for (int j = 0; j < stringBoard[i].length; j++) {
 				String squareVal = stringBoard[i][j];
 				if (squareVal.startsWith("t")) {
-					board[i][j] = new Location();
+					board[i][j] = new Tile();
 					if (squareVal.startsWith("t-")) {// also has a character
 						// TODO
 					}
