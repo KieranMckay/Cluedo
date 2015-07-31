@@ -33,14 +33,14 @@ public class Tile {
 	 * @return
 	 */
 	public List<direction> getDirections(){
-		return new ArrayList(neighbours.keySet());
+		return new ArrayList<direction>(neighbours.keySet());
 	}
 	/**
 	 * List of the neighbouring tiles
 	 * @return
 	 */
 	public List<Tile> getNeighbours(){
-		return new ArrayList(this.neighbours.values());
+		return new ArrayList<Tile>(this.neighbours.values());
 	}
 	/**
 	 *  add a neighbouring tile to this tile
