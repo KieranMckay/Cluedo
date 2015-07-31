@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -157,10 +157,4 @@ public class Board {
 		throw new RuntimeException("Parse Exception: " + data + "@ row: " + row
 				+ " col: " + col);
 	}
-	
-	/*
-	public static void main(String [] args){
-		System.out.println(new Board("board.csv").toString());;
-	}
-	*/
 }

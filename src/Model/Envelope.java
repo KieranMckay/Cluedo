@@ -1,4 +1,4 @@
-package Model;
+package src.Model;
 /**
  *  A class for representing a set of Cards
  *  

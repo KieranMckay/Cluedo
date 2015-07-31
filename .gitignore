@@ -1,7 +1,8 @@
 *.class
 .classpath
 .project
-META-INF/
+bin
+META-INF
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

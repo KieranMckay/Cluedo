@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /**
  * A class representing the token of a Character for moving around the Board in the game Cluedo.
@@ -45,7 +45,6 @@ public class Token {
 	public void setLocation(Tile location) {
 		this.location = location;
 	}
-
 
 	/**
 	 * Returns the Tokens current start point.

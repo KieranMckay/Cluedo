@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /**
  * A class representing a Weapon in the game Cluedo
