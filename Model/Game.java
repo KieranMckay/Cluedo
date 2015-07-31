@@ -128,6 +128,7 @@ public class Game {
 			String characterName = menu.newPlayer(i, availableCharacters);			
 			Player p = new Player(characters.get(characterName));
 			players.put(i, p);
+			menu.pressToContinue();
 		}
 	}
 	
