@@ -92,11 +92,13 @@ public class Menu {
 		Scanner input = new Scanner(System.in);		
 		
 		//loop while player has made an invalid choice
-		while(choice < 1 || choice > availableCharacters.size() ){			
+		while(choice < 1 || choice > availableCharacters.size() ){		
+			System.out.println("loop");
 			if(input.hasNextInt()){
 				choice = input.nextInt();
 			}else if(input.hasNext()){  //TODO fix loop control. currently not working
-				input.next();
+				input.next();	
+				System.out.println("looper");
 			}
 		}
 		String character = availableCharacters.get(choice-1);
