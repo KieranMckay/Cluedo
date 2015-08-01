@@ -21,6 +21,16 @@ public class Room extends Tile{
 	}
 	
 	/**
+	 * Returns true, this is a room, overriding parent class Tile
+	 * 
+	 * @return true
+	 */
+	@Override
+	public boolean isRoom(){		
+		return true;
+	}
+	
+	/**
 	 * Returns the first character of this rooms name
 	 */
 	public char toChar(){

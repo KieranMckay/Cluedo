@@ -33,12 +33,12 @@ public class Turn {
 		System.out.println("You have " + turns + " turns, please move to your destination");
 		while(turns > 0) {
 			//char selection = menu.getChar();
-			singleMove(menu.getChar());
+		//	singleMove(menu.getChar());
 			if(player.getPosition().isRoom());
 			//TODO
 		}
 	}
-	
+	/*
 	void singleMove(char c){
 		switch(c){
 		case 'w':
@@ -66,13 +66,13 @@ public class Turn {
 		}
 		turns --;
 		
-	}	
+	}	*/
 	
 	/**
 	 * get a number between 2 and 12 inclusive
 	 * @return
 	 */
 	private static int rollDice(){
-		return (int)((dice.nextFloat() * 10)+2);
+		return dice.nextInt(11)+2;
 	}
 }

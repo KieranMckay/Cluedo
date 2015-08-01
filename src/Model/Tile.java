@@ -52,14 +52,11 @@ public class Tile {
 	}
 	
 	/**
-	 * Returns a boolean of whether this Tile is an instance of Room or not
+	 * Returns false unless overridden by child class Room
 	 * 
-	 * @return true if this Tile is a Room, false if it is not
+	 * @return false
 	 */
-	public boolean isRoom(){
-		if (this instanceof Room){
-			return true;
-		}
+	public boolean isRoom(){		
 		return false;
 	}
 	
