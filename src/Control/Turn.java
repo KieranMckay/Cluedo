@@ -17,12 +17,14 @@ public class Turn {
 	Player player;
 	Menu menu;
 	Board board;
+	Envelope envelope;
 	int turns;
 
-	public Turn(Player player, Board board, Menu menu) {
+	public Turn(Player player, Board board, Menu menu, Envelope answerEnvelope) {
 		this.player = player;
 		this.menu = menu;
 		this.board = board;
+		this.envelope = answerEnvelope;
 		turns = rollDice();
 	}
 
@@ -37,6 +39,15 @@ public class Turn {
 				makeSuggestion();
 			}
 		}
+	}
+
+	private void makeSuggestion() {
+		//TODO Auto-generated method stub
+	}
+
+	private void makeAccusation() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	void movePlayer() {
