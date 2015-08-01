@@ -15,9 +15,45 @@ public class Tile {
 	
 	Map<direction,Tile> neighbours; //neighbouring tiles
 	
+	Set<Token> tokens;
+	
+	
+	
 	public Tile(){
 		neighbours = new HashMap<Tile.direction, Tile>();
 	}
+	/**
+	 * Returns true if this tile has space for a token
+	 * @return
+	 */
+	public boolean hasSpace(){
+		if(tokens == null || tokens.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Add a given token to this tile
+	 * @param t Token to be added
+	 */
+	public void addToken(Token t){
+		if(this.hasSpace()){
+			if(tokens == null){
+				tokens = new HashSet<Token>();
+			}
+			tokens.add(t);
+		}
+	}
+	
+	/**
+	 * Remove a token from this tile
+	 * @param t
+	 */
+	public void removeToken(Token t){
+		if(tokens!= null) tokens.remove(t);
+	}
+	
 	/**
 	 *  returns the tile in the given direction
 	 *  null if not possible

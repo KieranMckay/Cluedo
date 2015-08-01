@@ -16,11 +16,13 @@ public class Turn {
 
 	Player player;
 	Menu menu;
+	Board board;
 	int turns;
 
-	public Turn(Player player, Menu menu) {
+	public Turn(Player player, Board board, Menu menu) {
 		this.player = player;
 		this.menu = menu;
+		this.board = board;
 		turns = rollDice();
 	}
 
@@ -33,7 +35,6 @@ public class Turn {
 		if (player.getPosition().isRoom()) {
 			if (menu.promptSuggestion()) {
 				makeSuggestion();
-				return;
 			}
 		}
 	}
@@ -71,7 +72,7 @@ public class Turn {
 		default:
 			return false;
 		}
-		if (player.move(direction)) {
+		if (board.moveToken(player.getToken(),direction)) {
 			turns--;
 			return true;
 		}

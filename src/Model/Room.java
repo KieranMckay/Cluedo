@@ -14,6 +14,15 @@ public class Room extends Tile{
 	}
 	
 	/**
+	 * Returns true if this tile has space for a token
+	 * @return
+	 */
+	@Override
+	public boolean hasSpace(){
+		return true;
+	}
+	
+	/**
 	 * Returns the name of this Room.
 	 */
 	public String toString(){
