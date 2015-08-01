@@ -137,4 +137,28 @@ public class Menu {
 	public void println(String string) {
 		System.out.println(string);
 	}
+	/**
+	 * Ask the user if they want to make an accusation
+	 * @return 
+	 */
+	public boolean promptAccusation() {
+		println("Make an accusation? y/n");
+		char answer = getChar();
+		if(answer == 'y' || answer == 'Y'){
+			return true;
+		}
+		return false;
+	}
+	/**
+	 *  Ask the user if they want to make a suggestion
+	 * @return
+	 */
+	public boolean promptSuggestion() {
+		println("Make a suggestion? y/n");
+		char answer = getChar();
+		if(answer == 'y' || answer == 'Y'){
+			return true;
+		}
+		return false;
+	}
 }

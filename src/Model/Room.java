@@ -18,7 +18,7 @@ public class Room extends Tile{
 	 * @return
 	 */
 	@Override
-	public boolean hasSpace(){
+	public boolean hasSpace(){ //always has space
 		return true;
 	}
 	
