@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import model.Tile.direction;
+
 /**
  * A class representing the Board in the game Cluedo
  * 
@@ -45,10 +47,24 @@ public class Board {
 		throw new IndexOutOfBoundsException();
 	}
 	
-	public boolean movePlayer(Player player){
-		//TODO
-		return true;
+	/**
+	 * Move a given token in the provided direction
+	 * @param token Token to move
+	 * @param direction Direction to move
+	 * @return
+	 */
+	public boolean moveToken(Token token, direction direction) {
+		Tile startPosition = token.getLocation();
+		Tile newLocation = startPosition.getNeighbour(direction);
+		if(newLocation != null){ //can move there
+			token.setLocation(newLocation);
+			startPosition.removeToken(token);
+			newLocation.addToken(token);
+			return true;
+		}
+		return false;
 	}
+	
 	/**
 	 * Populate board field with Tiles
 	 * TODO this doesnt yet block hallway to room if the room is adjacent
@@ -164,4 +180,6 @@ public class Board {
 	public static void main(String[] args){
 		System.out.println(new Board("board.csv").toString());
 	}
+	
+	
 }

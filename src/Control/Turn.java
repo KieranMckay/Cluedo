@@ -54,7 +54,9 @@ public class Turn {
 	}
 
 	private boolean singleMove(char c) {
-		// TODO list directions
+		menu.println("Please choose a direction: ");
+		menu.println(player.getPosition().getDirections().toString());
+		
 		Tile.direction direction;
 		switch (c) {
 		case 'w':
@@ -68,6 +70,9 @@ public class Turn {
 			break;
 		case 'd':
 			direction = Tile.direction.EAST;
+			break;
+		case 'q':
+			direction = Tile.direction.TELE;
 			break;
 		default:
 			return false;
