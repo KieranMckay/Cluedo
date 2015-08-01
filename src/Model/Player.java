@@ -11,7 +11,7 @@ import model.Tile.direction;
  *
  */
 public class Player {
-	private Token myCharacter;
+	private Token myToken;
 	private Set<Card> hand;
 	private Set<Card> suspects;
 
@@ -20,8 +20,8 @@ public class Player {
 	 *
 	 * @param - Token the character belonging to this player.
 	 */
-	public Player(Token myCharacter) {
-		this.myCharacter = myCharacter;
+	public Player(Token myToken) {
+		this.myToken = myToken;
 		this.hand = new HashSet<Card>();
 		this.suspects = new HashSet<Card>();
 
@@ -34,7 +34,7 @@ public class Player {
 	 * @return Tile at players position
 	 */
 	public Tile getPosition(){
-		return myCharacter.getLocation();
+		return myToken.getLocation();
 	}
 	
 	/**
@@ -70,8 +70,8 @@ public class Player {
 	 * 
 	 * @return the myCharacter
 	 */
-	public Token getMyCharacter() {
-		return myCharacter;
+	public Token getToken() {
+		return myToken;
 	}
 
 	public boolean move(direction direction) {

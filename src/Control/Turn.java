@@ -25,24 +25,35 @@ public class Turn {
 	}
 
 	void takeTurn() {
-		if(player.getPosition().isRoom())
+		if (menu.promptAccusation()) {
+			makeAccusation();
+			return;
+		}
 		movePlayer();
+		if (player.getPosition().isRoom()) {
+			if (menu.promptSuggestion()) {
+				makeSuggestion();
+				return;
+			}
+		}
 	}
 
 	void movePlayer() {
 		menu.println("It's your turn " + player.toString());
-		menu.println("You have " + turns + " turns, please move to your destination");
+		menu.println("You have " + turns
+				+ " turns, please move to your destination");
 		while (turns > 0) {
-			if(!singleMove(menu.getChar())){
-			    menu.println("Invalid Move, try again");
+			if (!singleMove(menu.getChar())) {
+				menu.println("Invalid Move, try again");
 				continue;
+			} else if (player.getPosition().isRoom()) { // they have reached their destination
+				return;
 			}
-			else if (player.getPosition().isRoom())break; //they have reached their destination
 		}
 	}
 
 	private boolean singleMove(char c) {
-		//TODO list directions
+		// TODO list directions
 		Tile.direction direction;
 		switch (c) {
 		case 'w':

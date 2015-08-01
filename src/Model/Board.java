@@ -45,7 +45,10 @@ public class Board {
 		throw new IndexOutOfBoundsException();
 	}
 	
-
+	public boolean movePlayer(Player player){
+		//TODO
+		return true;
+	}
 	/**
 	 * Populate board field with Tiles
 	 * TODO this doesnt yet block hallway to room if the room is adjacent
