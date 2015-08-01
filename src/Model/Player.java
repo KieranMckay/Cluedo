@@ -2,6 +2,8 @@ package model;
 
 import java.util.*;
 
+import model.Tile.direction;
+
 /**
  * A class representing a Player in the game Cluedo
  * 
@@ -70,6 +72,11 @@ public class Player {
 	 */
 	public Token getMyCharacter() {
 		return myCharacter;
+	}
+
+	public boolean move(direction direction) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

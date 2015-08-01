@@ -24,12 +24,12 @@ public class Menu {
 	 */
 	public int promptNumberPlayers(int min, int max){		
 		int numPlayers = -1;
-		System.out.println("Welcome to Cluedo! How many players would you like?");
+		println("Welcome to Cluedo! How many players would you like?");
 		input = new Scanner(System.in);
 		
 		
 		while(numPlayers < min || numPlayers > max){
-			System.out.println("You may have between "+min+" and "+max+" players");
+			println("You may have between "+min+" and "+max+" players");
 			
 			if(input.hasNextInt()){
 				numPlayers = input.nextInt();
@@ -37,7 +37,7 @@ public class Menu {
 				input.next();
 			}
 		}
-		System.out.println("You have selected "+numPlayers+" players.");
+		println("You have selected "+numPlayers+" players.");
 		
 		//input.close();  //Cant close scanners because System.in will not read......
 		return numPlayers;
@@ -52,12 +52,12 @@ public class Menu {
 	 */
 	public String newPlayer(int playerNum, List<String> availableCharacters) {
 		int choice = -1;
-		System.out.println("You are player number: "+playerNum+". Please select a Character.");
-		System.out.println("Remaining number of characters: "+availableCharacters.size());
+		println("You are player number: "+(playerNum+1)+". Please select a Character.");
+		println("Remaining number of characters: "+availableCharacters.size());
 		
 		//loop to display all available players
 		for(int i = 0; i < availableCharacters.size(); i++){
-			System.out.println("	"+(i+1)+". "+availableCharacters.get(i));
+			println("	"+(i+1)+". "+availableCharacters.get(i));
 		}
 		
 		input = new Scanner(System.in);		
@@ -72,7 +72,7 @@ public class Menu {
 		}
 		String character = availableCharacters.get(choice-1);
 		availableCharacters.remove(choice-1);
-		System.out.println("Player "+(playerNum+1)+" is now playing as "+ character);		
+		println("Player "+(playerNum+1)+" is now playing as "+ character);		
 		
 		//input.close();  //Cant close scanners because System.in will not read......
 		
@@ -85,13 +85,13 @@ public class Menu {
 	 */
 	public void pressToContinue(){
 		input = new Scanner(System.in);		
-		System.out.println("Enter any key to continue: ");
+		println("Enter any key to continue: ");
 		//loop while player has not made an input
 		while( !input.hasNext() ){	
 			try {
 				Thread.sleep(200);
 			} catch (InterruptedException e) {
-				System.out.println("pressToContinue() sleep interupted");
+				println("pressToContinue() sleep interupted");
 			}
 		}
 	}
@@ -103,14 +103,15 @@ public class Menu {
 	 */
 	public void drawGame(){
 		//clear();  //not currently working
-		System.out.println("draw board here"); //testing method call
+		println("draw board here"); //testing method call
 		//draw board here
 	}
 	
-	/**
+	/** TODO
 	 * get the next char entered by the user
 	 */
 	public char getChar(){
+		input = new Scanner(System.in);
 		return input.next(".").charAt(0);
 	}
 	
@@ -129,7 +130,11 @@ public class Menu {
 	            Runtime.getRuntime().exec("clear");
 	        }
 	    } catch (Exception e) {
-	    	System.out.println("Exception thrown trying to clear console: "+e);
+	    	println("Exception thrown trying to clear console: "+e);
 	    }
+	}
+
+	public void println(String string) {
+		System.out.println(string);
 	}
 }

@@ -7,72 +7,72 @@ import view.*;
 
 /**
  * A basic class for handling a players move
+ * 
  * @author Johnny
  *
  */
 public class Turn {
 	static Random dice = new Random();
-	
+
 	Player player;
 	Menu menu;
 	int turns;
-	
+
 	public Turn(Player player, Menu menu) {
 		this.player = player;
 		this.menu = menu;
 		turns = rollDice();
 	}
-	
-	void takeTurn(){
+
+	void takeTurn() {
+		if(player.getPosition().isRoom())
 		movePlayer();
 	}
-	
-	void movePlayer(){
-		Tile playerLocation = player.getPosition();
-		System.out.println("It's your turn "+ player.toString());
-		System.out.println("You have " + turns + " turns, please move to your destination");
-		while(turns > 0) {
-			//char selection = menu.getChar();
-		//	singleMove(menu.getChar());
-			if(player.getPosition().isRoom());
-			//TODO
+
+	void movePlayer() {
+		menu.println("It's your turn " + player.toString());
+		menu.println("You have " + turns + " turns, please move to your destination");
+		while (turns > 0) {
+			if(!singleMove(menu.getChar())){
+			    menu.println("Invalid Move, try again");
+				continue;
+			}
+			else if (player.getPosition().isRoom())break; //they have reached their destination
 		}
 	}
-	/*
-	void singleMove(char c){
-		switch(c){
+
+	private boolean singleMove(char c) {
+		//TODO list directions
+		Tile.direction direction;
+		switch (c) {
 		case 'w':
-			if(!player.moveNorth()){
-				return;
-			}
+			direction = Tile.direction.NORTH;
 			break;
 		case 's':
-			if(!player.moveSouth()){
-				return;
-			}
+			direction = Tile.direction.SOUTH;
 			break;
 		case 'a':
-			if(!player.moveWest()){
-				return;
-			}
+			direction = Tile.direction.WEST;
 			break;
 		case 'd':
-			if(!player.moveEast()){
-				return;
-			}
+			direction = Tile.direction.EAST;
 			break;
 		default:
-			return;
+			return false;
 		}
-		turns --;
-		
-	}	*/
-	
+		if (player.move(direction)) {
+			turns--;
+			return true;
+		}
+		return false;
+	}
+
 	/**
 	 * get a number between 2 and 12 inclusive
+	 * 
 	 * @return
 	 */
-	private static int rollDice(){
-		return dice.nextInt(11)+2;
+	private static int rollDice() {
+		return dice.nextInt(11) + 2;
 	}
 }
