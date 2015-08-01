@@ -26,6 +26,11 @@ public class Player {
 		//TODO populate suspects with all possible weapons, rooms and characters
 	}
 
+	
+	public Tile getPosition(){
+		return myCharacter.getLocation();
+	}
+	
 	/**
 	 * Returns a set representing this players hand of cards.
 	 *

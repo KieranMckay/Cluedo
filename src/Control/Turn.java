@@ -66,8 +66,7 @@ public class Turn {
 		}
 		turns --;
 		
-	}
-	
+	}	
 	
 	/**
 	 * get a number between 2 and 12 inclusive

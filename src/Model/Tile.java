@@ -51,6 +51,18 @@ public class Tile {
 		neighbours.put(dir,tile);
 	}
 	
+	/**
+	 * Returns a boolean of whether this Tile is an instance of Room or not
+	 * 
+	 * @return true if this Tile is a Room, false if it is not
+	 */
+	public boolean isRoom(){
+		if (this instanceof Room){
+			return true;
+		}
+		return false;
+	}
+	
 	public char toChar(){
 		return '.';
 	}
