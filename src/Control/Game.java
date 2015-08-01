@@ -66,7 +66,7 @@ public class Game {
 		
 		while(!gameOver){
 			Player p = players.get(pTurn);	//the current player whos turn it is
-			Turn turn = new Turn(p, menu);  //turn object for interfacing a player and the menu to control their turn
+			Turn turn = new Turn(p, board, menu);  //turn object for interfacing a player and the menu to control their turn
 			
 			//perform turn methods here!!!!!!!!!!!!
 			//turn.getPlayerChoice();
