@@ -1,7 +1,7 @@
 package model;
 
 /**
- * An interface for representing a card in the Cluedo game
+ * A Class for representing a Card in the Cluedo game
  * 
  * @author Kieran Mckay
  */
