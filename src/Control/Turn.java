@@ -17,14 +17,12 @@ public class Turn {
 	Player player;
 	Menu menu;
 	Board board;
-	Envelope envelope;
 	int turns;
 
-	public Turn(Player player, Board board, Menu menu, Envelope answerEnvelope) {
+	public Turn(Player player, Board board, Menu menu) {
 		this.player = player;
 		this.menu = menu;
 		this.board = board;
-		this.envelope = answerEnvelope;
 		turns = rollDice();
 	}
 
