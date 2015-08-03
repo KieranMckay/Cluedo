@@ -54,4 +54,12 @@ public class Token {
 		}
 		return null;
 	}
+	/**
+	 * A char representation of this Token
+	 * 
+	 * @return First char of the token name
+	 */
+	public char toChar(){
+		return this.name.charAt(0);
+	}
 }
