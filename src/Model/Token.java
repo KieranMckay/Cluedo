@@ -21,7 +21,8 @@ public class Token {
 	 *
 	 * @return String - Character's name
 	 */
-	public String getName() {
+	@Override
+	public String toString() {
 		return name;
 	}
 

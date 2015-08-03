@@ -75,15 +75,15 @@ public class Turn {
 	 */
 	private Envelope getChoiceEnvelope() {
 		//Choose a character from the list of all characters then get its card
-		String selection =  menu.userSelection(Game.characters.keySet());
+		String selection =  menu.selectMurderItem(Game.characters.keySet());
 		Card suspect = Game.cards.get(selection);
 		
 		//Choose a Room from the list of all Rooms then get its card
-		selection =  menu.userSelection(Game.rooms.keySet());
+		selection =  menu.selectMurderItem(Game.rooms.keySet());
 		Card room = Game.cards.get(selection);
 		
 		//Choose a Weapon from the list of all weapons then get its card
-		selection =  menu.userSelection(Game.weapons.keySet());
+		selection =  menu.selectMurderItem(Game.weapons.keySet());
 		Card weapon = Game.cards.get(selection);
 		
 		return new Envelope(suspect,room,weapon);

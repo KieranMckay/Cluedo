@@ -85,8 +85,7 @@ public class Menu {
 		availableCharacters.remove(choice - 1);
 		println("Player " + (playerNum + 1) + " is now playing as " + character);
 
-		// input.close(); //Cant close scanners because System.in will not
-		// read......
+		// input.close(); //Cant close scanners because System.in will not read......
 
 		return character;
 	}
@@ -126,7 +125,7 @@ public class Menu {
 	 * @param options - A set of all choices of murder items for this kind of murder item
 	 * @return String - users choice of murder item
 	 */
-	public String userSelection(Set<String> options) {		
+	public String selectMurderItem(Set<String> options) {		
 		HashMap<Integer, String> choice = new HashMap<Integer, String>();
 		
 		while (true) {
@@ -215,7 +214,7 @@ public class Menu {
 	 * @param player - current player
 	 */
 	public void playerInfo(Player player) {
-		println("It is " + player.getToken().getName() +"'s turn.");
+		println("It is " + player.getToken().toString() +"'s turn.");
 
 		//TODO show remaining suspect cards here instead of looping through cards held in hand when implemented
 		println("You're cards are: ");

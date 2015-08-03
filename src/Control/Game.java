@@ -156,10 +156,10 @@ public class Game {
 		
 		//each player gets to choose a character from the remaining list
 		for(int i = 0; i < numPlayers; i++){
-			String characterName = menu.newPlayer(i, availableCharacters);			
+			String characterName = menu.newPlayer(i, availableCharacters);	
 			Player p = new Player(characters.get(characterName));
 			players.put(i+1, p);
-			menu.pressToContinue();
+			//menu.pressToContinue();
 		}
 	}
 	
