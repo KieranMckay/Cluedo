@@ -116,16 +116,22 @@ public class Menu {
 		// draw board here
 	}
 
-	public int userSelection(List<Object> options) {
+	public String userSelection(Set<String> options) {		
+		HashMap<Integer, String> choice = new HashMap<Integer, String>();
+		
 		while (true) {
 			println("Select an option from 1 to " + options.size()+1);
-			for (int i = 0; i < options.size(); i++) {
-				println(i+1 + "." + options.get(i).toString());
+			
+			int i = 1;
+			for (String option : options) {
+				println(i + ". " + option);
+				choice.put(i, option);
+				i++;
 			}
 			try{
-				int selection = Integer.parseInt(getChar()+"")-1;//throws exception if invalid number
-				if(selection >= 0 && selection < options.size()){
-					return selection;
+				int selection = Integer.parseInt(getChar()+"");//throws exception if invalid number
+				if(selection > 0 && selection < options.size() +1){
+					return choice.get(selection);
 				}
 			}catch(NumberFormatException e){
 				println("Not a valid Number!");

@@ -11,9 +11,9 @@ package model;
  */
 public class Envelope {
 	
-	Card weapon;
-	Card room;
-	Card character;
+	private Card weapon;
+	private Card room;
+	private Card character;
 	
 	public Envelope(Card weapon, Card room, Card character) {
 		super();

@@ -33,14 +33,14 @@ public class Game {
 	private static int numPlayers;  //number of human players in the game
 	private static Map<Integer, Player> players = new HashMap<Integer, Player>(); //map where key is the players number to the player 
 	
-	public static Board board; //holds the board object of the game
-	public static Card[] envelope = new Card[3]; //contains the murder scene cards (one weapon, one character, one room)
+	private static Board board; //holds the board object of the game
+	private static Card[] envelope = new Card[3]; //contains the murder scene cards (one weapon, one character, one room)
 	private static boolean gameOver = false; //for determining if the game is finished. Used to terminate main game loop when set to true
 		
 	public static Map<String, Token> characters = new HashMap<String, Token>(); 	//all of the playable characters/suspects
-	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (minus those in the envelope)
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
 	public static Map<String, Room> rooms = new HashMap<String, Room>();			//all of the rooms in the game
+	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (minus those in the envelope)
 
 	/**
 	 * Start point for the game, calls initial methods then the game loop method
@@ -69,10 +69,10 @@ public class Game {
 			Turn turn = new Turn(p, board, menu);  //turn object for interfacing a player and the menu to control their turn
 			
 			//perform turn methods here!!!!!!!!!!!!
-			//turn.getPlayerChoice();
+			boolean madeAccusation = turn.takeTurn();
 			
 			//condition to end game loop. aka accusation is correct or accusation is incorrect and numPlayers drops to 1
-			if(false){  //TODO add proper condition here
+			if(madeAccusation){  //TODO add proper condition here
 				gameOver = true;
 			}	
 			//increment pTurn so next loop will have next player
@@ -169,7 +169,6 @@ public class Game {
 	private static void dealCards() {
 		// TODO Auto-generated method stub
 		//use numPlayers variable and cards set
-		for 
-		
+				
 	}
 }

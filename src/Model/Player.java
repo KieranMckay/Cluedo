@@ -49,20 +49,10 @@ public class Player {
 	/**
 	 * Adds a card to this players hand.
 	 *
-	 * @param card
-	 *            - Card.
+	 * @param card - Card.
 	 */
 	public void addCard(Card card) {
 		hand.add(card);
-	}
-	
-	/**
-	 * Removes a given card from a players hand
-	 * @param card
-	 */
-	public void removeCard(Card card){
-		//not sure if this method is required yet
-		hand.remove(card);
 	}
 
 	/**
@@ -75,7 +65,7 @@ public class Player {
 	}
 
 	public boolean move(direction direction) {
-		// TODO Auto-generated method stub
+		// TODO Implement properly
 		return false;
 	}
 	

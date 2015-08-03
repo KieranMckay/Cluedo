@@ -54,6 +54,7 @@ public class Token {
 		}
 		return null;
 	}
+	
 	/**
 	 * A char representation of this Token
 	 * 
