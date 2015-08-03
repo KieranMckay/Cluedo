@@ -90,7 +90,7 @@ public class Game {
 	 */
 	private static void initialise() {	
 		Random random = new Random();
-		board = new Board("board.csv");
+		board = new Board("board.csv");//need to pass in envelope as well alternatively can use getter and setter
 
 		int murderCard = random.nextInt(NUM_CHARACTERS);		
 		//initialise characters and character cards

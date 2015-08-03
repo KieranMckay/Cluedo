@@ -13,9 +13,9 @@ public class Tile {
 		NORTH,EAST,SOUTH,WEST,TELE
 	};
 	
-	Map<direction,Tile> neighbours; //neighbouring tiles
+	private Map<direction,Tile> neighbours; //neighbouring tiles
 	
-	Set<Token> tokens;
+	private Set<Token> tokens; //a set of tokens that are contained by this square (in the tile class this can only be one, dictated by hasSpace())
 	
 	
 	
@@ -24,6 +24,7 @@ public class Tile {
 	}
 	/**
 	 * Returns true if this tile has space for a token
+	 * Tile class can only hold one
 	 * @return
 	 */
 	public boolean hasSpace(){
@@ -95,8 +96,14 @@ public class Tile {
 	public boolean isRoom(){		
 		return false;
 	}
-	
+	/**
+	 * A character representation of this tile
+	 * @return
+	 */
 	public char toChar(){
-		return '.';
+		if(!hasSpace()){
+			return tokens.iterator().next().toChar(); //get the character at this position
+		}
+		return ' '; //the square is empty
 	}
 }

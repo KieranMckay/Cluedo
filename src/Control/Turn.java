@@ -17,15 +17,14 @@ public class Turn {
 	Player player;
 	Menu menu;
 	Board board;
-	Envelope envelope;
 	int turns;
 
-	public Turn(Player player, Board board, Menu menu, Envelope answerEnvelope) {
+	public Turn(Player player, Board board, Menu menu) {
 		this.player = player;
 		this.menu = menu;
 		this.board = board;
-		this.envelope = answerEnvelope;
 		turns = rollDice();
+		takeTurn();
 	}
 
 	void takeTurn() {
@@ -40,15 +39,40 @@ public class Turn {
 			}
 		}
 	}
-
-	private void makeSuggestion() {
-		//TODO Auto-generated method stub
+	/**
+	 * the given player will make a suggestion and check if it can be refuted
+	 * @return Boolean true if suggestion proved correct
+	 */
+	private boolean makeSuggestion() {
+		Envelope guess = getChoiceEnvelope();
+		//TODO needs to go round players and check if suggestion can be disputed
+		return true;
+	}
+	/**
+	 * The given player makes an accusation
+	 * 
+	 * @return true accusation correct
+	 */
+	private boolean makeAccusation() {
+		Envelope envelope = getChoiceEnvelope();
+		return board.getSolution().equals(envelope);
+	}
+	/**
+	 * Prompts the player to choose envelope contents
+	 * @return Envelope with cards
+	 */
+	private Envelope getChoiceEnvelope() {
+		//TODO get lists of choices
+		int selection =  menu.userSelection(ListofSuspects);
+		Card suspect = ListOfSuspects.get(selection);
+		selection =  menu.userSelection(ListofRooms);
+		Card room = ListOfRooms.get(selection);
+		selection =  menu.userSelection(ListofWeapons);
+		Card weapon = ListOfWeapons.get(selection);
+		return new Envelope(suspect,room,weapon);
 	}
 
-	private void makeAccusation() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	void movePlayer() {
 		menu.println("It's your turn " + player.toString());

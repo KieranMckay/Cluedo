@@ -16,7 +16,9 @@ public class Board {
 
 	private int BOARD_WIDTH;
 	private int BOARD_HEIGHT;
-
+	
+	private Envelope envelope;
+	
 	Tile board[][];
 	/**
 	 * constructs new board given csv file
@@ -48,6 +50,24 @@ public class Board {
 	}
 	
 	/**
+	 * Get the board solution envelope
+	 * @return Envelope with solution
+	 */
+	public Envelope getSolution() {
+		return this.envelope;
+	}
+	
+	/**
+	 * Return an ordered list of players
+	 * @return List of players
+	 * 
+	 */
+	public List<Player> getPlayerList(){
+		//TODO get list of players
+		return null;
+	}
+	
+	/**
 	 * Move a given token in the provided direction
 	 * @param token Token to move
 	 * @param direction Direction to move
@@ -63,6 +83,15 @@ public class Board {
 			return true;
 		}
 		return false;
+	}
+	/**
+	 * Adds a tile puts a token on a tile
+	 * @param tile Tile to add the token to
+	 * @param token Token to be added to the tile
+	 */
+	public void addToken(Tile tile, Token token){
+		token.setLocation(tile);
+		tile.addToken(token);
 	}
 	
 	/**
@@ -168,8 +197,8 @@ public class Board {
 
 	/**
 	 * fail parsing
-	 * 
 	 * @param row
+	 * 
 	 * @param col
 	 */
 	private void fail(int row, int col, String data) {
@@ -178,8 +207,10 @@ public class Board {
 	}
 	
 	public static void main(String[] args){
-		System.out.println(new Board("board.csv").toString());
+		//System.out.println(new Board("board.csv").toString());
 	}
+	
+	
 	
 	
 }
