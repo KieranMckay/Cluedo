@@ -13,6 +13,7 @@ public class Token {
 	public Token(String name, Tile location) {
 		this.name = name;
 		this.location = location;
+		location.addToken(this);
 		//this.room = location.getRoom();  //TODO Location or Tile needs a method getRoom() to return what room is at that location
 	}
 
@@ -42,6 +43,7 @@ public class Token {
 	 */
 	public void setLocation(Tile location) {
 		this.location = location;
+		location.addToken(this);//TODO is this correct?
 	}
 	
 	/**

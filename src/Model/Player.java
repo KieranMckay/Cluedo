@@ -54,9 +54,12 @@ public class Player {
 	public Token getToken() {
 		return myToken;
 	}
-
+//Has now been implemented by the board class, TODO delete me (maybe)
 	public boolean move(direction direction) {
-		// TODO Implement properly
+		/*Tile tile = this.myToken.getLocation();
+		if(tile.getDirections().contains(direction)){//can move in the given direction
+			tile.
+		}*/
 		return false;
 	}
 	
