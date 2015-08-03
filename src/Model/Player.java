@@ -64,6 +64,7 @@ public class Player {
 			this.myToken.setLocation(newTile);
 			return true;
 		}
+		System.out.println("Not a valid Move");
 		return false;
 	}
 	

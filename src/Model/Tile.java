@@ -104,6 +104,6 @@ public class Tile {
 		if(!hasSpace()){
 			return tokens.iterator().next().toChar(); //get the character at this position
 		}
-		return ' '; //the square is empty
+		return '.'; //the square is empty
 	}
 }

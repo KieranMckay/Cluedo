@@ -127,7 +127,7 @@ public class Turn {
 		default:
 			return false;
 		}
-		if (board.moveToken(player.getToken(),direction)) {
+		if (player.move(direction)) {
 			turns--;
 			return true;
 		}

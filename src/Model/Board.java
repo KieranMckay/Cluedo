@@ -148,7 +148,7 @@ public class Board {
 						board[i][j].addNeighbour(Tile.direction.SOUTH, board[i+1][j]);
 					}
 					if(j > 0 && board[i][j-1] != null){ //dont go over the edge
-						board[i][j].addNeighbour(Tile.direction.WEST, board[i-1][j]);
+						board[i][j].addNeighbour(Tile.direction.WEST, board[i][j-1]);
 					}
 					if(j < board[i].length-1 && board[i][j+1] != null){ 
 						board[i][j].addNeighbour(Tile.direction.EAST, board[i][j+1]);
@@ -185,16 +185,51 @@ public class Board {
 	 */
 	public String toString(){
 		String boardString = "";
+		for(int k = 0; k < board[0].length; k++){
+			boardString+=" _";
+		}
+		boardString += "\n";
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
+				if(j ==0)boardString += "|";
 				if(board[i][j] !=null){
 					boardString += board[i][j].toChar();
 				}else{
-					boardString += "x";
+					boardString += " ";
 				}
 				boardString+= " ";
+				if(j ==board[i].length-1)boardString += "|";
 			}
 			boardString += "\n";
+		}
+		for(int j = 0; j < board[0].length; j++){
+			boardString+=" _";
+		}
+		return boardString;
+	}
+	
+	public String debugString(Tile.direction dir){
+		String boardString = "";
+		for(int k = 0; k < board[0].length; k++){
+			boardString+=" _";
+		}
+		boardString += "\n";
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if(j ==0)boardString += "|";
+				if(board[i][j] !=null && board[i][j].getNeighbour(dir)!= null){
+					
+					boardString += dir.name().charAt(0);
+				}else{
+					boardString += " ";
+				}
+				boardString+= " ";
+				if(j ==board[i].length-1)boardString += "|";
+			}
+			boardString += "\n";
+		}
+		for(int j = 0; j < board[0].length; j++){
+			boardString+=" _";
 		}
 		return boardString;
 	}
