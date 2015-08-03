@@ -34,12 +34,13 @@ public class Turn {
 	 * @return true if the player made an accusation or false if they did not
 	 */
 	public boolean takeTurn() {
+		menu.playerInfo(player);
 		if (menu.promptAccusation()) {
 			makeAccusation();
 			return true;
 		}
 		movePlayer();
-		if (player.getPosition().isRoom()) {
+		if (player.getToken().getLocation().isRoom()) {
 			if (menu.promptSuggestion()) {
 				makeSuggestion();
 			}
@@ -96,7 +97,7 @@ public class Turn {
 			if (!singleMove(menu.getChar())) {
 				menu.println("Invalid Move, try again");
 				continue;
-			} else if (player.getPosition().isRoom()) { // they have reached their destination
+			} else if (player.getToken().getLocation().isRoom()) { // they have reached their destination
 				return;
 			}
 		}
@@ -104,7 +105,7 @@ public class Turn {
 
 	private boolean singleMove(char c) {
 		menu.println("Please choose a direction: ");
-		menu.println(player.getPosition().getDirections().toString());
+		menu.println(player.getToken().getLocation().getDirections().toString());
 		
 		Tile.direction direction;
 		switch (c) {

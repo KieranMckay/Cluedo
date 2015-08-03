@@ -10,9 +10,9 @@ public class Token {
 	private String name;
 	private Tile location;
 	
-	public Token(String name, Tile start) {
+	public Token(String name, Tile location) {
 		this.name = name;
-		this.location = start;
+		this.location = location;
 		//this.room = location.getRoom();  //TODO Location or Tile needs a method getRoom() to return what room is at that location
 	}
 

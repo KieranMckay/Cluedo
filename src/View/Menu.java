@@ -2,6 +2,9 @@ package view;
 
 import java.util.*;
 
+import model.Card;
+import model.Player;
+
 /**
  * A class for talking to the user and receiving responses from the user through
  * console.
@@ -115,7 +118,14 @@ public class Menu {
 		println("draw board here"); // testing method call
 		// draw board here
 	}
-
+	
+	/**
+	 * Displays to the player the choice of murder items from either characters, rooms or weapons.
+	 * The user must make a choice which is returned.	 * 
+	 * 
+	 * @param options - A set of all choices of murder items for this kind of murder item
+	 * @return String - users choice of murder item
+	 */
 	public String userSelection(Set<String> options) {		
 		HashMap<Integer, String> choice = new HashMap<Integer, String>();
 		
@@ -197,5 +207,20 @@ public class Menu {
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * A method for displaying to screen all the information about the current player at the start of their turn.
+	 * 
+	 * @param player - current player
+	 */
+	public void playerInfo(Player player) {
+		println("It is " + player.getToken().getName() +"'s turn.");
+
+		//TODO show remaining suspect cards here instead of looping through cards held in hand when implemented
+		println("You're cards are: ");
+		for(Card card : player.getHand() ){
+			println(card.toString());
+		}
 	}
 }
