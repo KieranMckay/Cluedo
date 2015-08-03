@@ -63,7 +63,7 @@ public class Board {
 	 * @param direction Direction to move
 	 * @return Boolean true if move was successful
 	 */
-	public boolean moveToken(Token token, direction direction) {
+	/*public boolean moveToken(Token token, direction direction) {
 		Tile startPosition = token.getLocation();
 		Tile newLocation = startPosition.getNeighbour(direction);
 		if(newLocation != null){ //can move there
@@ -73,7 +73,7 @@ public class Board {
 			return true;
 		}
 		return false;
-	}
+	}*/
 	/**
 	 * Add a token to the given coordinate
 	 * @param token Token to add
