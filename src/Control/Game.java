@@ -169,6 +169,7 @@ public class Game {
 	private static void dealCards() {
 		// TODO Auto-generated method stub
 		//use numPlayers variable and cards set
+		for 
 		
 	}
 }
