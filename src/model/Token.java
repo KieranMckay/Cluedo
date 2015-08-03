@@ -2,19 +2,18 @@ package model;
 
 /**
  * A class representing the token of a Character for moving around the Board in the game Cluedo.
- * 
+ *
  * @author Kieran Mckay
  *
  */
 public class Token {
 	private String name;
 	private Tile location;
-	
+
 	public Token(String name, Tile location) {
 		this.name = name;
 		this.location = location;
-		this.location.addToken(this);
-		//this.room = location.getRoom();  //TODO Location or Tile needs a method getRoom() to return what room is at that location
+		//this.location.addToken(this);
 	}
 
 	/**
@@ -45,7 +44,7 @@ public class Token {
 		this.location = location;
 		location.addToken(this);//TODO is this correct?
 	}
-	
+
 	/**
 	 * Get the players current room. Can return Null.
 	 *
@@ -57,10 +56,10 @@ public class Token {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * A char representation of this Token
-	 * 
+	 *
 	 * @return First char of the token name
 	 */
 	public char toChar(){

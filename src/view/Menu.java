@@ -8,7 +8,7 @@ import model.Player;
 /**
  * A class for talking to the user and receiving responses from the user through
  * console.
- * 
+ *
  * @author Kieran Mckay
  *
  */
@@ -21,12 +21,12 @@ public class Menu {
 	/**
 	 * Console asks the user to specify how many players there will be and
 	 * returns that number.
-	 * 
+	 *
 	 * @param min
 	 *            - the minimum number of players allowed in the game
 	 * @param max
 	 *            - the minimum number of players allowed in the game
-	 * 
+	 *
 	 * @return the number of players in the game
 	 */
 	public int promptNumberPlayers(int min, int max) {
@@ -53,7 +53,7 @@ public class Menu {
 	/**
 	 * Console asks the user to select a character from a list of available
 	 * characters
-	 * 
+	 *
 	 * @param playerNum
 	 *            - the player number of the person choosing their character
 	 * @param availableCharacters
@@ -117,20 +117,20 @@ public class Menu {
 		println("draw board here"); // testing method call
 		// draw board here
 	}
-	
+
 	/**
 	 * Displays to the player the choice of murder items from either characters, rooms or weapons.
-	 * The user must make a choice which is returned.	 * 
-	 * 
+	 * The user must make a choice which is returned.	 *
+	 *
 	 * @param options - A set of all choices of murder items for this kind of murder item
 	 * @return String - users choice of murder item
 	 */
-	public String selectMurderItem(Set<String> options) {		
+	public String selectMurderItem(Set<String> options) {
 		HashMap<Integer, String> choice = new HashMap<Integer, String>();
-		
+
 		while (true) {
 			println("Select an option from 1 to " + options.size()+1);
-			
+
 			int i = 1;
 			for (String option : options) {
 				println(i + ". " + option);
@@ -145,7 +145,7 @@ public class Menu {
 			}catch(NumberFormatException e){
 				println("Not a valid Number!");
 			}
-			
+
 		}
 	}
 
@@ -182,11 +182,11 @@ public class Menu {
 
 	/**
 	 * Ask the user if they want to make an accusation
-	 * 
+	 *
 	 * @return Boolean confirm or reject
 	 */
 	public boolean promptAccusation() {
-		println("Make an accusation? y/n");
+		println("Would you like to end your turn by making an accusation? (y/n)");
 		char answer = getChar();
 		if (answer == 'y' || answer == 'Y') {
 			return true;
@@ -196,7 +196,7 @@ public class Menu {
 
 	/**
 	 * Ask the user if they want to make a suggestion
-	 * 
+	 *
 	 * @return
 	 */
 	public boolean promptSuggestion() {
@@ -210,7 +210,7 @@ public class Menu {
 
 	/**
 	 * A method for displaying to screen all the information about the current player at the start of their turn.
-	 * 
+	 *
 	 * @param player - current player
 	 */
 	public void playerInfo(Player player) {

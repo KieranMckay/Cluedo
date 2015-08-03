@@ -6,11 +6,12 @@ import model.Tile.direction;
 
 /**
  * A class representing a Player in the game Cluedo
- * 
+ *
  * @author Kieran Mckay
  *
  */
 public class Player {
+	private int playerNumber;
 	private Token myToken;
 	private Set<Card> hand;
 	private Set<Card> suspects;
@@ -20,14 +21,15 @@ public class Player {
 	 *
 	 * @param - Token the character belonging to this player.
 	 */
-	public Player(Token myToken) {
+	public Player(int playerNumber, Token myToken) {
+		this.playerNumber = playerNumber;
 		this.myToken = myToken;
 		this.hand = new HashSet<Card>();
 		this.suspects = new HashSet<Card>();
 
 		//TODO populate suspects with all possible weapons, rooms and characters
 	}
-	
+
 	/**
 	 * Returns a set representing this players hand of cards.
 	 *
@@ -48,11 +50,19 @@ public class Player {
 
 	/**
 	 * Get this players Token
-	 * 
+	 *
 	 * @return the myCharacter
 	 */
 	public Token getToken() {
 		return myToken;
+	}
+
+	/**
+	 * Returns the players player number as a string.
+	 */
+	@Override
+	public String toString(){
+		return "Player "+playerNumber;
 	}
 //Has now been implemented by the board class, TODO delete me (maybe)
 	public boolean move(direction direction) {
@@ -67,6 +77,6 @@ public class Player {
 		System.out.println("Not a valid Move");
 		return false;
 	}
-	
-	
+
+
 }

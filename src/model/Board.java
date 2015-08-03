@@ -8,7 +8,7 @@ import model.Tile.direction;
 
 /**
  * A class representing the Board in the game Cluedo
- * 
+ *
  * @author Johnny Denford, Kieran Mckay
  *
  */
@@ -16,9 +16,10 @@ public class Board {
 
 	private int BOARD_WIDTH;
 	private int BOARD_HEIGHT;
-	
+
 	private Envelope envelope;
 	Tile board[][];
+
 	/**
 	 * constructs new board given csv file
 	 * @param boardFile
@@ -32,8 +33,8 @@ public class Board {
 			System.err.println("Invalid Board File");
 			e.printStackTrace();
 		}
-
 	}
+
 	/**
 	 * returns a Tile given the x and y coordinates
 	 * null if no tile present
@@ -47,7 +48,7 @@ public class Board {
 		}
 		throw new IndexOutOfBoundsException();
 	}
-	
+
 	/**
 	 * Get the board solution envelope
 	 * @return Envelope with solution
@@ -55,8 +56,7 @@ public class Board {
 	public Envelope getSolution() {
 		return this.envelope;
 	}
-	
-	
+
 	/**
 	 * Move a given token in the provided direction
 	 * @param token Token to move
@@ -74,6 +74,7 @@ public class Board {
 		}
 		return false;
 	}*/
+
 	/**
 	 * Add a token to the given coordinate
 	 * @param token Token to add
@@ -88,6 +89,7 @@ public class Board {
 		token.setLocation(tile);
 		return true;
 	}
+
 	/**
 	 * Adds a tile puts a token on a tile
 	 * @param tile Tile to add the token to
@@ -97,7 +99,7 @@ public class Board {
 		token.setLocation(tile);
 		tile.addToken(token);
 	}
-	
+
 	/**
 	 * Populate board field with Tiles
 	 * TODO this doesnt yet block hallway to room if the room is adjacent
@@ -113,7 +115,6 @@ public class Board {
 				if (!stringBoard[i][j].startsWith("t") && !stringBoard[i][j].equals("")) {// must be a room
 					String room[] = stringBoard[i][j].split("-"); //may have a teleport
 					rooms.put(room[0], new Room(room[0])); //map name to room object
-					System.out.println("room: "+ room[0]);
 				}
 			}
 		}
@@ -144,13 +145,13 @@ public class Board {
 					if(i > 0 && board[i-1][j] != null){ //dont go over the edge
 						board[i][j].addNeighbour(Tile.direction.NORTH, board[i-1][j]);
 					}
-					if(i < board.length-1 && board[i+1][j] != null){ 
+					if(i < board.length-1 && board[i+1][j] != null){
 						board[i][j].addNeighbour(Tile.direction.SOUTH, board[i+1][j]);
 					}
 					if(j > 0 && board[i][j-1] != null){ //dont go over the edge
 						board[i][j].addNeighbour(Tile.direction.WEST, board[i][j-1]);
 					}
-					if(j < board[i].length-1 && board[i][j+1] != null){ 
+					if(j < board[i].length-1 && board[i][j+1] != null){
 						board[i][j].addNeighbour(Tile.direction.EAST, board[i][j+1]);
 					}
 				}
@@ -160,16 +161,15 @@ public class Board {
 
 	/**
 	 * Pull csv board into 2D String Array
-	 * 
+	 *
 	 * @param sc
 	 *            Scanner with csv file
 	 * @return 2D string array from CSV
 	 */
 	private String[][] csvToArray(Scanner sc) {
 		this.BOARD_WIDTH = sc.nextInt();
-		
 		this.BOARD_HEIGHT = sc.nextInt();
-		System.out.println(BOARD_WIDTH + " " + BOARD_HEIGHT);
+
 		String line = sc.nextLine();
 		String initialBoard[][] = new String[BOARD_HEIGHT][BOARD_WIDTH];
 
@@ -180,6 +180,7 @@ public class Board {
 		}
 		return initialBoard;
 	}
+
 	/**
 	 * returns a string representation of the board
 	 */
@@ -207,7 +208,7 @@ public class Board {
 		}
 		return boardString;
 	}
-	
+
 	public String debugString(Tile.direction dir){
 		String boardString = "";
 		for(int k = 0; k < board[0].length; k++){
@@ -218,7 +219,7 @@ public class Board {
 			for (int j = 0; j < board[i].length; j++) {
 				if(j ==0)boardString += "|";
 				if(board[i][j] !=null && board[i][j].getNeighbour(dir)!= null){
-					
+
 					boardString += dir.name().charAt(0);
 				}else{
 					boardString += " ";
@@ -237,19 +238,11 @@ public class Board {
 	/**
 	 * fail parsing
 	 * @param row
-	 * 
+	 *
 	 * @param col
 	 */
 	private void fail(int row, int col, String data) {
 		throw new RuntimeException("Parse Exception: " + data + "@ row: " + row
 				+ " col: " + col);
 	}
-	
-	public static void main(String[] args){
-		//System.out.println(new Board("board.csv").toString());
-	}
-	
-	
-	
-	
 }

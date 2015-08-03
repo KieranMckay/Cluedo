@@ -15,18 +15,18 @@ public class TestBoard {
 		Board board = new Board("board.csv");
 		Tile loc = board.getTile(10, 10);
 		assert loc != null;
-		Player player = new Player(new Token("@man",loc));
+		Player player = new Player(1, new Token("@man",loc));
 		System.out.println(board.toString());
 		assert player.move(Tile.direction.SOUTH);
 		System.out.println(board.toString());
 	}
-	
+
 	@Test
 	public void testMoving() {
 		Board board = new Board("board.csv");
 		Tile loc = board.getTile(9, 10);
 		assert loc != null;
-		Player player = new Player(new Token("@man",loc));
+		Player player = new Player(1, new Token("@man",loc));
 		System.out.println(board.toString());
 		assert player.move(Tile.direction.SOUTH);
 		System.out.println(board.toString());
@@ -35,7 +35,7 @@ public class TestBoard {
 		assert player.move(Tile.direction.EAST);
 		System.out.println(board.toString());
 	}
-	
+
 	@Test
 	public void testBoardConstruction(){ // TODO something not quite right about adjacency
 		Board board = new Board("board.csv");

@@ -6,10 +6,10 @@ import model.*;
 import view.*;
 
 /**
- * A basic class for handling a players turn. 
+ * A basic class for handling a players turn.
  * Includes the ability to make an accusation at the start of their turn, or move.
  * If they move into a Room, they then have the ability to suggest a suspect, weapon and that room as the murder solution.
- * 
+ *
  * @author Johnny, Kieran Mckay
  *
  */
@@ -30,10 +30,11 @@ public class Turn {
 
 	/**
 	 * Initiates the logic of the player taking their turn.
-	 * 
+	 *
 	 * @return true if the player made an accusation or false if they did not
 	 */
 	public boolean takeTurn() {
+		menu.println(board.toString());
 		menu.playerInfo(player);
 		if (menu.promptAccusation()) {
 			makeAccusation();
@@ -47,7 +48,7 @@ public class Turn {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * the given player will make a suggestion and check if it can be refuted
 	 * @return Boolean true if suggestion proved correct
@@ -57,56 +58,62 @@ public class Turn {
 		//TODO needs to go round players and check if suggestion can be disputed
 		return true;
 	}
-	
+
 	/**
 	 * The given player makes an accusation
-	 * 
+	 *
 	 * @return true accusation correct
 	 */
 	private boolean makeAccusation() {
 		Envelope envelope = getChoiceEnvelope();
 		return board.getSolution().equals(envelope);
 	}
-	
+
 	/**
 	 * Prompts the player to choose a Character, Room and Weapon involved in commiting the murder
-	 * 
+	 *
 	 * @return Envelope with suspected cards involved in murder
 	 */
 	private Envelope getChoiceEnvelope() {
 		//Choose a character from the list of all characters then get its card
 		String selection =  menu.selectMurderItem(Game.characters.keySet());
 		Card suspect = Game.cards.get(selection);
-		
+
 		//Choose a Room from the list of all Rooms then get its card
 		selection =  menu.selectMurderItem(Game.rooms.keySet());
 		Card room = Game.cards.get(selection);
-		
+
 		//Choose a Weapon from the list of all weapons then get its card
 		selection =  menu.selectMurderItem(Game.weapons.keySet());
 		Card weapon = Game.cards.get(selection);
-		
+
 		return new Envelope(weapon,room,suspect);
-	}	
+	}
 
 	private void movePlayer() {
-		menu.println("It's your turn " + player.toString());
-		menu.println("You have " + turns
-				+ " turns, please move to your destination");
+		menu.println("It is " + player.toString() +"'s turn. ("
+				+player.getToken().toString()+")");
+		menu.println("You rolled a " + turns
+				+ " please move to your destination");
+		menu.println(board.toString());
+
 		while (turns > 0) {
-			if (!singleMove(menu.getChar())) {
+			if (!singleMove()) {
 				menu.println("Invalid Move, try again");
 				continue;
-			} else if (player.getToken().getLocation().isRoom()) { // they have reached their destination
+			} else if (player.getToken().getLocation().isRoom()) { // they have reached a room
 				return;
+			} else {
+				menu.println(board.toString());
 			}
 		}
 	}
 
-	private boolean singleMove(char c) {
+	private boolean singleMove() {
 		menu.println("Please choose a direction: ");
 		menu.println(player.getToken().getLocation().getDirections().toString());
-		
+		char c = menu.getChar();
+
 		Tile.direction direction;
 		switch (c) {
 		case 'w':
@@ -136,7 +143,7 @@ public class Turn {
 
 	/**
 	 * get a number between 2 and 12 inclusive
-	 * 
+	 *
 	 * @return
 	 */
 	private static int rollDice() {
