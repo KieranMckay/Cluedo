@@ -18,7 +18,6 @@ public class Board {
 	private int BOARD_HEIGHT;
 	
 	private Envelope envelope;
-	
 	Tile board[][];
 	/**
 	 * constructs new board given csv file
@@ -57,21 +56,12 @@ public class Board {
 		return this.envelope;
 	}
 	
-	/**
-	 * Return an ordered list of players
-	 * @return List of players
-	 * 
-	 */
-	public List<Player> getPlayerList(){
-		//TODO get list of players
-		return null;
-	}
 	
 	/**
 	 * Move a given token in the provided direction
 	 * @param token Token to move
 	 * @param direction Direction to move
-	 * @return
+	 * @return Boolean true if move was successful
 	 */
 	public boolean moveToken(Token token, direction direction) {
 		Tile startPosition = token.getLocation();
@@ -83,6 +73,20 @@ public class Board {
 			return true;
 		}
 		return false;
+	}
+	/**
+	 * Add a token to the given coordinate
+	 * @param token Token to add
+	 * @param x x position
+	 * @param y y position
+	 * @return true if token placed successfully
+	 */
+	public boolean placeToken(Token token,int x, int y){
+		Tile tile = getTile(x,y);
+		if(tile == null || token == null)return false;
+		tile.addToken(token);
+		token.setLocation(tile);
+		return true;
 	}
 	/**
 	 * Adds a tile puts a token on a tile

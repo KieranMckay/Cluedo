@@ -86,7 +86,7 @@ public class Turn {
 		selection =  menu.selectMurderItem(Game.weapons.keySet());
 		Card weapon = Game.cards.get(selection);
 		
-		return new Envelope(suspect,room,weapon);
+		return new Envelope(weapon,room,suspect);
 	}	
 
 	private void movePlayer() {
