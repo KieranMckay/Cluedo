@@ -90,7 +90,7 @@ public class Game {
 			}
 
 			//increment pTurn so next loop will have next player
-			if(pTurn < players.size()+1){
+			if(pTurn < players.size()){ //TODO removed size()+1 as was returning null
 				pTurn++;
 			} else {
 				pTurn = 1;
@@ -104,7 +104,7 @@ public class Game {
 	 */
 	private static void initialise() {
 		Random random = new Random();
-		board = new Board("board.csv");//need to pass in envelope as well alternatively can use getter and setter
+		board = new Board("board.csv");
 		Card[] envelope = new Card[3];
 
 		int murderCard = random.nextInt(CHARACTER_LIST.length);

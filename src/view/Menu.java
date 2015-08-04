@@ -70,7 +70,7 @@ public class Menu {
 
 		// loop while player has made an invalid choice
 		while (choice < 1 || choice > availableCharacters.size()) {
-			if (input.hasNext()) {
+			if (input.hasNextInt()) {
 				choice = input.nextInt();
 			} else {
 				input.next();
@@ -203,7 +203,7 @@ public class Menu {
 	 * @param player - current player
 	 */
 	public void playerInfo(Player player) {
-		println("It is " + player.getToken().toString() +"'s turn.");
+		println("It is " + player.getToken().toString() +"'s turn."); //TODO this threw nullPointer after two players had played on test game run (always on hannibal)
 
 		//TODO show remaining suspect cards here instead of looping through cards held in hand when implemented
 		println("You're cards are: ");
