@@ -20,17 +20,16 @@ public class Game {
 	private final static String[] WEAPONS_LIST = { "Nokia", "Chainsaw", "Assault Rifle", "Chair", "Cucumber", "Brevel 600W Blender" };
 	//all the rooms names
 	private final static String[] ROOM_LIST = { "Swamp", "Dungeon","Lab X", "The Hub", "Watchtower", "Boat House",
-		"Construction Site", "Mancave", "Patio" };
+		"Cardboard Box", "Mancave", "Patio" };
 
 	private final static int MIN_PLAYERS = 3;  	//minimum number of human players
-	private final static int MAX_PLAYERS = 6;	//maximum number of human players
+	private final static int MAX_PLAYERS = CHARACTER_LIST.length;	//maximum number of human players
 
 	private static int numPlayers;  //number of human players in the game
 	private static Map<Integer, Player> players = new HashMap<Integer, Player>(); //map where key is the players number to the player
 
 	private static Board board; //holds the board object of the game
 	private static Card[] envelope = new Card[3]; //contains the murder scene cards (one weapon, one character, one room)
-	private static boolean gameOver = false; //for determining if the game is finished. Used to terminate main game loop when set to true
 
 	public static Map<String, Token> characters = new HashMap<String, Token>(); 	//all of the playable characters/suspects
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
@@ -56,20 +55,18 @@ public class Game {
 	 * Controls the game logic in a loop until the game is over
 	 */
 	private static void gameLoop(Menu menu){
-		//TODO make player turn start with whoever has Miss Scarlet rather than player 1
-		int pTurn = 1; //which players turn it is
-
-		while(!gameOver){
+		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
+		boolean gameOver = false;
+		while(true){
 			Player p = players.get(pTurn);	//the current player whos turn it is
 			Turn turn = new Turn(p, board, menu);  //turn object for interfacing a player and the menu to control their turn
 
 			//perform turn methods here!!!!!!!!!!!!
 			boolean madeAccusation = turn.takeTurn();
-
+			
 			//condition to end game loop. aka accusation is correct or accusation is incorrect and numPlayers drops to 1
-			if(madeAccusation){  //TODO add proper condition here
-				gameOver = true;
-			}
+			if(gameOver){return;}
+			
 			//increment pTurn so next loop will have next player
 			if(pTurn < numPlayers+1){
 				pTurn++;
