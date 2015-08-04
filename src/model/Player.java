@@ -94,5 +94,10 @@ public class Player {
 		return false;
 	}
 
+	public void removeSuspect(Card refuted) {
+		suspects.remove(refuted);
+
+	}
+
 
 }

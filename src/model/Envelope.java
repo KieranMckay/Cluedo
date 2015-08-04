@@ -21,6 +21,18 @@ public class Envelope {
 		this.character = character;
 	}
 
+	public Card character(){
+		return character;
+	}
+
+	public Card weapon(){
+		return weapon;
+	}
+
+	public Card room(){
+		return room;
+	}
+
 	public String characterToString(){
 		return character.toString();
 	}

@@ -93,9 +93,13 @@ public class Game {
 						}
 					}
 				} else { //player made a suggestion
-					//TODO process suggestion logic here
-					mySuggestion.getSuggestedCharacter();
 					//TODO process refuting suggestion
+					Card refuted = handleRefute(pTurn, mySuggestion);
+					if (refuted == null){
+						menu.println("No one could refute your suggestion.");
+					} else {
+						p.removeSuspect(refuted);
+					}
 				}
 			}
 
@@ -106,6 +110,21 @@ public class Game {
 				pTurn = 1;
 			}
 		}
+	}
+
+	private static Card handleRefute(int pTurn, Suggestion mySuggestion) {
+		for(int i= 0; i < players.size(); i++){
+			Player p;
+			do {
+				if(pTurn < players.size()){
+					pTurn++;
+				} else {
+					pTurn = 1;
+				}
+				p = players.get(pTurn);
+			} while (p == null);
+		}
+		return null;
 	}
 
 	private static void playerRemove(Player removed) {
