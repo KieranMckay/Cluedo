@@ -1,5 +1,7 @@
 package model;
 
+import java.util.*;
+
 /**
  * A class representing a Room in the game Cluedo
  *
@@ -8,9 +10,11 @@ package model;
  */
 public class Room extends Tile{
 	private String name;
+	private Set<Weapon> weapons;
 
 	public Room(String name) {
 		this.name = name;
+		this.weapons = new HashSet<Weapon>();
 	}
 
 	/**
@@ -37,6 +41,14 @@ public class Room extends Tile{
 	@Override
 	public boolean isRoom(){
 		return true;
+	}
+
+	public void addWeapon(Weapon weapon) {
+		weapons.add(weapon);
+	}
+
+	public Set<Weapon> getWeapons() {
+		return weapons;
 	}
 
 	/**

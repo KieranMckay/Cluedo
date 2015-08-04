@@ -57,16 +57,20 @@ public class Game {
 	 */
 	private static void gameLoop(Menu menu){
 		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
-		boolean gameOver = false;
+		int playersLeft = players.size();
+
 		while(true){
 			Player p = players.get(pTurn);	//the current player whos turn it is
-			while (p == null){ 				//handles case of if players have been removed
+
+			if(!p.isInGame()){ //the case the current player is no longer in the game, skip his turn
+
+				//increment pTurn so next loop will have next player
 				if(pTurn < players.size()){
 					pTurn++;
 				} else {
 					pTurn = 1;
 				}
-				p = players.get(pTurn);
+				continue;
 			}
 
 			Turn turn = new Turn(p, board, menu, murderEnvelope);  //turn object for interfacing a player and the menu to control their turn
@@ -84,16 +88,21 @@ public class Game {
 						menu.printWinner(accuser, murderEnvelope);
 						return;
 					} else {
-						playerRemove(accuser);
-						if(players.size() == 1){
-							for ( Player winner : players.values() ){
-								menu.printWinner(winner, murderEnvelope);
+						accuser.setInGame(false);
+						playersLeft--;
+						menu.playerRemoval(accuser, myAccusation.getGuess());
+
+						if(playersLeft == 1){
+							for ( Player player : players.values() ){
+								if(player.isInGame()){
+									menu.printWinner(player, murderEnvelope);
+								}
 							}
 							return;
 						}
 					}
 				} else { //player made a suggestion
-					//TODO process refuting suggestion
+					handleSuggestion(mySuggestion);
 					Card refuted = handleRefute(pTurn, mySuggestion);
 					if (refuted == null){
 						menu.println("No one could refute your suggestion.");
@@ -112,6 +121,17 @@ public class Game {
 		}
 	}
 
+	private static void handleSuggestion(Suggestion mySuggestion) {
+		Room suggestedRoom = rooms.get(mySuggestion.getSuggestedRoom());
+		Token suggestedCharacter = characters.get(mySuggestion.getSuggestedCharacter());
+		Weapon suggestedWeapon = weapons.get(mySuggestion.getSuggestedWeapon());
+		suggestedCharacter.setLocation(suggestedRoom);
+		suggestedRoom.addToken(suggestedCharacter);
+		suggestedWeapon.setLocation(suggestedRoom);
+		suggestedRoom.addWeapon(suggestedWeapon);
+
+	}
+
 	private static Card handleRefute(int pTurn, Suggestion mySuggestion) {
 		for(int i= 0; i < players.size(); i++){
 			Player p;
@@ -123,15 +143,18 @@ public class Game {
 				}
 				p = players.get(pTurn);
 			} while (p == null);
+
+			Envelope guess = mySuggestion.getGuess();
+
+			if(p.getHand().contains(guess.character())){
+				return guess.character();
+			} else if(p.getHand().contains(guess.weapon())){
+				return guess.weapon();
+			} else if(p.getHand().contains(guess.room())){
+				return guess.room();
+			}
 		}
 		return null;
-	}
-
-	private static void playerRemove(Player removed) {
-		//TODO print message about player being removed
-		players.remove(removed.getPlayerNumber());
-		//TODO distribute cards to other players
-		removed.getHand();
 	}
 
 	/**
@@ -190,6 +213,8 @@ public class Game {
 			}
 		}
 		murderEnvelope = new Envelope(envelope[0], envelope[1], envelope[2]);
+
+		//TODO put a weapon in each room (and add that room to the weapon)
 
 		//populate the allCards Set
 		for(Card card : cards.values()){

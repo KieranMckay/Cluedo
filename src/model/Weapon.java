@@ -7,9 +7,8 @@ package model;
  *
  */
 public class Weapon {
-	String name;
-
-	//TODO give weapon room
+	private String name;
+	private Room room;
 
 	public Weapon(String name) {
 		this.name = name;
@@ -17,5 +16,13 @@ public class Weapon {
 
 	public String toString(){
 		return name;
+	}
+
+	public void setLocation(Room room) {
+		this.room = room;
+	}
+
+	public Room getRoom(){
+		return room;
 	}
 }

@@ -15,6 +15,7 @@ public class Player {
 	private Token myToken;
 	private Set<Card> hand;
 	private Set<Card> suspects;
+	private boolean inGame;
 
 	/**
 	 * Create a new player card.
@@ -26,6 +27,7 @@ public class Player {
 		this.myToken = myToken;
 		this.hand = new HashSet<Card>();
 		this.suspects = suspects;
+		setInGame(true);
 	}
 
 	/**
@@ -71,6 +73,14 @@ public class Player {
 	 */
 	public int getPlayerNumber(){
 		return playerNumber;
+	}
+
+	public boolean isInGame() {
+		return inGame;
+	}
+
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
 	}
 
 	/**

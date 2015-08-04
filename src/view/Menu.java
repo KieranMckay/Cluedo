@@ -224,4 +224,12 @@ public class Menu {
 		pressToContinue();
 
 	}
+
+	public void playerRemoval(Player accuser, Envelope guess) {
+		println(accuser.toString()+" made a false accusation and is out of the game.");
+		println(accuser.toString()+"'s accusation included: ");
+		println("	"+guess.characterToString()+" as the murderer.");
+		println("	"+guess.weaponToString()+" as the murder weapon.");
+		println("	"+guess.roomToString()+" as the murder location.");
+	}
 }
