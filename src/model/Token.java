@@ -13,7 +13,7 @@ public class Token {
 	public Token(String name, Tile location) {
 		this.name = name;
 		this.location = location;
-		//this.location.addToken(this);
+		this.location.addToken(this);
 	}
 
 	/**
