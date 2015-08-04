@@ -94,7 +94,7 @@ public class Game {
 					}
 				} else { //player made a suggestion
 					//TODO process suggestion logic here
-
+					mySuggestion.getSuggestedCharacter();
 					//TODO process refuting suggestion
 				}
 			}

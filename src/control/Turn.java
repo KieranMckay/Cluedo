@@ -57,7 +57,7 @@ public class Turn {
 	 * @return Boolean true if suggestion proved correct
 	 */
 	private Suggestion makeSuggestion() {
-		Envelope guess = getChoiceEnvelope();
+		Envelope guess = getChoiceEnvelope(true);
 		Suggestion suggest = new Suggestion(player, guess);
 		return suggest;
 	}
@@ -68,7 +68,7 @@ public class Turn {
 	 * @return true accusation correct
 	 */
 	private Accusation makeAccusation() {
-		Envelope guess = getChoiceEnvelope();
+		Envelope guess = getChoiceEnvelope(false);
 		Accusation accuse = new Accusation(player, guess, murderEnvelope);
 		return accuse;
 	}
@@ -78,13 +78,19 @@ public class Turn {
 	 *
 	 * @return Envelope with suspected cards involved in murder
 	 */
-	private Envelope getChoiceEnvelope() {
+	private Envelope getChoiceEnvelope(boolean isSuggestion) {
 		//Choose a character from the list of all characters then get its card
 		String selection =  menu.selectMurderItem(Game.characters.keySet());
 		Card suspect = Game.cards.get(selection);
 
-		//Choose a Room from the list of all Rooms then get its card
-		selection =  menu.selectMurderItem(Game.rooms.keySet());
+		if(isSuggestion){
+			//suggestion so room has to default to room player is currently in
+			selection = player.getToken().getRoom().toString();
+		} else {
+			//accusation so we choose a room
+			//Choose a Room from the list of all Rooms then get its card
+			selection =  menu.selectMurderItem(Game.rooms.keySet());
+		}
 		Card room = Game.cards.get(selection);
 
 		//Choose a Weapon from the list of all weapons then get its card
