@@ -97,10 +97,7 @@ public class Game {
 		//initialise characters and character cards
 		for (int i = 0; i < NUM_CHARACTERS; i++){
 
-			int x = CHARACTER_X[i]; //appropriate characters initial X coords
-			int y = CHARACTER_Y[i];	//appropriate characters initial Y coords
-
-			Tile loc = board.getTile(x, y);
+			Tile loc = board.getNextSpawn();
 			Token t = new Token(CHARACTER_NAME[i], loc);
 			Card c = new Card(CHARACTER_NAME[i]);
 			characters.put(t.toString(), t);
