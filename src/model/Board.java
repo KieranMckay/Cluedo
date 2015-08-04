@@ -88,12 +88,22 @@ public class Board {
 		tile.addToken(token);
 	}
 
+	parseBoard(String[][] stringBoard){
+		Map<String, Tile> rooms = new HashMap<String, Tile>();
+		board = new Tile[BOARD_HEIGHT][BOARD_WIDTH];
+
+		for (int i = 0; i < stringBoard.length; i++) {
+			for (int j = 0; j < stringBoard[i].length; j++) {
+
+			}
+		}
+	}
 	/**
 	 * Populate board field with Tiles
 	 * TODO this doesnt yet block hallway to room if the room is adjacent
 	 * @param stringBoard
 	 */
-	private void parseBoard(String[][] stringBoard) {
+	/*private void parseBoard(String[][] stringBoard) {
 		Map<String, Tile> rooms = new HashMap<String, Tile>();
 		board = new Tile[BOARD_HEIGHT][BOARD_WIDTH];
 
@@ -170,7 +180,7 @@ public class Board {
 				}
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * Pull csv board into 2D String Array

@@ -1,17 +1,25 @@
 package model;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * A class representing a Room in the game Cluedo
  *
  * @author Kieran Mckay
  *
  */
-public class Room extends Tile{
+public class Room{
 	private String name;
+	private List<Token>  members;
+	private Map<Integer,Tile> exits = new HashMap<Integer,Tile>();
 
 	public Room(String name) {
 		this.name = name;
 	}
+
+	public List<String> neighbours
 
 	/**
 	 * Returns true if this tile has space for a token
