@@ -164,7 +164,7 @@ public class Menu {
 
 		// loop while player has made an invalid choice
 		while (choice < 1 || choice > 3) {
-			if (input.hasNext()) {
+			if (input.hasNextInt()) {
 				choice = input.nextInt();
 			} else {
 				input.next();
