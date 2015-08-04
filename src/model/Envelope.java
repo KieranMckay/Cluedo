@@ -21,6 +21,18 @@ public class Envelope {
 		this.character = character;
 	}
 
+	public String characterToString(){
+		return character.toString();
+	}
+
+	public String weaponToString(){
+		return weapon.toString();
+	}
+
+	public String roomToString(){
+		return room.toString();
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

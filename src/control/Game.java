@@ -64,14 +64,33 @@ public class Game {
 			//perform turn methods here!!!!!!!!!!!!
 			Suggestion mySuggestion = turn.takeTurn();
 
-			if(mySuggestion.isAccusation()){
+			if(mySuggestion != null){  //the player has made either a suggestion or accusation this turn
+				if(mySuggestion.isAccusation()){ // the player has made an accusation
+					//process accusation logic here
+					Accusation myAccusation = (Accusation) mySuggestion;
+					Player accuser = myAccusation.getPlayer();
 
+					if(myAccusation.isCorrect()){
+						menu.printWinner(accuser, murderEnvelope);
+						menu.pressToContinue();
+						return;
+					} else {
+						players.remove(accuser.getPlayerNumber());
+						if(players.size() == 1){
+							for ( Player winner : players.values() ){
+								menu.printWinner(winner, murderEnvelope);
+								menu.pressToContinue();
+							}
+							return;
+						}
+					}
+				} else { //player made a suggestion
+					//process suggestion logic here
+				}
 			}
-			//condition to end game loop. aka accusation is correct or accusation is incorrect and numPlayers drops to 1
-			if(gameOver){return;}
 
 			//increment pTurn so next loop will have next player
-			if(pTurn < numPlayers+1){
+			if(pTurn < players.size()+1){
 				pTurn++;
 			} else {
 				pTurn = 1;

@@ -58,6 +58,14 @@ public class Player {
 	}
 
 	/**
+	 * Returns this players player number
+	 * @return int - players number
+	 */
+	public int getPlayerNumber(){
+		return playerNumber;
+	}
+
+	/**
 	 * Returns the players player number as a string.
 	 */
 	@Override
