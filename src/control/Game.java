@@ -15,7 +15,7 @@ import view.*;
  */
 public class Game {
 	//All the characters names
-	private final static String[] CHARACTER_LIST = { "Shrek", "David Bain","Kieran", "Johnny", "Batman", "Hannible" };
+	private final static String[] CHARACTER_LIST = { "Shrek", "David Bain", "Kieran", "Johnny", "Batman", "Hannible" };
 	//all the weapons names
 	private final static String[] WEAPONS_LIST = { "Nokia", "Chainsaw", "Assault Rifle", "Chair", "Cucumber", "Brevel 600W Blender" };
 	//all the rooms names
@@ -60,6 +60,15 @@ public class Game {
 		boolean gameOver = false;
 		while(true){
 			Player p = players.get(pTurn);	//the current player whos turn it is
+			while (p == null){ 				//handles case of if players have been removed
+				if(pTurn < players.size()){
+					pTurn++;
+				} else {
+					pTurn = 1;
+				}
+				p = players.get(pTurn);
+			}
+
 			Turn turn = new Turn(p, board, menu, murderEnvelope);  //turn object for interfacing a player and the menu to control their turn
 
 			//perform turn methods here!!!!!!!!!!!!
@@ -75,8 +84,7 @@ public class Game {
 						menu.printWinner(accuser, murderEnvelope);
 						return;
 					} else {
-						players.remove(accuser.getPlayerNumber());
-						//TODO PRINT Player got it wrong message HERE
+						playerRemove(accuser);
 						if(players.size() == 1){
 							for ( Player winner : players.values() ){
 								menu.printWinner(winner, murderEnvelope);
@@ -85,17 +93,26 @@ public class Game {
 						}
 					}
 				} else { //player made a suggestion
-					//process suggestion logic here
+					//TODO process suggestion logic here
+
+					//TODO process refuting suggestion
 				}
 			}
 
 			//increment pTurn so next loop will have next player
-			if(pTurn < players.size()){ //TODO removed size()+1 as was returning null
+			if(pTurn < players.size()){
 				pTurn++;
 			} else {
 				pTurn = 1;
 			}
 		}
+	}
+
+	private static void playerRemove(Player removed) {
+		//TODO print message about player being removed
+		players.remove(removed.getPlayerNumber());
+		//TODO distribute cards to other players
+		removed.getHand();
 	}
 
 	/**

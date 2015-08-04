@@ -120,8 +120,7 @@ public class Menu {
 				println(i + ". " + option);
 				choice.put(i, option);
 				i++;
-			}
-			try{
+			} try {
 				int selection = Integer.parseInt(getChar()+"");//throws exception if invalid number
 				if(selection > 0 && selection < options.size() +1){
 					return choice.get(selection);
@@ -203,11 +202,9 @@ public class Menu {
 	 * @param player - current player
 	 */
 	public void playerInfo(Player player) {
-		println("It is " + player.getToken().toString() +"'s turn."); //TODO this threw nullPointer after two players had played on test game run (always on hannibal)
-
-		//TODO show remaining suspect cards here instead of looping through cards held in hand when implemented
-		println("You're cards are: ");
-		for(Card card : player.getHand() ){
+		println("It is " + player.getToken().toString() +"'s turn.");
+		println("You're remaining unconfirmed clues are: ");
+		for(Card card : player.getSuspects()){
 			println("	"+card.toString());
 		}
 	}

@@ -42,7 +42,7 @@ public class Token {
 	 */
 	public void setLocation(Tile location) {
 		this.location = location;
-		location.addToken(this);//TODO is this correct?
+		location.addToken(this);
 	}
 
 	/**

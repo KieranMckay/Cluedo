@@ -43,7 +43,7 @@ public class Envelope {
 		result = prime * result + ((weapon == null) ? 0 : weapon.hashCode());
 		return result;
 	}
-	/**  TODO
+	/**  TODO re-write me
 	 * We may want to change this depending on our card implementation
 	 */
 	@Override

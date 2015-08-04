@@ -59,7 +59,6 @@ public class Turn {
 	private Suggestion makeSuggestion() {
 		Envelope guess = getChoiceEnvelope();
 		Suggestion suggest = new Suggestion(player, guess);
-		//TODO needs to go round players and check if suggestion can be disputed
 		return suggest;
 	}
 
