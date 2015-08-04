@@ -28,7 +28,6 @@ public class Player {
 		this.suspects = suspects;
 	}
 
-
 	/**
 	 * Returns a set representing this players hand of cards.
 	 *
@@ -39,12 +38,22 @@ public class Player {
 	}
 
 	/**
+	 * Returns a set representing this players hand of cards.
+	 *
+	 * @return hand - Set of type Card.
+	 */
+	public Set<Card> getSuspects() {
+		return suspects;
+	}
+
+	/**
 	 * Adds a card to this players hand.
 	 *
 	 * @param card - Card.
 	 */
 	public void addCard(Card card) {
 		hand.add(card);
+		suspects.remove(card);
 	}
 
 	/**
