@@ -15,14 +15,15 @@ import view.*;
  */
 public class Game {
 	//All the characters names
-	private final static String[] CHARACTER_NAME = { "Miss Scarlet", "Colonel Mustard","Mrs White", "Reverend Green", "Mrs Peacock", "Professor Plum" };
+	private final static String[] CHARACTER_NAME = { "Shrek", "David Bain","Kieran", "Johnny", "Batman", "Hannible" };
 	private final static int[] CHARACTER_X = { 7, 0, 9, 14, 23, 23};  	//initial X coords for respective characters in CHARACTER_NAME
 	private final static int[] CHARACTER_Y = { 24, 17, 0, 0, 6, 19};	//initial Y coords for respective characters in CHARACTER_NAME
 
 	//all the weapons names
-	private final static String[] WEAPON_NAME = { "Candelstick", "Wrench", "Rope", "Lead Pipe", "Knife", "Revolver", "Axe", "Poison" };
+	private final static String[] WEAPON_NAME = { "Nokia", "Chainsaw", "Assault Rifle", "Chair", "Cucumber", "Brevel 600W Blender" };
 	//all the rooms names
-	private final static String[] ROOM_NAME = { "Kitchen", "Ball Room","Conservatory", "Billiard Room", "Library", "Study", "Hall", "Lounge", "Dinning Room" };
+	private final static String[] ROOM_NAME = { "Swamp", "Dungeon","Lab X", "The Hub", "Watchtower", "Boat House",
+		"Construction Site", "Mancave", "Patio" };
 
 	private final static int MIN_PLAYERS = 3;  	//minimum number of human players
 	private final static int MAX_PLAYERS = 6;	//maximum number of human players
@@ -159,7 +160,6 @@ public class Game {
 			String characterName = menu.newPlayer(i, availableCharacters);
 			Player p = new Player(i+1, characters.get(characterName));
 			players.put(i+1, p);
-			//menu.pressToContinue();
 		}
 	}
 
