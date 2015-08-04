@@ -1,15 +1,29 @@
 package control;
 
-import model.Envelope;
-import model.Player;
+import model.*;
 
 public class Suggestion {
-	Player player;
-	Envelope guess;
+	private Player player;
+	private Envelope guess;
 
 	public Suggestion(Player player, Envelope guess) {
 		this.player = player;
 		this.guess = guess;
+	}
+
+	public Token getSuggestedCharacter(){
+		String suggested = guess.characterToString();
+		return Game.characters.get(suggested);
+	}
+
+	public Weapon getSuggestedWeapon(){
+		String suggested = guess.weaponToString();
+		return Game.weapons.get(suggested);
+	}
+
+	public Room getSuggestedRoom(){
+		String suggested = guess.roomToString();
+		return Game.rooms.get(suggested);
 	}
 
 	/**

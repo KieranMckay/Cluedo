@@ -80,7 +80,7 @@ public class Player {
 	public String toString(){
 		return "Player "+playerNumber;
 	}
-//Has now been implemented by the board class, TODO delete me (maybe)
+
 	public boolean move(direction direction) {
 		Tile tile = this.myToken.getLocation();
 		Tile newTile = tile.getNeighbour(direction);
