@@ -26,7 +26,7 @@ public class TestBoard {
 		Board board = new Board("board.csv");
 		Tile loc = board.getTile(9, 10);
 		assert loc != null;
-		Player player = new Player(1, new Token("@man",loc));
+		Player player = new Player(1, new Token("@man",board.getFreeSpawn()));
 		System.out.println(board.toString());
 		assert player.move(Tile.direction.SOUTH);
 		System.out.println(board.toString());

@@ -129,7 +129,7 @@ public class Menu {
 		HashMap<Integer, String> choice = new HashMap<Integer, String>();
 
 		while (true) {
-			println("Select an option from 1 to " + options.size()+1);
+			println("Select an option from 1 to " + options.size());
 
 			int i = 1;
 			for (String option : options) {

@@ -137,6 +137,8 @@ public class Board {
 					board[i][j] = new Tile();
 					if (squareVal.startsWith("t-")) {// also has a character
 						spawns.add(board[i][j]);
+						System.out.println("added spawn " + spawns.size());
+
 					}
 				} else if(!squareVal.equals("")){ // is room and square not empty
 					String roomCouple[] = squareVal.split("-");
