@@ -129,18 +129,43 @@ public class Board {
 		//Go through the board linkin neighbouring tiles
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
-				if(board[i][j] != null){
+				if(board[i][j] != null && !board[i][j].isRoom()){
 					if(i > 0 && board[i-1][j] != null){ //dont go over the edge
-						board[i][j].addNeighbour(Tile.direction.NORTH, board[i-1][j]);
+						if(!board[i-1][j].isRoom()){
+							board[i][j].addNeighbour(Tile.direction.NORTH, board[i-1][j]);
+						}
+						else if(stringBoard[i][j].contains("n")){ //this should connect north to a room
+							board[i][j].addNeighbour(Tile.direction.NORTH, board[i-1][j]);
+							board[i-1][j].addNeighbour(Tile.direction.SOUTH,board[i][j]); //room add this tile back
+						}
+
 					}
 					if(i < board.length-1 && board[i+1][j] != null){
-						board[i][j].addNeighbour(Tile.direction.SOUTH, board[i+1][j]);
+						if(!board[i+1][j].isRoom()){
+							board[i][j].addNeighbour(Tile.direction.SOUTH, board[i+1][j]);
+						}
+						else if(stringBoard[i][j].contains("s")){
+							board[i][j].addNeighbour(Tile.direction.SOUTH, board[i+1][j]);
+							board[i+1][j].addNeighbour(Tile.direction.NORTH, board[i][j]);
+						}
 					}
 					if(j > 0 && board[i][j-1] != null){ //dont go over the edge
-						board[i][j].addNeighbour(Tile.direction.WEST, board[i][j-1]);
+						if(!board[i][j-1].isRoom()){
+							board[i][j].addNeighbour(Tile.direction.WEST, board[i][j-1]);
+						}
+						else if(stringBoard[i][j].contains("s")){
+							board[i][j].addNeighbour(Tile.direction.WEST, board[i][j-1]);
+							board[i][j-1].addNeighbour(Tile.direction.EAST, board[i][j]);
+						}
 					}
 					if(j < board[i].length-1 && board[i][j+1] != null){
-						board[i][j].addNeighbour(Tile.direction.EAST, board[i][j+1]);
+						if(!board[i][j+1].isRoom()){
+							board[i][j].addNeighbour(Tile.direction.EAST, board[i][j+1]);
+						}
+						else if(stringBoard[i][j].contains("s")){
+							board[i][j].addNeighbour(Tile.direction.EAST, board[i][j+1]);
+							board[i][j+1].addNeighbour(Tile.direction.WEST, board[i][j]);
+						}
 					}
 				}
 			}
