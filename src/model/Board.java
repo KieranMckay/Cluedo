@@ -121,7 +121,7 @@ public class Board {
 
 					board[i][j] = rooms.get(roomCouple[0]);
 					if (roomCouple.length > 1) {// has a teleport
-						board[i][j].addNeighbour(Tile.direction.TELE, rooms.get(roomCouple[0]));
+						board[i][j].addNeighbour(Tile.direction.TELE, rooms.get(roomCouple[1]));
 					}
 				}
 			}
@@ -198,6 +198,9 @@ public class Board {
 				{'|','_','_','_','_','_','_','_','_','_','_','_','_','_','|','_','|','_','|','_','_','_','_','_','_','_','_','_','_','_','|','_','|','_','|','_','_','_','_','_','_','_','_','_','_','_','_','_','|'}
 			};
 
+	/**
+	 * returns a string representation of the board
+	 */
 	public String toString(){
 		String boardString = "";
 		for (int i = 0; i < board.length; i++) {
@@ -218,33 +221,8 @@ public class Board {
 		return boardString;
 	}
 
-	/**
-	 * returns a string representation of the board
-	 */
-	/*public String toString(){
-		String boardString = "";
-		for(int k = 0; k < board[0].length; k++){
-			boardString+=" _";
-		}
-		boardString += "\n";
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				if(j ==0)boardString += "|";
-				if(board[i][j] !=null){
-					boardString += board[i][j].toChar();
-				}else{
-					boardString += " ";
-				}
-				boardString+= " ";
-				if(j ==board[i].length-1)boardString += "|";
-			}
-			boardString += "\n";
-		}
-		for(int j = 0; j < board[0].length; j++){
-			boardString+=" _";
-		}
-		return boardString;
-	}*/
+
+
 
 	public String debugString(Tile.direction dir){
 		String boardString = "";
