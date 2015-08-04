@@ -19,12 +19,14 @@ public class Turn {
 	private Player player;
 	private Menu menu;
 	private Board board;
+	private Envelope murderEnvelope;
 	private int turns;
 
-	public Turn(Player player, Board board, Menu menu) {
+	public Turn(Player player, Board board, Menu menu, Envelope murderEnvelope) {
 		this.player = player;
 		this.menu = menu;
 		this.board = board;
+		this.murderEnvelope = murderEnvelope;
 		turns = rollDice();
 	}
 
@@ -33,30 +35,32 @@ public class Turn {
 	 *
 	 * @return true if the player made an accusation or false if they did not
 	 */
-	public boolean takeTurn() {
+	public Suggestion takeTurn() {
 		menu.println(board.toString());
 		menu.playerInfo(player);
-		if (menu.promptAccusation()) {
-			makeAccusation();
-			return true;
-		}
-		movePlayer();
-		if (player.getToken().getLocation().isRoom()) {
-			if (menu.promptSuggestion()) {
-				makeSuggestion();
+		int choice = menu.promptTurn();
+		if (choice == 1) {
+			return makeAccusation();
+		} else if (choice == 2) {
+			movePlayer();
+			if (player.getToken().getLocation().isRoom()) {
+				if (menu.promptSuggestion()) {
+					return makeSuggestion();
+				}
 			}
 		}
-		return false;
+		return null;
 	}
 
 	/**
 	 * the given player will make a suggestion and check if it can be refuted
 	 * @return Boolean true if suggestion proved correct
 	 */
-	private boolean makeSuggestion() {
+	private Suggestion makeSuggestion() {
 		Envelope guess = getChoiceEnvelope();
+		Suggestion suggest = new Suggestion(player, guess);
 		//TODO needs to go round players and check if suggestion can be disputed
-		return true;
+		return suggest;
 	}
 
 	/**
@@ -64,9 +68,10 @@ public class Turn {
 	 *
 	 * @return true accusation correct
 	 */
-	private boolean makeAccusation() {
-		Envelope envelope = getChoiceEnvelope();
-		return board.getSolution().equals(envelope);
+	private Accusation makeAccusation() {
+		Envelope guess = getChoiceEnvelope();
+		Accusation accuse = new Accusation(player, guess, murderEnvelope);
+		return accuse;
 	}
 
 	/**

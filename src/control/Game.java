@@ -29,12 +29,13 @@ public class Game {
 	private static Map<Integer, Player> players = new HashMap<Integer, Player>(); //map where key is the players number to the player
 
 	private static Board board; //holds the board object of the game
-	private static Card[] envelope = new Card[3]; //contains the murder scene cards (one weapon, one character, one room)
+	private static Envelope murderEnvelope; //contains the murder scene cards (one weapon, one character, one room)
 
 	public static Map<String, Token> characters = new HashMap<String, Token>(); 	//all of the playable characters/suspects
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
 	public static Map<String, Room> rooms = new HashMap<String, Room>();			//all of the rooms in the game
-	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (minus those in the envelope)
+	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (excluding murder envelope cards)
+	private static Set<Card> allCards = new HashSet<Card>();						//all of the clue cards (including murder envelope cards)
 
 	/**
 	 * Start point for the game, calls initial methods then the game loop method
@@ -59,16 +60,36 @@ public class Game {
 		boolean gameOver = false;
 		while(true){
 			Player p = players.get(pTurn);	//the current player whos turn it is
-			Turn turn = new Turn(p, board, menu);  //turn object for interfacing a player and the menu to control their turn
+			Turn turn = new Turn(p, board, menu, murderEnvelope);  //turn object for interfacing a player and the menu to control their turn
 
 			//perform turn methods here!!!!!!!!!!!!
-			boolean madeAccusation = turn.takeTurn();
-			
-			//condition to end game loop. aka accusation is correct or accusation is incorrect and numPlayers drops to 1
-			if(gameOver){return;}
-			
+			Suggestion mySuggestion = turn.takeTurn();
+
+			if(mySuggestion != null){  //the player has made either a suggestion or accusation this turn
+				if(mySuggestion.isAccusation()){ // the player has made an accusation
+					//process accusation logic here
+					Accusation myAccusation = (Accusation) mySuggestion;
+					Player accuser = myAccusation.getPlayer();
+
+					if(myAccusation.isCorrect()){
+						menu.printWinner(accuser, murderEnvelope);
+						return;
+					} else {
+						players.remove(accuser.getPlayerNumber());
+						if(players.size() == 1){
+							for ( Player winner : players.values() ){
+								menu.printWinner(winner, murderEnvelope);
+							}
+							return;
+						}
+					}
+				} else { //player made a suggestion
+					//process suggestion logic here
+				}
+			}
+
 			//increment pTurn so next loop will have next player
-			if(pTurn < numPlayers+1){
+			if(pTurn < players.size()+1){
 				pTurn++;
 			} else {
 				pTurn = 1;
@@ -83,6 +104,7 @@ public class Game {
 	private static void initialise() {
 		Random random = new Random();
 		board = new Board("board.csv");//need to pass in envelope as well alternatively can use getter and setter
+		Card[] envelope = new Card[3];
 
 		int murderCard = random.nextInt(CHARACTER_LIST.length);
 		//initialise characters and character cards
@@ -130,6 +152,15 @@ public class Game {
 				cards.put(c.toString(), c);;
 			}
 		}
+		murderEnvelope = new Envelope(envelope[0], envelope[1], envelope[2]);
+
+		//populate the allCards Set
+		for(Card card : cards.values()){
+			allCards.add(card);
+		}
+		allCards.add(envelope[0]);
+		allCards.add(envelope[1]);
+		allCards.add(envelope[2]);
 	}
 
 	/**
@@ -146,7 +177,7 @@ public class Game {
 		//each player gets to choose a character from the remaining list
 		for(int i = 0; i < numPlayers; i++){
 			String characterName = menu.newPlayer(i, availableCharacters);
-			Player p = new Player(i+1, characters.get(characterName));
+			Player p = new Player(i+1, characters.get(characterName), allCards);
 			players.put(i+1, p);
 		}
 	}

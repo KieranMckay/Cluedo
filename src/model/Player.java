@@ -21,14 +21,13 @@ public class Player {
 	 *
 	 * @param - Token the character belonging to this player.
 	 */
-	public Player(int playerNumber, Token myToken) {
+	public Player(int playerNumber, Token myToken, Set<Card> suspects) {
 		this.playerNumber = playerNumber;
 		this.myToken = myToken;
 		this.hand = new HashSet<Card>();
-		this.suspects = new HashSet<Card>();
-
-		//TODO populate suspects with all possible weapons, rooms and characters
+		this.suspects = suspects;
 	}
+
 
 	/**
 	 * Returns a set representing this players hand of cards.
@@ -55,6 +54,14 @@ public class Player {
 	 */
 	public Token getToken() {
 		return myToken;
+	}
+
+	/**
+	 * Returns this players player number
+	 * @return int - players number
+	 */
+	public int getPlayerNumber(){
+		return playerNumber;
 	}
 
 	/**

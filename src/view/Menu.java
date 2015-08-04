@@ -3,6 +3,7 @@ package view;
 import java.util.*;
 
 import model.Card;
+import model.Envelope;
 import model.Player;
 
 /**
@@ -22,11 +23,8 @@ public class Menu {
 	 * Console asks the user to specify how many players there will be and
 	 * returns that number.
 	 *
-	 * @param min
-	 *            - the minimum number of players allowed in the game
-	 * @param max
-	 *            - the minimum number of players allowed in the game
-	 *
+	 * @param min - the minimum number of players allowed in the game
+	 * @param max - the minimum number of players allowed in the game
 	 * @return the number of players in the game
 	 */
 	public int promptNumberPlayers(int min, int max) {
@@ -45,8 +43,7 @@ public class Menu {
 		}
 		println("You have selected " + numPlayers + " players.");
 
-		// input.close(); //Cant close scanners because System.in will not
-		// read......
+		// input.close(); //Cant close scanners because System.in will not read......
 		return numPlayers;
 	}
 
@@ -54,10 +51,8 @@ public class Menu {
 	 * Console asks the user to select a character from a list of available
 	 * characters
 	 *
-	 * @param playerNum
-	 *            - the player number of the person choosing their character
-	 * @param availableCharacters
-	 *            - a List of remaining available characters
+	 * @param playerNum - the player number of the person choosing their character
+	 * @param availableCharacters - a List of remaining available characters
 	 * @return a String representing the players choosen character
 	 */
 	public String newPlayer(int playerNum, List<String> availableCharacters) {
@@ -108,17 +103,6 @@ public class Menu {
 	}
 
 	/**
-	 * Draws the game in its current state. Should be called before every other
-	 * menu interaction so it is constantly drawn at the top. Clears the
-	 * graphics every time its called.
-	 */
-	public void drawGame() {
-		// clear(); //not currently working
-		println("draw board here"); // testing method call
-		// draw board here
-	}
-
-	/**
 	 * Displays to the player the choice of murder items from either characters, rooms or weapons.
 	 * The user must make a choice which is returned.	 *
 	 *
@@ -145,12 +129,11 @@ public class Menu {
 			}catch(NumberFormatException e){
 				println("Not a valid Number!");
 			}
-
 		}
 	}
 
 	/**
-	 * TODO get the next char entered by the user
+	 * Gets the next char entered by the user
 	 */
 	public char getChar() {
 		input = new Scanner(System.in);
@@ -158,40 +141,36 @@ public class Menu {
 	}
 
 	/**
-	 * Utility method for clearing console screen. Because of system dependence
-	 * on how to do this code taken from stackoverflow
+	 * Outputs the string passed in to console
+	 * @param string - message to be displayed
 	 */
-	private void clear() {
-		// currently not working
-		try {
-			String os = System.getProperty("os.name");
-
-			if (os.contains("Windows")) {
-				Runtime.getRuntime().exec("cls");
-			} else {
-				Runtime.getRuntime().exec("clear");
-			}
-		} catch (Exception e) {
-			println("Exception thrown trying to clear console: " + e);
-		}
-	}
-
 	public void println(String string) {
 		System.out.println(string);
 	}
 
 	/**
-	 * Ask the user if they want to make an accusation
+	 * Ask the user what they would like to do this turn
 	 *
-	 * @return Boolean confirm or reject
+	 * @return int - indicating what player would like to do
 	 */
-	public boolean promptAccusation() {
-		println("Would you like to end your turn by making an accusation? (y/n)");
-		char answer = getChar();
-		if (answer == 'y' || answer == 'Y') {
-			return true;
+	public int promptTurn() {
+		int choice = -1;
+		println("What would you like to do this turn");
+		println("	1. Make an accusation.");
+		println("	2. Move your character.");
+		println("	3. Do Nothing.");
+
+		input = new Scanner(System.in);
+
+		// loop while player has made an invalid choice
+		while (choice < 1 || choice > 3) {
+			if (input.hasNext()) {
+				choice = input.nextInt();
+			} else {
+				input.next();
+			}
 		}
-		return false;
+		return choice;
 	}
 
 	/**
@@ -200,12 +179,22 @@ public class Menu {
 	 * @return
 	 */
 	public boolean promptSuggestion() {
-		println("Make a suggestion? y/n");
-		char answer = getChar();
-		if (answer == 'y' || answer == 'Y') {
-			return true;
+		int choice = -1;
+		println("Would you like to make a suggestion including the current room?");
+		println("	1. Yes.");
+		println("	2. No.");
+
+		input = new Scanner(System.in);
+
+		// loop while player has made an invalid choice
+		while (choice < 1 || choice > 2) {
+			if (input.hasNext()) {
+				choice = input.nextInt();
+			} else {
+				input.next();
+			}
 		}
-		return false;
+		return choice == 1;
 	}
 
 	/**
@@ -219,7 +208,23 @@ public class Menu {
 		//TODO show remaining suspect cards here instead of looping through cards held in hand when implemented
 		println("You're cards are: ");
 		for(Card card : player.getHand() ){
-			println(card.toString());
+			println("	"+card.toString());
 		}
+	}
+
+	/**
+	 * Displays the end of game winning scenario
+	 * @param winner - Player who won the game
+	 * @param murderEnvelope - the envelope containing the murder cards
+	 */
+	public void printWinner(Player winner, Envelope murderEnvelope) {
+		println("The Mystery of the Murder has been Solved!!!");
+		println("The Winner is "+winner.toString()+" playing as "+ winner.getToken().toString());
+		println("The Murder was commited by the dastardly "+murderEnvelope.characterToString());
+		println("The blood covered "+murderEnvelope.weaponToString()+" was the weapon used (funny how the blood never gave it away...)");
+		println("The infamous act was commited in the "+murderEnvelope.roomToString());
+		println("Who would've thought such a thing even possible?!");
+		pressToContinue();
+
 	}
 }

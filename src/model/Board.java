@@ -17,7 +17,6 @@ public class Board {
 	private int BOARD_WIDTH;
 	private int BOARD_HEIGHT;
 
-	private Envelope envelope;
 	private Tile board[][];
 	private List<Tile> spawns = new ArrayList<Tile>();
 
@@ -51,13 +50,10 @@ public class Board {
 	}
 
 	/**
-	 * Get the board solution envelope
-	 * @return Envelope with solution
+	 * Returns the next available starting point for a character.
+	 *
+	 * @return Tile - next spawn point for characters which is not taken
 	 */
-	public Envelope getSolution() {
-		return this.envelope;
-	}
-
 	public Tile getFreeSpawn(){
 		for ( Tile t : spawns){
 			if (t.hasSpace()){
@@ -66,24 +62,6 @@ public class Board {
 		}
 		return null;
 	}
-
-	/**
-	 * Move a given token in the provided direction
-	 * @param token Token to move
-	 * @param direction Direction to move
-	 * @return Boolean true if move was successful
-	 */
-	/*public boolean moveToken(Token token, direction direction) {
-		Tile startPosition = token.getLocation();
-		Tile newLocation = startPosition.getNeighbour(direction);
-		if(newLocation != null){ //can move there
-			token.setLocation(newLocation);
-			startPosition.removeToken(token);
-			newLocation.addToken(token);
-			return true;
-		}
-		return false;
-	}*/
 
 	/**
 	 * Add a token to the given coordinate
