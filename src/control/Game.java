@@ -29,7 +29,7 @@ public class Game {
 	private static Map<Integer, Player> players = new HashMap<Integer, Player>(); //map where key is the players number to the player
 
 	private static Board board; //holds the board object of the game
-	private static Card[] envelope = new Card[3]; //contains the murder scene cards (one weapon, one character, one room)
+	private static Envelope murderEnvelope; //contains the murder scene cards (one weapon, one character, one room)
 
 	public static Map<String, Token> characters = new HashMap<String, Token>(); 	//all of the playable characters/suspects
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
@@ -59,14 +59,17 @@ public class Game {
 		boolean gameOver = false;
 		while(true){
 			Player p = players.get(pTurn);	//the current player whos turn it is
-			Turn turn = new Turn(p, board, menu);  //turn object for interfacing a player and the menu to control their turn
+			Turn turn = new Turn(p, board, menu, murderEnvelope);  //turn object for interfacing a player and the menu to control their turn
 
 			//perform turn methods here!!!!!!!!!!!!
-			boolean madeAccusation = turn.takeTurn();
-			
+			Suggestion mySuggestion = turn.takeTurn();
+
+			if(mySuggestion.isAccusation()){
+
+			}
 			//condition to end game loop. aka accusation is correct or accusation is incorrect and numPlayers drops to 1
 			if(gameOver){return;}
-			
+
 			//increment pTurn so next loop will have next player
 			if(pTurn < numPlayers+1){
 				pTurn++;
@@ -83,6 +86,7 @@ public class Game {
 	private static void initialise() {
 		Random random = new Random();
 		board = new Board("board.csv");//need to pass in envelope as well alternatively can use getter and setter
+		Card[] envelope = new Card[3];
 
 		int murderCard = random.nextInt(CHARACTER_LIST.length);
 		//initialise characters and character cards
@@ -130,6 +134,8 @@ public class Game {
 				cards.put(c.toString(), c);;
 			}
 		}
+
+		murderEnvelope = new Envelope(envelope[0], envelope[1], envelope[2]);
 	}
 
 	/**

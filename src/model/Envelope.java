@@ -2,21 +2,20 @@
 package model;
 /**
  *  A class for representing a set of Cards
- *  
+ *
  *  note- I realise we have one inside game but this may make it easier if we include and equals method
  * 	for comparing if a guess is correct.
- * 
+ *
  * @author JTFM
  *
  */
 public class Envelope {
-	
+
 	private Card weapon;
 	private Card room;
 	private Card character;
-	
-	public Envelope(Card weapon, Card room, Card character) {
-		super();
+
+	public Envelope(Card character, Card weapon, Card room) {
 		this.weapon = weapon;
 		this.room = room;
 		this.character = character;
@@ -61,6 +60,6 @@ public class Envelope {
 			return false;
 		return true;
 	}
-	
-	
+
+
 }
