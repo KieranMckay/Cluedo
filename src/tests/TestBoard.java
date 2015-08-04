@@ -24,15 +24,15 @@ public class TestBoard {
 	@Test
 	public void testMoving() {
 		Board board = new Board("board.csv");
-		Tile loc = board.getTile(9, 10);
-		assert loc != null;
-		Player player = new Player(1, new Token("@man",board.getFreeSpawn()));
-		System.out.println(board.toString());
-		assert player.move(Tile.direction.SOUTH);
-		System.out.println(board.toString());
-		assert player.move(Tile.direction.SOUTH);
-		assert player.move(Tile.direction.SOUTH);
-		assert player.move(Tile.direction.EAST);
+		Tile tile = board.getFreeSpawn();
+		int i = 0;
+		while(tile != null){
+			new Player(i, new Token("@",board.getFreeSpawn()));
+			tile = board.getFreeSpawn();
+			System.out.println(board.toString());
+			i++;
+		}
+
 		System.out.println(board.toString());
 	}
 
