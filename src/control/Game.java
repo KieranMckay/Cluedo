@@ -91,7 +91,7 @@ public class Game {
 		//initialise characters and character cards
 		for (int i = 0; i < CHARACTER_LIST.length; i++){
 
-			Tile loc = board.getNextSpawn();
+			Tile loc = board.getFreeSpawn();
 			Token t = new Token(CHARACTER_LIST[i], loc);
 			Card c = new Card(CHARACTER_LIST[i]);
 			characters.put(t.toString(), t);

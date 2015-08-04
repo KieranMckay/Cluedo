@@ -18,7 +18,8 @@ public class Board {
 	private int BOARD_HEIGHT;
 
 	private Envelope envelope;
-	Tile board[][];
+	private Tile board[][];
+	private List<Tile> spawns = new ArrayList<Tile>();
 
 	/**
 	 * constructs new board given csv file
@@ -55,6 +56,15 @@ public class Board {
 	 */
 	public Envelope getSolution() {
 		return this.envelope;
+	}
+
+	public Tile getFreeSpawn(){
+		for ( Tile t : spawns){
+			if (t.hasSpace()){
+				return t;
+			}
+		}
+		return null;
 	}
 
 	/**
