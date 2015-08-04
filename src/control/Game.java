@@ -15,21 +15,15 @@ import view.*;
  */
 public class Game {
 	//All the characters names
-	private final static String[] CHARACTER_NAME = { "Shrek", "David Bain","Kieran", "Johnny", "Batman", "Hannible" };
-	private final static int[] CHARACTER_X = { 7, 0, 9, 14, 23, 23};  	//initial X coords for respective characters in CHARACTER_NAME
-	private final static int[] CHARACTER_Y = { 24, 17, 0, 0, 6, 19};	//initial Y coords for respective characters in CHARACTER_NAME
-
+	private final static String[] CHARACTER_LIST = { "Shrek", "David Bain","Kieran", "Johnny", "Batman", "Hannible" };
 	//all the weapons names
-	private final static String[] WEAPON_NAME = { "Nokia", "Chainsaw", "Assault Rifle", "Chair", "Cucumber", "Brevel 600W Blender" };
+	private final static String[] WEAPONS_LIST = { "Nokia", "Chainsaw", "Assault Rifle", "Chair", "Cucumber", "Brevel 600W Blender" };
 	//all the rooms names
-	private final static String[] ROOM_NAME = { "Swamp", "Dungeon","Lab X", "The Hub", "Watchtower", "Boat House",
+	private final static String[] ROOM_LIST = { "Swamp", "Dungeon","Lab X", "The Hub", "Watchtower", "Boat House",
 		"Construction Site", "Mancave", "Patio" };
 
 	private final static int MIN_PLAYERS = 3;  	//minimum number of human players
 	private final static int MAX_PLAYERS = 6;	//maximum number of human players
-	private final static int NUM_WEAPONS = 6;	//number of weapons in the game
-	private final static int NUM_CHARACTERS = 6;//number of characters in the game
-	private final static int NUM_ROOMS = 9;		//number of rooms in the game
 
 	private static int numPlayers;  //number of human players in the game
 	private static Map<Integer, Player> players = new HashMap<Integer, Player>(); //map where key is the players number to the player
@@ -93,13 +87,13 @@ public class Game {
 		Random random = new Random();
 		board = new Board("board.csv");//need to pass in envelope as well alternatively can use getter and setter
 
-		int murderCard = random.nextInt(NUM_CHARACTERS);
+		int murderCard = random.nextInt(CHARACTER_LIST.length);
 		//initialise characters and character cards
-		for (int i = 0; i < NUM_CHARACTERS; i++){
+		for (int i = 0; i < CHARACTER_LIST.length; i++){
 
 			Tile loc = board.getNextSpawn();
-			Token t = new Token(CHARACTER_NAME[i], loc);
-			Card c = new Card(CHARACTER_NAME[i]);
+			Token t = new Token(CHARACTER_LIST[i], loc);
+			Card c = new Card(CHARACTER_LIST[i]);
 			characters.put(t.toString(), t);
 
 			//put one random character card into murder envelope, the rest into the "deck"
@@ -110,11 +104,11 @@ public class Game {
 			}
 		}
 
-		murderCard = random.nextInt(NUM_WEAPONS);
+		murderCard = random.nextInt(WEAPONS_LIST.length);
 		//initialise weapons and weapon cards
-		for (int i = 0; i < NUM_WEAPONS; i++){
-			Weapon w = new Weapon(WEAPON_NAME[i]);
-			Card c = new Card(WEAPON_NAME[i]);
+		for (int i = 0; i < WEAPONS_LIST.length; i++){
+			Weapon w = new Weapon(WEAPONS_LIST[i]);
+			Card c = new Card(WEAPONS_LIST[i]);
 			weapons.put(w.toString(), w);
 
 			//put one random weapon card into murder envelope, the rest into the "deck"
@@ -125,11 +119,11 @@ public class Game {
 			}
 		}
 
-		murderCard = random.nextInt(NUM_ROOMS);
+		murderCard = random.nextInt(ROOM_LIST.length);
 		//initialise rooms and room cards
-		for (int i = 0; i < NUM_ROOMS; i++){
-			Room r = new Room(ROOM_NAME[i]);
-			Card c = new Card(ROOM_NAME[i]);
+		for (int i = 0; i < ROOM_LIST.length; i++){
+			Room r = new Room(ROOM_LIST[i]);
+			Card c = new Card(ROOM_LIST[i]);
 			rooms.put(r.toString(), r);
 
 			//put one random room card into murder envelope, the rest into the "deck"
@@ -148,8 +142,8 @@ public class Game {
 	 */
 	private static void assignPlayers(Menu menu) {
 		List<String> availableCharacters = new ArrayList<String>();//List of all the available characters to choose from
-		for(int i = 0; i < CHARACTER_NAME.length; i++){
-			availableCharacters.add(CHARACTER_NAME[i]);
+		for(int i = 0; i < CHARACTER_LIST.length; i++){
+			availableCharacters.add(CHARACTER_LIST[i]);
 		}
 
 		//each player gets to choose a character from the remaining list
