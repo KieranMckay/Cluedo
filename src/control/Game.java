@@ -34,7 +34,8 @@ public class Game {
 	public static Map<String, Token> characters = new HashMap<String, Token>(); 	//all of the playable characters/suspects
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
 	public static Map<String, Room> rooms = new HashMap<String, Room>();			//all of the rooms in the game
-	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (minus those in the envelope)
+	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (excluding murder envelope cards)
+	private static Set<Card> allCards = new HashSet<Card>();						//all of the clue cards (including murder envelope cards)
 
 	/**
 	 * Start point for the game, calls initial methods then the game loop method
@@ -72,14 +73,12 @@ public class Game {
 
 					if(myAccusation.isCorrect()){
 						menu.printWinner(accuser, murderEnvelope);
-						menu.pressToContinue();
 						return;
 					} else {
 						players.remove(accuser.getPlayerNumber());
 						if(players.size() == 1){
 							for ( Player winner : players.values() ){
 								menu.printWinner(winner, murderEnvelope);
-								menu.pressToContinue();
 							}
 							return;
 						}
@@ -153,8 +152,15 @@ public class Game {
 				cards.put(c.toString(), c);;
 			}
 		}
-
 		murderEnvelope = new Envelope(envelope[0], envelope[1], envelope[2]);
+
+		//populate the allCards Set
+		for(Card card : cards.values()){
+			allCards.add(card);
+		}
+		allCards.add(envelope[0]);
+		allCards.add(envelope[1]);
+		allCards.add(envelope[2]);
 	}
 
 	/**
@@ -171,7 +177,7 @@ public class Game {
 		//each player gets to choose a character from the remaining list
 		for(int i = 0; i < numPlayers; i++){
 			String characterName = menu.newPlayer(i, availableCharacters);
-			Player p = new Player(i+1, characters.get(characterName));
+			Player p = new Player(i+1, characters.get(characterName), allCards);
 			players.put(i+1, p);
 		}
 	}

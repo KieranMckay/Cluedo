@@ -38,13 +38,15 @@ public class Turn {
 	public Suggestion takeTurn() {
 		menu.println(board.toString());
 		menu.playerInfo(player);
-		if (menu.promptAccusation()) {
+		int choice = menu.promptTurn();
+		if (choice == 1) {
 			return makeAccusation();
-		}
-		movePlayer();
-		if (player.getToken().getLocation().isRoom()) {
-			if (menu.promptSuggestion()) {
-				return makeSuggestion();
+		} else if (choice == 2) {
+			movePlayer();
+			if (player.getToken().getLocation().isRoom()) {
+				if (menu.promptSuggestion()) {
+					return makeSuggestion();
+				}
 			}
 		}
 		return null;

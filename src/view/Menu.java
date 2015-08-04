@@ -149,17 +149,28 @@ public class Menu {
 	}
 
 	/**
-	 * Ask the user if they want to make an accusation
+	 * Ask the user what they would like to do this turn
 	 *
-	 * @return Boolean confirm or reject
+	 * @return int - indicating what player would like to do
 	 */
-	public boolean promptAccusation() {
-		println("Would you like to end your turn by making an accusation? (y/n)");
-		char answer = getChar();
-		if (answer == 'y' || answer == 'Y') {
-			return true;
+	public int promptTurn() {
+		int choice = -1;
+		println("What would you like to do this turn");
+		println("	1. Make an accusation.");
+		println("	2. Move your character.");
+		println("	3. Do Nothing.");
+
+		input = new Scanner(System.in);
+
+		// loop while player has made an invalid choice
+		while (choice < 1 || choice > 3) {
+			if (input.hasNext()) {
+				choice = input.nextInt();
+			} else {
+				input.next();
+			}
 		}
-		return false;
+		return choice;
 	}
 
 	/**
@@ -168,12 +179,22 @@ public class Menu {
 	 * @return
 	 */
 	public boolean promptSuggestion() {
-		println("Make a suggestion? y/n");
-		char answer = getChar();
-		if (answer == 'y' || answer == 'Y') {
-			return true;
+		int choice = -1;
+		println("Would you like to make a suggestion including the current room?");
+		println("	1. Yes.");
+		println("	2. No.");
+
+		input = new Scanner(System.in);
+
+		// loop while player has made an invalid choice
+		while (choice < 1 || choice > 2) {
+			if (input.hasNext()) {
+				choice = input.nextInt();
+			} else {
+				input.next();
+			}
 		}
-		return false;
+		return choice == 1;
 	}
 
 	/**
@@ -187,7 +208,7 @@ public class Menu {
 		//TODO show remaining suspect cards here instead of looping through cards held in hand when implemented
 		println("You're cards are: ");
 		for(Card card : player.getHand() ){
-			println(card.toString());
+			println("	"+card.toString());
 		}
 	}
 
@@ -203,6 +224,7 @@ public class Menu {
 		println("The blood covered "+murderEnvelope.weaponToString()+" was the weapon used (funny how the blood never gave it away...)");
 		println("The infamous act was commited in the "+murderEnvelope.roomToString());
 		println("Who would've thought such a thing even possible?!");
+		pressToContinue();
 
 	}
 }
