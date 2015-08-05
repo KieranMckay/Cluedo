@@ -5,43 +5,65 @@ import java.util.*;
 /**
  * A class representing a Room in the game Cluedo
  *
- * @author Kieran Mckay
+ * @author Johnny D
  *
  */
 public class Room extends Tile{
+	Map<String,Tile> neighbours = new HashMap<String,Tile>();
+	List<Token> inRoom = new ArrayList<Token>();
 	private String name;
 	private Set<Weapon> weapons;
 
-	public Room(String name) {
+
+	public Room(String name){
 		this.name = name;
 		this.weapons = new HashSet<Weapon>();
 	}
 
-	/**
-	 * Returns true if this tile has space for a token
-	 * @return
-	 */
 	@Override
-	public boolean hasSpace(){ //always has space
+	public void addToken(Token t){
+		this.inRoom.add(t);
+	}
+
+
+	@Override
+	public void moveTo(Token t) {
+		if(t != null){
+			t.getLocation().removeToken(t);
+			inRoom.add(t);
+			t.setLocation(this);
+		}
+	}
+
+	@Override
+	public boolean hasSpace() {
 		return true;
 	}
 
-	/**
-	 * Returns the name of this Room.
-	 */
+
+	@Override
+	public void removeToken(Token t) {
+		this.inRoom.remove(t);
+	}
+
+	public String[] getMembers(){
+		String[] members = new String[inRoom.size()];
+		for (int i = 0; i < members.length; i++) {
+			members[i] = inRoom.get(i).toString();
+		}
+		return members;
+	}
+
+	@Override
+	public boolean isRoom() {
+		return true;
+	}
+
+	@Override
 	public String toString(){
-		return name;
+		return this.name;
 	}
 
-	/**
-	 * Returns true, this is a room, overriding parent class Tile
-	 *
-	 * @return true
-	 */
-	@Override
-	public boolean isRoom(){
-		return true;
-	}
 
 	public void addWeapon(Weapon weapon) {
 		weapons.add(weapon);
@@ -58,4 +80,5 @@ public class Room extends Tile{
 		return super.toChar();
 		//return this.name.charAt(0);
 	}*/
+
 }

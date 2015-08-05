@@ -3,8 +3,8 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.regex.Pattern;
 
-import model.Tile.direction;
 
 /**
  * A class representing the Board in the game Cluedo
@@ -88,88 +88,83 @@ public class Board {
 		tile.addToken(token);
 	}
 
-	/**
-	 * Populate board field with Tiles
-	 * TODO this doesnt yet block hallway to room if the room is adjacent
-	 * @param stringBoard
-	 */
-	private void parseBoard(String[][] stringBoard) {
-		Map<String, Tile> rooms = new HashMap<String, Tile>();
+	void parseBoard(String[][] stringBoard){
+		//System.out.println(stringArray(stringBoard));
+
+		Map<String, Room> rooms = new HashMap<String, Room>();
 		board = new Tile[BOARD_HEIGHT][BOARD_WIDTH];
 
-		// fill map of rooms
 		for (int i = 0; i < stringBoard.length; i++) {
 			for (int j = 0; j < stringBoard[i].length; j++) {
-				if (!stringBoard[i][j].startsWith("t") && !stringBoard[i][j].equals("")) {// must be a room
-					String room[] = stringBoard[i][j].split("-"); //may have a teleport
-					rooms.put(room[0], new Room(room[0])); //map name to room object
+				String stringVal = stringBoard[i][j];
+				if(stringVal.equals(""))continue;
+				if(stringVal.charAt(0) == 'l'){ //is a location
+					board[i][j] = new Location();
+					if(stringVal.contains("char"))spawns.add(board[i][j]); //is a character spawn point
+					//System.out.println("new Location "+ stringVal);
+				}
+				else if(Pattern.matches("/d",stringVal)){ //has a digit, must be a room
+					if(!rooms.containsKey(stringVal.charAt(0))){ //the map doesn't contain this room
+						rooms.put(stringVal.charAt(0)+"",new Room(stringVal.charAt(0)+"")); //add room to the map
+						if(stringVal.contains("-")){ //the room has a teleport room
+							String teleRoom = stringVal.split("-")[1]; //the name of the room to teleport to
+							if(!rooms.containsKey(teleRoom)){ //the teleport room doesnt exist yet
+								rooms.put(teleRoom,new Room(teleRoom)); //add the new room to the map
+							}
+							rooms.get(stringVal.charAt(0)).addNeighbour("Teleport to "+ teleRoom, rooms.get(teleRoom)); //connect this room to the teleroom
+						}
+					}
+					Door newDoor = new Door();
+					Room neighbourRoom = rooms.get(stringVal.charAt(0));
+					newDoor.room = neighbourRoom;
+					neighbourRoom.addNeighbour(stringVal.charAt(1)+"",newDoor); //add the door with the door number to the room
+					board[i][j] = newDoor;
 				}
 			}
 		}
 
-		// Process each square creating Tile objects
-		for (int i = 0; i < stringBoard.length; i++) {
-			for (int j = 0; j < stringBoard[i].length; j++) {
-				String squareVal = stringBoard[i][j];
-				if (squareVal.startsWith("t")) {
-					board[i][j] = new Tile();
-					if (squareVal.startsWith("t-")) {// also has a character
-						spawns.add(board[i][j]);
-					}
-				} else if(!squareVal.equals("")){ // is room and square not empty
-					String roomCouple[] = squareVal.split("-");
-
-					board[i][j] = rooms.get(roomCouple[0]);
-					if (roomCouple.length > 1) {// has a teleport
-						board[i][j].addNeighbour(Tile.direction.TELE, rooms.get(roomCouple[1]));
-					}
-				}
-			}
-		}
-		//Go through the board linkin neighbouring tiles
+		//Go through the board linking neighbouring tiles
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
-				if(board[i][j] != null && !board[i][j].isRoom()){
+				if(board[i][j] != null && (board[i][j] instanceof Location)){
 					if(i > 0 && board[i-1][j] != null){ //dont go over the edge
-						if(!board[i-1][j].isRoom()){
-							board[i][j].addNeighbour(Tile.direction.NORTH, board[i-1][j]);
-						}
-						else if(stringBoard[i][j].contains("n")){ //this should connect north to a room
-							board[i][j].addNeighbour(Tile.direction.NORTH, board[i-1][j]);
-							board[i-1][j].addNeighbour(Tile.direction.SOUTH,board[i][j]); //room add this tile back
-						}
-
+							if(!(board[i-1][j] instanceof Door && stringBoard[i][j].contains("x"))||!(board[i-1][j] instanceof Location && stringBoard[i-1][j].contains("x"))){
+								board[i][j].addNeighbour("North", board[i-1][j]);
+							}
 					}
-					if(i < board.length-1 && board[i+1][j] != null){
-						if(!board[i+1][j].isRoom()){
-							board[i][j].addNeighbour(Tile.direction.SOUTH, board[i+1][j]);
-						}
-						else if(stringBoard[i][j].contains("s")){
-							board[i][j].addNeighbour(Tile.direction.SOUTH, board[i+1][j]);
-							board[i+1][j].addNeighbour(Tile.direction.NORTH, board[i][j]);
+					if(i < board.length-1 && (board[i+1][j] != null)){
+						if(!(board[i+1][j] instanceof Door && stringBoard[i][j].contains("x"))||!(board[i+1][j] instanceof Location && stringBoard[i+1][j].contains("x"))){
+							board[i][j].addNeighbour("South", board[i+1][j]);
 						}
 					}
 					if(j > 0 && board[i][j-1] != null){ //dont go over the edge
-						if(!board[i][j-1].isRoom()){
-							board[i][j].addNeighbour(Tile.direction.WEST, board[i][j-1]);
-						}
-						else if(stringBoard[i][j].contains("s")){
-							board[i][j].addNeighbour(Tile.direction.WEST, board[i][j-1]);
-							board[i][j-1].addNeighbour(Tile.direction.EAST, board[i][j]);
+						if(!(board[i][j-1] instanceof Door && stringBoard[i][j].contains("x"))||!(board[i][j-1] instanceof Location && stringBoard[i][j-1].contains("x"))){
+							board[i][j].addNeighbour("East", board[i][j-1]);
 						}
 					}
 					if(j < board[i].length-1 && board[i][j+1] != null){
-						if(!board[i][j+1].isRoom()){
-							board[i][j].addNeighbour(Tile.direction.EAST, board[i][j+1]);
-						}
-						else if(stringBoard[i][j].contains("s")){
-							board[i][j].addNeighbour(Tile.direction.EAST, board[i][j+1]);
-							board[i][j+1].addNeighbour(Tile.direction.WEST, board[i][j]);
-						}
+						if(!(board[i][j+1] instanceof Door && stringBoard[i][j].contains("x"))||!(board[i][j+1] instanceof Location && stringBoard[i][j+1].contains("x"))){
+							board[i][j].addNeighbour("West", board[i][j+1]);
+					}
 					}
 				}
 			}
 		}
+	}
+	private String stringArray(String[][] stringArray) {
+		String string = "";
+		for (int i = 0; i < stringArray.length; i++) {
+			for (int j = 0; j < stringArray[i].length; j++) {
+				if(!stringArray[i][j].equals("")){
+					string+= stringArray[i][j];
+				}else{
+					string+= " ";
+				}
+				string+= '\t';
+			}
+			string+= '\n';
+		}
+		return string;
 	}
 
 	/**
@@ -232,7 +227,7 @@ public class Board {
 			for (int j = 0; j < board[i].length; j++) {
 				boardString += boardChars[i][j*2];
 				if(board[i][j] != null && (!board[i][j].hasSpace()||board[i][j].isRoom())){
-					boardString += board[i][j].toChar();
+					boardString += board[i][j].toString().charAt(0);
 				}
 				else{
 					boardString+= boardChars[i][j*2+1];
@@ -249,7 +244,7 @@ public class Board {
 
 
 
-	public String debugString(Tile.direction dir){
+	public String debugString(String dir){
 		String boardString = "";
 		for(int k = 0; k < board[0].length; k++){
 			boardString+=" _";
@@ -260,7 +255,7 @@ public class Board {
 				if(j ==0)boardString += "|";
 				if(board[i][j] !=null && board[i][j].getNeighbour(dir)!= null){
 
-					boardString += dir.name().charAt(0);
+					boardString += dir.charAt(0);
 				}else{
 					boardString += " ";
 				}
@@ -284,5 +279,12 @@ public class Board {
 	private void fail(int row, int col, String data) {
 		throw new RuntimeException("Parse Exception: " + data + "@ row: " + row
 				+ " col: " + col);
+	}
+
+	public static void main(String[] args){
+		Board testBoard = new Board("board.csv");
+		Tile tile = testBoard.getFreeSpawn();
+		testBoard.addToken(tile,new Token("a",tile));
+		System.out.println(testBoard.toString());
 	}
 }

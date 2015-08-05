@@ -2,7 +2,6 @@ package model;
 
 import java.util.*;
 
-import model.Tile.direction;
 
 /**
  * A class representing a Player in the game Cluedo
@@ -91,7 +90,7 @@ public class Player {
 		return "Player "+playerNumber;
 	}
 
-	public boolean move(direction direction) {
+	public boolean move(direction direction) { //TODO fix this so that the tile handles moving
 		Tile tile = this.myToken.getLocation();
 		Tile newTile = tile.getNeighbour(direction);
 		if(newTile != null && newTile.hasSpace()){//can move in the given direction
