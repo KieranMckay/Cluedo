@@ -204,9 +204,11 @@ public class Menu {
 	public void playerInfo(Player player) {
 		println("It is " + player.getToken().toString() +"'s turn.");
 		println("You're remaining unconfirmed clues are: ");
-		for(Card card : player.getSuspects()){
+
+		for(Card card : player.getSuspects().values()){
 			println("	"+card.toString());
 		}
+		println("	");
 	}
 
 	/**

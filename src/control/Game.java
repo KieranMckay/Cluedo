@@ -35,7 +35,7 @@ public class Game {
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
 	public static Map<String, Room> rooms = new HashMap<String, Room>();			//all of the rooms in the game
 	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (excluding murder envelope cards)
-	private static Set<Card> allCards = new HashSet<Card>();						//all of the clue cards (including murder envelope cards)
+	public static Map<String, Card> allCards = new HashMap<String, Card>();						//all of the clue cards (including murder envelope cards)
 
 	/**
 	 * Start point for the game, calls initial methods then the game loop method
@@ -213,16 +213,19 @@ public class Game {
 			}
 		}
 		murderEnvelope = new Envelope(envelope[0], envelope[1], envelope[2]);
+		System.out.println(murderEnvelope.characterToString());
+		System.out.println(murderEnvelope.weaponToString());
+		System.out.println(murderEnvelope.roomToString());
 
 		//TODO put a weapon in each room (and add that room to the weapon)
 
 		//populate the allCards Set
 		for(Card card : cards.values()){
-			allCards.add(card);
+			allCards.put(card.toString(), card);
 		}
-		allCards.add(envelope[0]);
-		allCards.add(envelope[1]);
-		allCards.add(envelope[2]);
+		allCards.put(envelope[0].toString(), envelope[0]);
+		allCards.put(envelope[1].toString(), envelope[1]);
+		allCards.put(envelope[2].toString(), envelope[2]);
 	}
 
 	/**

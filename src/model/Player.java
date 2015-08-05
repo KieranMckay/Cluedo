@@ -14,7 +14,7 @@ public class Player {
 	private int playerNumber;
 	private Token myToken;
 	private Set<Card> hand;
-	private Set<Card> suspects;
+	private Map<String, Card> suspects;
 	private boolean inGame;
 
 	/**
@@ -22,11 +22,11 @@ public class Player {
 	 *
 	 * @param - Token the character belonging to this player.
 	 */
-	public Player(int playerNumber, Token myToken, Set<Card> suspects) {
+	public Player(int playerNumber, Token myToken, Map<String, Card> suspects) {
 		this.playerNumber = playerNumber;
 		this.myToken = myToken;
 		this.hand = new HashSet<Card>();
-		this.suspects = suspects;
+		this.suspects = new HashMap<String, Card>(suspects);
 		setInGame(true);
 	}
 
@@ -44,7 +44,7 @@ public class Player {
 	 *
 	 * @return hand - Set of type Card.
 	 */
-	public Set<Card> getSuspects() {
+	public Map<String, Card> getSuspects() {
 		return suspects;
 	}
 
@@ -55,7 +55,7 @@ public class Player {
 	 */
 	public void addCard(Card card) {
 		hand.add(card);
-		suspects.remove(card);
+		this.suspects.remove(card.toString());
 	}
 
 	/**
@@ -105,7 +105,7 @@ public class Player {
 	}
 
 	public void removeSuspect(Card refuted) {
-		suspects.remove(refuted);
+		suspects.remove(refuted.toString());
 
 	}
 
