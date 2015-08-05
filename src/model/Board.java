@@ -97,31 +97,32 @@ public class Board {
 		for (int i = 0; i < stringBoard.length; i++) {
 			for (int j = 0; j < stringBoard[i].length; j++) {
 				String stringVal = stringBoard[i][j];
-				System.out.println("new square :"+ stringVal);
-
-				if(stringVal.equals(""))continue;
+				if(stringVal == null || stringVal.isEmpty()){
+					//System.out.println("skipped");
+					continue;
+				}
 				if(stringVal.charAt(0) == 'l'){ //is a location
 					board[i][j] = new Location();
 					if(stringVal.contains("char"))spawns.add(board[i][j]); //is a character spawn point
-					//System.out.println("new Location "+ stringVal);
 				}
-				else if(Pattern.matches("[1-9]+-[1-9]",stringVal)){ //has a digit, must be a room
-					if(!rooms.containsKey(stringVal.charAt(0))){ //the map doesn't contain this room
-						rooms.put(stringVal.charAt(0)+"",new Room(stringVal.charAt(0)+"")); //add room to the map
-						if(stringVal.contains("-")){ //the room has a teleport room
-							String teleRoom = stringVal.split("-")[1]; //the name of the room to teleport to
+				else if(Pattern.matches("[a-z,A-Z]+-+\\d+-*[a-z,A-Z]*",stringVal)){ //has a digit, must be a room
+					String[] roomDetails = stringVal.split("-");
+					//System.out.println("Made room");
+					if(!rooms.containsKey(roomDetails[0])){ //the map doesn't contain this room
+						rooms.put(roomDetails[0],new Room(roomDetails[0])); //add room to the map
+						if(roomDetails.length > 2){ //the room has a teleport room
+							String teleRoom = roomDetails[2]; //the name of the room to teleport to
 							if(!rooms.containsKey(teleRoom)){ //the teleport room doesnt exist yet
 								rooms.put(teleRoom,new Room(teleRoom)); //add the new room to the map
 							}
-							rooms.get(stringVal.charAt(0)+"").addNeighbour("Teleport to "+ teleRoom, rooms.get(teleRoom)); //connect this room to the teleroom
+							rooms.get(roomDetails[0]).addNeighbour("Teleport to "+ teleRoom, rooms.get(teleRoom)); //connect this room to the teleroom
 						}
 					}
-					Door newDoor = new Door();
-					Room neighbourRoom = rooms.get(stringVal.charAt(0)+"");
+					Door newDoor = new Door(roomDetails[1]);
+					Room neighbourRoom = rooms.get(roomDetails[0]);
 					newDoor.room = neighbourRoom;
-					neighbourRoom.addNeighbour(stringVal.charAt(1)+"",newDoor); //add the door with the door number to the room
+					neighbourRoom.addNeighbour(roomDetails[1],newDoor); //add the door with the door number to the room //TODO add "door: to roomdetails arg
 					board[i][j] = newDoor;
-					System.out.println("placed door at " + i + " " + j);
 				}
 			}
 		}
@@ -129,24 +130,32 @@ public class Board {
 		//Go through the board linking neighbouring tiles
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
-				if(board[i][j] != null && (board[i][j] instanceof Location)){
+				if(board[i][j] != null ){
 					if(i > 0 && board[i-1][j] != null){ //dont go over the edge
-						if((board[i][j] instanceof Door && !stringBoard[i-1][j].contains("x")) || (board[i][j] instanceof Location && !stringBoard[i][j].contains("x") && board[i-1][j] instanceof Door) || (board[i][j] instanceof Location && board[i-1][j] instanceof Location)){
+						if((board[i][j] instanceof Door && !stringBoard[i-1][j].contains("@")&& !(board[i-1][j] instanceof Door))
+								|| (board[i][j] instanceof Location && !stringBoard[i][j].contains("@") && board[i-1][j] instanceof Door)
+									|| (board[i][j] instanceof Location && board[i-1][j] instanceof Location)){
 							board[i][j].addNeighbour("North", board[i-1][j]);
 						}
 					}
 					if(i < board.length-1 && (board[i+1][j] != null)){
-						if((board[i][j] instanceof Door && !stringBoard[i+1][j].contains("x")) || (board[i][j] instanceof Location && !stringBoard[i][j].contains("x") && board[i+1][j] instanceof Door) || (board[i][j] instanceof Location && board[i+1][j] instanceof Location)){
+						if((board[i][j] instanceof Door && !stringBoard[i+1][j].contains("@")&& !(board[i+1][j] instanceof Door))
+								|| (board[i][j] instanceof Location && !stringBoard[i][j].contains("@") && board[i+1][j] instanceof Door)
+									|| (board[i][j] instanceof Location && board[i+1][j] instanceof Location)){
 							board[i][j].addNeighbour("South", board[i+1][j]);
 						}
 					}
 					if(j > 0 && board[i][j-1] != null){ //dont go over the edge
-						if((board[i][j] instanceof Door && !stringBoard[i][j-1].contains("x")) || (board[i][j] instanceof Location && !stringBoard[i][j].contains("x") && board[i][j-1] instanceof Door) || (board[i][j] instanceof Location && board[i][j-1] instanceof Location)){
+						if((board[i][j] instanceof Door && !stringBoard[i][j-1].contains("@")&& !(board[i][j-1] instanceof Door))
+								|| (board[i][j] instanceof Location && !stringBoard[i][j].contains("@") && board[i][j-1] instanceof Door)
+									|| (board[i][j] instanceof Location && board[i][j-1] instanceof Location)){
 							board[i][j].addNeighbour("West", board[i][j-1]);
 						}
 					}
 					if(j < board[i].length-1 && board[i][j+1] != null){
-						if((board[i][j] instanceof Door && !stringBoard[i][j+1].contains("x")) || (board[i][j] instanceof Location && !stringBoard[i][j].contains("x") && board[i][j+1] instanceof Door) || (board[i][j] instanceof Location && board[i][j+1] instanceof Location)){
+						if((board[i][j] instanceof Door && !stringBoard[i][j+1].contains("@") && !(board[i][j+1] instanceof Door)) ||
+								(board[i][j] instanceof Location && !stringBoard[i][j].contains("@") && board[i][j+1] instanceof Door)
+									||(board[i][j] instanceof Location && board[i][j+1] instanceof Location)){
 							board[i][j].addNeighbour("East", board[i][j+1]);
 						}
 					}
@@ -231,7 +240,7 @@ public class Board {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				boardString += boardChars[i][j*2];
-				if(board[i][j] != null && (!board[i][j].hasSpace()||board[i][j].isRoom())){
+				if(board[i][j] != null && ((!board[i][j].hasSpace() && board[i][j] instanceof Location) || (board[i][j] instanceof Door) || board[i][j].isRoom())){
 					boardString += board[i][j].toString().charAt(0);
 				}
 				else{

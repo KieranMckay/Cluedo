@@ -6,7 +6,7 @@ package model;
  *  note- I realise we have one inside game but this may make it easier if we include and equals method
  * 	for comparing if a guess is correct.
  *
- * @author JTFM
+ * @author Kieren, Johnny
  *
  */
 public class Envelope {

@@ -2,8 +2,9 @@ package model;
 
 import java.util.*;
 
+
 public class Location extends Tile {
-	Token member;
+	private Token member;
 
 	@Override
 	public List<String> neighbourNames() {
@@ -40,4 +41,10 @@ public class Location extends Tile {
 		return false;
 	}
 
+	public String ToString(){
+		if(this.member != null){
+			return member.toString();
+		}
+		return null;
+	}
 }
