@@ -126,6 +126,7 @@ public class Game {
 		Token suggestedCharacter = characters.get(mySuggestion.getSuggestedCharacter());
 		Weapon suggestedWeapon = weapons.get(mySuggestion.getSuggestedWeapon());
 		suggestedRoom.moveTo(suggestedCharacter);
+		suggestedWeapon.getRoom().getWeapons().remove(suggestedWeapon); //remove weapon from old room
 		suggestedWeapon.setLocation(suggestedRoom);
 		suggestedRoom.addWeapon(suggestedWeapon);
 
