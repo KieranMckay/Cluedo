@@ -8,12 +8,12 @@ package model;
  */
 public class Token {
 	private String name;
-	private Tile location;
+	private Tile position;
 
-	public Token(String name, Tile location) {
+	public Token(String name, Tile position) {
 		this.name = name;
-		this.location = location;
-		this.location.addToken(this);
+		this.position = position;
+		this.position.addToken(this);
 	}
 
 	/**
@@ -27,12 +27,12 @@ public class Token {
 	}
 
 	/**
-	 * Returns characters current location.
+	 * Returns characters current position.
 	 *
-	 * @return Location - players current location.
+	 * @return Tile - players current position.
 	 */
-	public Tile getLocation() {
-		return location;
+	public Tile getPosition() {
+		return position;
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class Token {
 	 * @param Location - The location of the Token.
 	 */
 	public void setLocation(Tile location) {
-		this.location = location;
+		this.position = location;
 		location.addToken(this);
 	}
 
@@ -51,8 +51,8 @@ public class Token {
 	 * @return Room the player is in or NULL if they're in the corridor
 	 */
 	public Room getRoom() {
-		if (location.isRoom()){
-			return (Room) location;
+		if (position.isRoom()){
+			return (Room) position;
 		}
 		return null;
 	}

@@ -17,20 +17,14 @@ public class Suggestion {
 
 	public String getSuggestedCharacter(){
 		return guess.characterToString();
-		//String suggested = guess.characterToString();
-		//return Game.characters.get(suggested);
 	}
 
 	public String getSuggestedWeapon(){
 		return guess.weaponToString();
-		//String suggested = guess.weaponToString();
-		//return Game.weapons.get(suggested);
 	}
 
 	public String getSuggestedRoom(){
 		return guess.roomToString();
-		//String suggested = guess.roomToString();
-		//return Game.rooms.get(suggested);
 	}
 
 	/**

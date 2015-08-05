@@ -19,7 +19,7 @@ public class Location extends Tile {
 	@Override
 	public void moveTo(Token t) {
 		if(t != null){
-			t.getLocation().removeToken(t);
+			t.getPosition().removeToken(t);
 			member = t;
 			t.setLocation(this);
 		}

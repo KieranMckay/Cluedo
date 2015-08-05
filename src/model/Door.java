@@ -5,8 +5,8 @@ import javax.management.RuntimeErrorException;
 import org.hamcrest.core.IsInstanceOf;
 
 public class Door extends Tile{
-	Room room;
-	Location location;
+	private Room room;
+	private Location location;
 
 	@Override
 	public boolean hasSpace() {
@@ -15,7 +15,7 @@ public class Door extends Tile{
 
 	@Override
 	public void moveTo(Token t) {
-		if(t.getLocation().isRoom()){
+		if(t.getPosition().isRoom()){
 			location.moveTo(t);
 		}
 		else{ //must be a location
