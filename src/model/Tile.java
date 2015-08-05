@@ -8,17 +8,15 @@ import java.util.*;
  *
  */
 public class Tile {
-	
-	public static enum direction{ //possible directions to move
-		NORTH,EAST,SOUTH,WEST,TELE
-	};
-	
+
+
+
 	private Map<direction,Tile> neighbours; //neighbouring tiles
-	
+
 	private Set<Token> tokens; //a set of tokens that are contained by this square (in the tile class this can only be one, dictated by hasSpace())
-	
-	
-	
+
+
+
 	public Tile(){
 		neighbours = new HashMap<Tile.direction, Tile>();
 	}
@@ -33,7 +31,7 @@ public class Tile {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Add a given token to this tile
 	 * @param t Token to be added
@@ -46,7 +44,7 @@ public class Tile {
 			tokens.add(t);
 		}
 	}
-	
+
 	/**
 	 * Remove a token from this tile
 	 * @param t
@@ -54,7 +52,7 @@ public class Tile {
 	public void removeToken(Token t){
 		if(tokens!= null) tokens.remove(t);
 	}
-	
+
 	/**
 	 *  returns the tile in the given direction
 	 *  null if not possible
@@ -87,13 +85,13 @@ public class Tile {
 	public void addNeighbour(direction dir, Tile tile){
 		neighbours.put(dir,tile);
 	}
-	
+
 	/**
 	 * Returns false unless overridden by child class Room
-	 * 
+	 *
 	 * @return false
 	 */
-	public boolean isRoom(){		
+	public boolean isRoom(){
 		return false;
 	}
 	/**
