@@ -42,9 +42,9 @@ public class Location extends Tile {
 	}
 	@Override
 	public String toString(){
-		if(this.member != null){
+	//	if(this.member != null){
 			return member.toString();
-		}
-		return null;
+		//}
+		//return "";
 	}
 }

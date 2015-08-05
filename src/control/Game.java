@@ -127,6 +127,7 @@ public class Game {
 		Weapon suggestedWeapon = weapons.get(mySuggestion.getSuggestedWeapon());
 		suggestedCharacter.setLocation(suggestedRoom);
 		suggestedRoom.addToken(suggestedCharacter);
+		suggestedRoom.moveTo(suggestedCharacter);
 		suggestedWeapon.setLocation(suggestedRoom);
 		suggestedRoom.addWeapon(suggestedWeapon);
 

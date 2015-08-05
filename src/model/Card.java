@@ -2,11 +2,11 @@ package model;
 
 /**
  * A Class for representing a Card in the Cluedo game
- * 
+ *
  * @author Kieran Mckay
  */
 public class Card {
-	String name;
+	private String name;
 
 	public Card(String name) {
 		this.name = name;
@@ -14,7 +14,7 @@ public class Card {
 
 	/**
 	 * Returns the name of the card as a String
-	 * 
+	 *
 	 * @return String - the name of the card
 	 */
 	public String toString(){
