@@ -25,7 +25,6 @@ public class Room extends Tile{
 		this.inRoom.add(t);
 	}
 
-
 	@Override
 	public void moveTo(Token t) {
 		if(t != null){

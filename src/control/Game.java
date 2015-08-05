@@ -215,10 +215,6 @@ public class Game {
 			}
 		}
 		murderEnvelope = new Envelope(envelope[0], envelope[1], envelope[2]);
-		System.out.println(murderEnvelope.characterToString());
-		System.out.println(murderEnvelope.weaponToString());
-		System.out.println(murderEnvelope.roomToString());
-
 
 		//populate the allCards Set
 		for(Card card : cards.values()){
