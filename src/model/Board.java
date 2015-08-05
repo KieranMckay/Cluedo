@@ -105,8 +105,9 @@ public class Board {
 					board[i][j] = new Location();
 					if(stringVal.contains("char"))spawns.add(board[i][j]); //is a character spawn point
 				}
-				else if(Pattern.matches("[a-z,A-Z]+-+\\d+-*[a-z,A-Z]*",stringVal)){ //has a digit, must be a room
-					String[] roomDetails = stringVal.split("-");
+				//else if(Pattern.matches("[a-z,A-Z]+-+\\d+-*[a-z,A-Z]*",stringVal)){ //has a digit, must be a room
+				else if(Pattern.matches("[a-z,A-Z, ]+-+\\d-*[a-z,A-Z, ]*",stringVal)){
+				String[] roomDetails = stringVal.split("-");
 					//System.out.println("Made room");
 					if(!rooms.containsKey(roomDetails[0])){ //the map doesn't contain this room
 						rooms.put(roomDetails[0],new Room(roomDetails[0])); //add room to the map
