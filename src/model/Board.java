@@ -251,30 +251,39 @@ public class Board {
 				case "Swamp":
 					x = 3;
 					y = 21;
+					break;
 				case "Dungeon":
 					x = 20;
 					y = 20;
+					break;
 				case "Lab X":
 					x = 35;
 					y = 23;
+					break;
 				case "Watchtower":
 					x = 35;
 					y = 15;
+					break;
 				case "Boat House":
 					x = 37;
 					y = 11;
+					break;
 				case "Cardboard Box":
 					x = 37;
 					y = 2;
+					break;
 				case "Patio":
 					x = 20;
 					y = 4;
+					break;
 				case "Mancave":
 					x = 5;
 					y = 3;
+					break;
 				case "The Hub":
 					x = 4;
 					y = 11;
+					break;
 			}
 			for(String token : inRoom){
 				baordCharCopy[y][x] = token.charAt(0);
