@@ -1,9 +1,5 @@
 package model;
 
-import javax.management.RuntimeErrorException;
-
-import org.hamcrest.core.IsInstanceOf;
-
 public class Door extends Tile{
 	public Room room;
 	public Location location;
@@ -29,18 +25,15 @@ public class Door extends Tile{
 
 	@Override
 	public void addNeighbour(String direction, Tile t) {
-		if(! (t instanceof Location)) throw new RuntimeErrorException(new Error(), "Shouldn't be parsing with anything other than location" + t.getClass().toString());
 		this.location = (Location)t;
 	}
 
 	@Override
 	public void addToken(Token t) {
-		throw new RuntimeErrorException(new Error(),"Shouldnt call add Token on a Door");
 	}
 
 	@Override
 	public void removeToken(Token t) {
-		throw new RuntimeErrorException(new Error(),"Shouldnt call add Token on a Door");
 	}
 
 	@Override

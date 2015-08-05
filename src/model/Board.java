@@ -91,7 +91,6 @@ public class Board {
 	}
 
 	void parseBoard(String[][] stringBoard){
-		//System.out.println(stringArray(stringBoard));
 
 		Map<String, Room> rooms = new HashMap<String, Room>();
 		board = new Tile[BOARD_HEIGHT][BOARD_WIDTH];
@@ -100,7 +99,6 @@ public class Board {
 			for (int j = 0; j < stringBoard[i].length; j++) {
 				String stringVal = stringBoard[i][j];
 				if(stringVal == null || stringVal.isEmpty()){
-					//System.out.println("skipped");
 					continue;
 				}
 				if(stringVal.charAt(0) == 'l'){ //is a location
@@ -109,9 +107,7 @@ public class Board {
 				}
 				else if(Pattern.matches("[a-z,A-Z, ]+-+\\d-*[a-z,A-Z, ]*",stringVal)){//has a digit, must be a room
 				String[] roomDetails = stringVal.split("-");
-					//System.out.println("Made room");
 					if(!rooms.containsKey(roomDetails[0])){ //the map doesn't contain this room
-						//rooms.put(roomDetails[0],new Room(roomDetails[0])); //add room to the map
 						rooms.put(roomDetails[0],Game.rooms.get(roomDetails[0]));
 						if(roomDetails.length > 2){ //the room has a teleport room
 							String teleRoom = roomDetails[2]; //the name of the room to teleport to
