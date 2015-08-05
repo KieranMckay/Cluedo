@@ -125,30 +125,10 @@ public class Turn {
 
 	private boolean singleMove() {
 		menu.println("Please choose a direction: ");
-		menu.println(player.getToken().getLocation().getDirections().toString());
-		char c = menu.getChar();
-
-		Tile.direction direction;
-		switch (c) {
-		case 'w':
-			direction = Tile.direction.NORTH;
-			break;
-		case 's':
-			direction = Tile.direction.SOUTH;
-			break;
-		case 'a':
-			direction = Tile.direction.WEST;
-			break;
-		case 'd':
-			direction = Tile.direction.EAST;
-			break;
-		case 'q':
-			direction = Tile.direction.TELE;
-			break;
-		default:
-			return false;
-		}
-		if (player.move(direction)) {
+		//menu.println(player.getToken().getLocation().getDirections().toString());
+		int choice = menu.chooseListIndex(player.getToken().getLocation().neighbourNames());
+		String direction = player.getToken().getLocation().neighbourNames().get(choice);
+		if (player.move(direction)){
 			turns--;
 			return true;
 		}

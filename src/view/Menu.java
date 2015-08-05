@@ -102,6 +102,16 @@ public class Menu {
 		}
 	}
 
+	public int chooseListIndex(List<String> list){ //TODO finish this
+		int i = 1;
+		println("please choose an option: ");
+		for(String s : list){
+			println(i + ":" + s);
+			i++;
+		}
+		return getChoice(1, list.size()) -1;
+	}
+
 	/**
 	 * Displays to the player the choice of murder items from either characters, rooms or weapons.
 	 * The user must make a choice which is returned.	 *
@@ -209,6 +219,24 @@ public class Menu {
 			println("	"+card.toString());
 		}
 		println("	");
+	}
+
+	/**
+	 * Get an integer between the min and max range from the console
+	 * @param min minimum passable value
+	 * @param max maximum passable value
+	 * @return result
+	 */
+	int getChoice(int min, int max){
+		int choice = min-1;
+		while (choice < min || choice > max) {
+			if (input.hasNextInt()) {
+				choice = input.nextInt();
+			} else {
+				input.next();
+			}
+		}
+		return choice;
 	}
 
 	/**

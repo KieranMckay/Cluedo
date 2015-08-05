@@ -128,29 +128,32 @@ public class Board {
 			for (int j = 0; j < board[i].length; j++) {
 				if(board[i][j] != null && (board[i][j] instanceof Location)){
 					if(i > 0 && board[i-1][j] != null){ //dont go over the edge
-							if(!(board[i-1][j] instanceof Door && stringBoard[i][j].contains("x"))||!(board[i-1][j] instanceof Location && stringBoard[i-1][j].contains("x"))){
-								board[i][j].addNeighbour("North", board[i-1][j]);
-							}
+						if((board[i-1][j] instanceof Door && !stringBoard[i][j].contains("x"))||(board[i-1][j] instanceof Location && stringBoard[i-1][j].contains("x"))){
+							board[i][j].addNeighbour("North", board[i-1][j]);
+						}
 					}
 					if(i < board.length-1 && (board[i+1][j] != null)){
-						if(!(board[i+1][j] instanceof Door && stringBoard[i][j].contains("x"))||!(board[i+1][j] instanceof Location && stringBoard[i+1][j].contains("x"))){
+						if((board[i+1][j] instanceof Door && !stringBoard[i][j].contains("x"))||(board[i+1][j] instanceof Location && stringBoard[i+1][j].contains("x"))){
 							board[i][j].addNeighbour("South", board[i+1][j]);
 						}
 					}
 					if(j > 0 && board[i][j-1] != null){ //dont go over the edge
-						if(!(board[i][j-1] instanceof Door && stringBoard[i][j].contains("x"))||!(board[i][j-1] instanceof Location && stringBoard[i][j-1].contains("x"))){
-							board[i][j].addNeighbour("East", board[i][j-1]);
+						if((board[i][j-1] instanceof Door && !stringBoard[i][j].contains("x"))||(board[i][j-1] instanceof Location && stringBoard[i][j-1].contains("x"))){
+							board[i][j].addNeighbour("West", board[i][j-1]);
 						}
 					}
 					if(j < board[i].length-1 && board[i][j+1] != null){
-						if(!(board[i][j+1] instanceof Door && stringBoard[i][j].contains("x"))||!(board[i][j+1] instanceof Location && stringBoard[i][j+1].contains("x"))){
-							board[i][j].addNeighbour("West", board[i][j+1]);
+						if((board[i][j+1] instanceof Door && !stringBoard[i][j].contains("x"))||(board[i][j+1] instanceof Location && stringBoard[i][j+1].contains("x"))){
+							board[i][j].addNeighbour("East", board[i][j+1]);
 					}
 					}
 				}
 			}
 		}
 	}
+
+
+
 	private String stringArray(String[][] stringArray) {
 		String string = "";
 		for (int i = 0; i < stringArray.length; i++) {

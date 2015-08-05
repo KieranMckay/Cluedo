@@ -90,13 +90,11 @@ public class Player {
 		return "Player "+playerNumber;
 	}
 
-	public boolean move(direction direction) { //TODO fix this so that the tile handles moving
+	public boolean move(String direction) { //TODO fix this so that the tile handles moving
 		Tile tile = this.myToken.getLocation();
 		Tile newTile = tile.getNeighbour(direction);
 		if(newTile != null && newTile.hasSpace()){//can move in the given direction
-			tile.removeToken(myToken);
-			newTile.addToken(myToken);
-			this.myToken.setLocation(newTile);
+			newTile.moveTo(myToken);
 			return true;
 		}
 		System.out.println("Not a valid Move");
