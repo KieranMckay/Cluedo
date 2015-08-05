@@ -97,13 +97,15 @@ public class Board {
 		for (int i = 0; i < stringBoard.length; i++) {
 			for (int j = 0; j < stringBoard[i].length; j++) {
 				String stringVal = stringBoard[i][j];
+				System.out.println("new square :"+ stringVal);
+
 				if(stringVal.equals(""))continue;
 				if(stringVal.charAt(0) == 'l'){ //is a location
 					board[i][j] = new Location();
 					if(stringVal.contains("char"))spawns.add(board[i][j]); //is a character spawn point
 					//System.out.println("new Location "+ stringVal);
 				}
-				else if(Pattern.matches("/d",stringVal)){ //has a digit, must be a room
+				else if(Pattern.matches("[1-9]+-[1-9]",stringVal)){ //has a digit, must be a room
 					if(!rooms.containsKey(stringVal.charAt(0))){ //the map doesn't contain this room
 						rooms.put(stringVal.charAt(0)+"",new Room(stringVal.charAt(0)+"")); //add room to the map
 						if(stringVal.contains("-")){ //the room has a teleport room
@@ -111,14 +113,15 @@ public class Board {
 							if(!rooms.containsKey(teleRoom)){ //the teleport room doesnt exist yet
 								rooms.put(teleRoom,new Room(teleRoom)); //add the new room to the map
 							}
-							rooms.get(stringVal.charAt(0)).addNeighbour("Teleport to "+ teleRoom, rooms.get(teleRoom)); //connect this room to the teleroom
+							rooms.get(stringVal.charAt(0)+"").addNeighbour("Teleport to "+ teleRoom, rooms.get(teleRoom)); //connect this room to the teleroom
 						}
 					}
 					Door newDoor = new Door();
-					Room neighbourRoom = rooms.get(stringVal.charAt(0));
+					Room neighbourRoom = rooms.get(stringVal.charAt(0)+"");
 					newDoor.room = neighbourRoom;
 					neighbourRoom.addNeighbour(stringVal.charAt(1)+"",newDoor); //add the door with the door number to the room
 					board[i][j] = newDoor;
+					System.out.println("placed door at " + i + " " + j);
 				}
 			}
 		}
@@ -128,30 +131,29 @@ public class Board {
 			for (int j = 0; j < board[i].length; j++) {
 				if(board[i][j] != null && (board[i][j] instanceof Location)){
 					if(i > 0 && board[i-1][j] != null){ //dont go over the edge
-						if((board[i-1][j] instanceof Door && !stringBoard[i][j].contains("x"))||(board[i-1][j] instanceof Location && stringBoard[i-1][j].contains("x"))){
+						if((board[i][j] instanceof Door && !stringBoard[i-1][j].contains("x")) || (board[i][j] instanceof Location && !stringBoard[i][j].contains("x") && board[i-1][j] instanceof Door) || (board[i][j] instanceof Location && board[i-1][j] instanceof Location)){
 							board[i][j].addNeighbour("North", board[i-1][j]);
 						}
 					}
 					if(i < board.length-1 && (board[i+1][j] != null)){
-						if((board[i+1][j] instanceof Door && !stringBoard[i][j].contains("x"))||(board[i+1][j] instanceof Location && stringBoard[i+1][j].contains("x"))){
+						if((board[i][j] instanceof Door && !stringBoard[i+1][j].contains("x")) || (board[i][j] instanceof Location && !stringBoard[i][j].contains("x") && board[i+1][j] instanceof Door) || (board[i][j] instanceof Location && board[i+1][j] instanceof Location)){
 							board[i][j].addNeighbour("South", board[i+1][j]);
 						}
 					}
 					if(j > 0 && board[i][j-1] != null){ //dont go over the edge
-						if((board[i][j-1] instanceof Door && !stringBoard[i][j].contains("x"))||(board[i][j-1] instanceof Location && stringBoard[i][j-1].contains("x"))){
+						if((board[i][j] instanceof Door && !stringBoard[i][j-1].contains("x")) || (board[i][j] instanceof Location && !stringBoard[i][j].contains("x") && board[i][j-1] instanceof Door) || (board[i][j] instanceof Location && board[i][j-1] instanceof Location)){
 							board[i][j].addNeighbour("West", board[i][j-1]);
 						}
 					}
 					if(j < board[i].length-1 && board[i][j+1] != null){
-						if((board[i][j+1] instanceof Door && !stringBoard[i][j].contains("x"))||(board[i][j+1] instanceof Location && stringBoard[i][j+1].contains("x"))){
+						if((board[i][j] instanceof Door && !stringBoard[i][j+1].contains("x")) || (board[i][j] instanceof Location && !stringBoard[i][j].contains("x") && board[i][j+1] instanceof Door) || (board[i][j] instanceof Location && board[i][j+1] instanceof Location)){
 							board[i][j].addNeighbour("East", board[i][j+1]);
-					}
+						}
 					}
 				}
 			}
 		}
 	}
-
 
 
 	private String stringArray(String[][] stringArray) {
@@ -288,6 +290,6 @@ public class Board {
 		Board testBoard = new Board("board.csv");
 		Tile tile = testBoard.getFreeSpawn();
 		testBoard.addToken(tile,new Token("a",tile));
-		System.out.println(testBoard.toString());
+		System.out.println(testBoard.debugString("South"));
 	}
 }
