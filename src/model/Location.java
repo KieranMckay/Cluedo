@@ -40,8 +40,8 @@ public class Location extends Tile {
 	public boolean isRoom() {
 		return false;
 	}
-
-	public String ToString(){
+	@Override
+	public String toString(){
 		if(this.member != null){
 			return member.toString();
 		}
