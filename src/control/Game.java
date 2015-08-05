@@ -125,8 +125,6 @@ public class Game {
 		Room suggestedRoom = rooms.get(mySuggestion.getSuggestedRoom());
 		Token suggestedCharacter = characters.get(mySuggestion.getSuggestedCharacter());
 		Weapon suggestedWeapon = weapons.get(mySuggestion.getSuggestedWeapon());
-		//suggestedCharacter.setLocation(suggestedRoom);
-		//suggestedRoom.addToken(suggestedCharacter);
 		suggestedRoom.moveTo(suggestedCharacter);
 		suggestedWeapon.getRoom().getWeapons().remove(suggestedWeapon); //remove weapon from old room
 		suggestedWeapon.setLocation(suggestedRoom);
@@ -167,8 +165,6 @@ public class Game {
 		Random random = new Random();
 		Card[] envelope = new Card[3];
 
-
-
 		int murderCard = random.nextInt(ROOM_LIST.length);
 		//initialise rooms and room cards
 		for (int i = 0; i < ROOM_LIST.length; i++){
@@ -207,6 +203,8 @@ public class Game {
 		for (int i = 0; i < WEAPONS_LIST.length; i++){
 			Weapon w = new Weapon(WEAPONS_LIST[i]);
 			Card c = new Card(WEAPONS_LIST[i]);
+			//assigns weapon to room
+			w.setLocation(rooms.get(ROOM_LIST[i]));
 			weapons.put(w.toString(), w);
 
 			//put one random weapon card into murder envelope, the rest into the "deck"
@@ -217,11 +215,6 @@ public class Game {
 			}
 		}
 		murderEnvelope = new Envelope(envelope[0], envelope[1], envelope[2]);
-		System.out.println(murderEnvelope.characterToString());
-		System.out.println(murderEnvelope.weaponToString());
-		System.out.println(murderEnvelope.roomToString());
-
-		//TODO put a weapon in each room (and add that room to the weapon)
 
 		//populate the allCards Set
 		for(Card card : cards.values()){

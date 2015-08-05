@@ -308,35 +308,6 @@ public class Board {
 		return boardString;
 	}
 
-
-
-
-	public String debugString(String dir){
-		String boardString = "";
-		for(int k = 0; k < board[0].length; k++){
-			boardString+=" _";
-		}
-		boardString += "\n";
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				if(j ==0)boardString += "|";
-				if(board[i][j] !=null && board[i][j].getNeighbour(dir)!= null){
-
-					boardString += dir.charAt(0);
-				}else{
-					boardString += " ";
-				}
-				boardString+= " ";
-				if(j ==board[i].length-1)boardString += "|";
-			}
-			boardString += "\n";
-		}
-		for(int j = 0; j < board[0].length; j++){
-			boardString+=" _";
-		}
-		return boardString;
-	}
-
 	/**
 	 * fail parsing
 	 * @param row
@@ -346,12 +317,5 @@ public class Board {
 	private void fail(int row, int col, String data) {
 		throw new RuntimeException("Parse Exception: " + data + "@ row: " + row
 				+ " col: " + col);
-	}
-
-	public static void main(String[] args){
-		Board testBoard = new Board("board.csv");
-		Tile tile = testBoard.getFreeSpawn();
-		testBoard.addToken(tile,new Token("a",tile));
-		System.out.println(testBoard.debugString("South"));
 	}
 }

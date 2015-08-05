@@ -102,7 +102,7 @@ public class Menu {
 		}
 	}
 
-	public int chooseListIndex(List<String> list){ //TODO finish this
+	public int chooseListIndex(List<String> list){
 		int i = 1;
 		println("please choose an option: ");
 		for(String s : list){

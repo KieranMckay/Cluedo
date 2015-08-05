@@ -5,13 +5,13 @@ import model.*;
 public class Accusation extends Suggestion {
 
 	private Player player;
-	private Envelope guess;
+	private Envelope guessEnvelope;
 	private Envelope murderEnvelope;
 
-	public Accusation(Player player, Envelope guess, Envelope murderEnvelope) {
-		super(player, guess);
+	public Accusation(Player player, Envelope guessEnvelope, Envelope murderEnvelope) {
+		super(player, guessEnvelope);
 		this.player = player;
-		this.guess = guess;
+		this.guessEnvelope = guessEnvelope;
 		this.murderEnvelope = murderEnvelope;
 	}
 
@@ -28,7 +28,7 @@ public class Accusation extends Suggestion {
 	 * @return boolean - whether or not the accusation is correct
 	 */
 	public boolean isCorrect(){
-		return guess.equals(murderEnvelope);
+		return guessEnvelope.equals(murderEnvelope);
 	}
 
 	/**
