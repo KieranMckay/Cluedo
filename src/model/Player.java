@@ -91,7 +91,7 @@ public class Player {
 	}
 
 	public boolean move(String direction) { //TODO fix this so that the tile handles moving
-		Tile tile = this.myToken.getLocation();
+		Tile tile = this.myToken.getPosition();
 		Tile newTile = tile.getNeighbour(direction);
 		if(newTile != null && newTile.hasSpace()){//can move in the given direction
 			newTile.moveTo(myToken);

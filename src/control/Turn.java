@@ -43,7 +43,7 @@ public class Turn {
 			return makeAccusation();
 		} else if (choice == 2) {
 			movePlayer();
-			if (player.getToken().getLocation().isRoom()) {
+			if (player.getToken().getPosition().isRoom()) {
 				if (menu.promptSuggestion()) {
 					return makeSuggestion();
 				}
@@ -115,7 +115,7 @@ public class Turn {
 			if (!singleMove()) {
 				menu.println("Invalid Move, try again");
 				continue;
-			} else if (player.getToken().getLocation().isRoom()) { // they have reached a room
+			} else if (player.getToken().getPosition().isRoom()) { // they have reached a room
 				return;
 			} else {
 				menu.println(board.toString());
@@ -126,8 +126,8 @@ public class Turn {
 	private boolean singleMove() {
 		menu.println("Please choose a direction: ");
 		//menu.println(player.getToken().getLocation().getDirections().toString());
-		int choice = menu.chooseListIndex(player.getToken().getLocation().neighbourNames());
-		String direction = player.getToken().getLocation().neighbourNames().get(choice);
+		int choice = menu.chooseListIndex(player.getToken().getPosition().neighbourNames());
+		String direction = player.getToken().getPosition().neighbourNames().get(choice);
 		if (player.move(direction)){
 			turns--;
 			return true;

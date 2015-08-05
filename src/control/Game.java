@@ -3,7 +3,7 @@ package control;
 import java.util.*;
 
 import model.*;
-import view.*;
+import view.Menu;
 
 /**
  * Wrapper class for cluedo game.
