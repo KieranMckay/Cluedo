@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import control.Game;
+
 
 /**
  * A class representing the Board in the game Cluedo
@@ -110,7 +112,8 @@ public class Board {
 				String[] roomDetails = stringVal.split("-");
 					//System.out.println("Made room");
 					if(!rooms.containsKey(roomDetails[0])){ //the map doesn't contain this room
-						rooms.put(roomDetails[0],new Room(roomDetails[0])); //add room to the map
+						//rooms.put(roomDetails[0],new Room(roomDetails[0])); //add room to the map
+						rooms.put(roomDetails[0],Game.rooms.get(roomDetails[0]));
 						if(roomDetails.length > 2){ //the room has a teleport room
 							String teleRoom = roomDetails[2]; //the name of the room to teleport to
 							if(!rooms.containsKey(teleRoom)){ //the teleport room doesnt exist yet

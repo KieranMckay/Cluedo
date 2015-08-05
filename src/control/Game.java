@@ -125,8 +125,8 @@ public class Game {
 		Room suggestedRoom = rooms.get(mySuggestion.getSuggestedRoom());
 		Token suggestedCharacter = characters.get(mySuggestion.getSuggestedCharacter());
 		Weapon suggestedWeapon = weapons.get(mySuggestion.getSuggestedWeapon());
-		suggestedCharacter.setLocation(suggestedRoom);
-		suggestedRoom.addToken(suggestedCharacter);
+		//suggestedCharacter.setLocation(suggestedRoom);
+		//suggestedRoom.addToken(suggestedCharacter);
 		suggestedRoom.moveTo(suggestedCharacter);
 		suggestedWeapon.setLocation(suggestedRoom);
 		suggestedRoom.addWeapon(suggestedWeapon);
