@@ -128,6 +128,7 @@ public class Game {
 		//suggestedCharacter.setLocation(suggestedRoom);
 		//suggestedRoom.addToken(suggestedCharacter);
 		suggestedRoom.moveTo(suggestedCharacter);
+		suggestedWeapon.getRoom().getWeapons().remove(suggestedWeapon); //remove weapon from old room
 		suggestedWeapon.setLocation(suggestedRoom);
 		suggestedRoom.addWeapon(suggestedWeapon);
 

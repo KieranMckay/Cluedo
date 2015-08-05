@@ -103,7 +103,9 @@ public class Turn {
 
 		return new Envelope(suspect, weapon,room);
 	}
-
+	/**
+	 * Prompt for and move the player around the board until turns have run out
+	 */
 	private void movePlayer() {
 		menu.println("It is " + player.toString() +"'s turn. ("
 				+player.getToken().toString()+")");
@@ -122,7 +124,12 @@ public class Turn {
 			}
 		}
 	}
-
+	/**
+	 * Prompt the player for a move
+	 * move them in the given direction and decrement turns
+	 *
+	 * @return Boolean successful move or not
+	 */
 	private boolean singleMove() {
 		menu.println("Please choose a direction: ");
 		//menu.println(player.getToken().getLocation().getDirections().toString());

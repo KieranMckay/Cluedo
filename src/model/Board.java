@@ -107,8 +107,7 @@ public class Board {
 					board[i][j] = new Location();
 					if(stringVal.contains("char"))spawns.add(board[i][j]); //is a character spawn point
 				}
-				//else if(Pattern.matches("[a-z,A-Z]+-+\\d+-*[a-z,A-Z]*",stringVal)){ //has a digit, must be a room
-				else if(Pattern.matches("[a-z,A-Z, ]+-+\\d-*[a-z,A-Z, ]*",stringVal)){
+				else if(Pattern.matches("[a-z,A-Z, ]+-+\\d-*[a-z,A-Z, ]*",stringVal)){//has a digit, must be a room
 				String[] roomDetails = stringVal.split("-");
 					//System.out.println("Made room");
 					if(!rooms.containsKey(roomDetails[0])){ //the map doesn't contain this room
@@ -236,11 +235,52 @@ public class Board {
 				{'|','_','_','_','_','_','_','_','_','_','_','_','_','_','|','_','|','_','|','_','_','_','_','_','_','_','_','_','_','_','|','_','|','_','|','_','_','_','_','_','_','_','_','_','_','_','_','_','|'}
 			};
 
+
 	/**
 	 * returns a string representation of the board
 	 */
 	public String toString(){
 		String boardString = "";
+		char[][] baordCharCopy = boardChars;
+		for(String key : Game.rooms.keySet()){
+			String[] inRoom = Game.rooms.get(key).getMembers();
+			if(inRoom.length == 0) continue;
+			int x = 0; //position to draw a player in a room
+			int y = 0;
+			switch (key){
+				case "Swamp":
+					x = 3;
+					y = 21;
+				case "Dungeon":
+					x = 20;
+					y = 20;
+				case "Lab X":
+					x = 35;
+					y = 23;
+				case "Watchtower":
+					x = 35;
+					y = 15;
+				case "Boat House":
+					x = 37;
+					y = 11;
+				case "Cardboard Box":
+					x = 37;
+					y = 2;
+				case "Patio":
+					x = 20;
+					y = 4;
+				case "Mancave":
+					x = 5;
+					y = 3;
+				case "The Hub":
+					x = 4;
+					y = 11;
+			}
+			for(String token : inRoom){
+				baordCharCopy[y][x] = token.charAt(0);
+				y++;
+			}
+		}
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				boardString += boardChars[i][j*2];
@@ -248,7 +288,7 @@ public class Board {
 					boardString += board[i][j].toString().charAt(0);
 				}
 				else{
-					boardString+= boardChars[i][j*2+1];
+					boardString+= baordCharCopy[i][j*2+1];
 				}
 				if(j == board[i].length-1){
 					boardString+='|';
