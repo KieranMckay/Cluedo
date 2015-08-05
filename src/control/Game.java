@@ -164,10 +164,27 @@ public class Game {
 	 */
 	private static void initialise() {
 		Random random = new Random();
-		board = new Board("board.csv");
 		Card[] envelope = new Card[3];
 
-		int murderCard = random.nextInt(CHARACTER_LIST.length);
+
+
+		int murderCard = random.nextInt(ROOM_LIST.length);
+		//initialise rooms and room cards
+		for (int i = 0; i < ROOM_LIST.length; i++){
+			Room r = new Room(ROOM_LIST[i]);
+			Card c = new Card(ROOM_LIST[i]);
+			rooms.put(r.toString(), r);
+
+			//put one random room card into murder envelope, the rest into the "deck"
+			if (i == murderCard){
+				envelope[2] = c;
+			} else {
+				cards.put(c.toString(), c);;
+			}
+		}
+
+		board = new Board("board.csv");
+		murderCard = random.nextInt(CHARACTER_LIST.length);
 		//initialise characters and character cards
 		for (int i = 0; i < CHARACTER_LIST.length; i++){
 
@@ -196,21 +213,6 @@ public class Game {
 				envelope[1] = c;
 			} else {
 				cards.put(c.toString(), c);
-			}
-		}
-
-		murderCard = random.nextInt(ROOM_LIST.length);
-		//initialise rooms and room cards
-		for (int i = 0; i < ROOM_LIST.length; i++){
-			Room r = new Room(ROOM_LIST[i]);
-			Card c = new Card(ROOM_LIST[i]);
-			rooms.put(r.toString(), r);
-
-			//put one random room card into murder envelope, the rest into the "deck"
-			if (i == murderCard){
-				envelope[2] = c;
-			} else {
-				cards.put(c.toString(), c);;
 			}
 		}
 		murderEnvelope = new Envelope(envelope[0], envelope[1], envelope[2]);
