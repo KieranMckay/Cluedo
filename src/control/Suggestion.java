@@ -11,6 +11,10 @@ public class Suggestion {
 		this.guess = guess;
 	}
 
+	public Envelope getGuess(){
+		return guess;
+	}
+
 	public String getSuggestedCharacter(){
 		return guess.characterToString();
 		//String suggested = guess.characterToString();

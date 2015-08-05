@@ -11,10 +11,13 @@ import java.util.*;
 public class Room extends Tile{
 	Map<String,Tile> neighbours = new HashMap<String,Tile>();
 	List<Token> inRoom = new ArrayList<Token>();
-	String name;
+	private String name;
+	private Set<Weapon> weapons;
+
 
 	public Room(String name){
 		this.name = name;
+		this.weapons = new HashSet<Weapon>();
 	}
 
 	@Override
@@ -60,5 +63,22 @@ public class Room extends Tile{
 	public String toString(){
 		return this.name;
 	}
+
+
+	public void addWeapon(Weapon weapon) {
+		weapons.add(weapon);
+	}
+
+	public Set<Weapon> getWeapons() {
+		return weapons;
+	}
+
+	/**
+	 * Returns the first character of this rooms name
+	 */
+	/*public char toChar(){
+		return super.toChar();
+		//return this.name.charAt(0);
+	}*/
 
 }

@@ -204,9 +204,11 @@ public class Menu {
 	public void playerInfo(Player player) {
 		println("It is " + player.getToken().toString() +"'s turn.");
 		println("You're remaining unconfirmed clues are: ");
-		for(Card card : player.getSuspects()){
+
+		for(Card card : player.getSuspects().values()){
 			println("	"+card.toString());
 		}
+		println("	");
 	}
 
 	/**
@@ -223,5 +225,13 @@ public class Menu {
 		println("Who would've thought such a thing even possible?!");
 		pressToContinue();
 
+	}
+
+	public void playerRemoval(Player accuser, Envelope guess) {
+		println(accuser.toString()+" made a false accusation and is out of the game.");
+		println(accuser.toString()+"'s accusation included: ");
+		println("	"+guess.characterToString()+" as the murderer.");
+		println("	"+guess.weaponToString()+" as the murder weapon.");
+		println("	"+guess.roomToString()+" as the murder location.");
 	}
 }

@@ -2,7 +2,6 @@ package model;
 
 import java.util.*;
 
-import model.Tile.direction;
 
 /**
  * A class representing a Player in the game Cluedo
@@ -14,18 +13,20 @@ public class Player {
 	private int playerNumber;
 	private Token myToken;
 	private Set<Card> hand;
-	private Set<Card> suspects;
+	private Map<String, Card> suspects;
+	private boolean inGame;
 
 	/**
 	 * Create a new player card.
 	 *
 	 * @param - Token the character belonging to this player.
 	 */
-	public Player(int playerNumber, Token myToken, Set<Card> suspects) {
+	public Player(int playerNumber, Token myToken, Map<String, Card> suspects) {
 		this.playerNumber = playerNumber;
 		this.myToken = myToken;
 		this.hand = new HashSet<Card>();
-		this.suspects = suspects;
+		this.suspects = new HashMap<String, Card>(suspects);
+		setInGame(true);
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class Player {
 	 *
 	 * @return hand - Set of type Card.
 	 */
-	public Set<Card> getSuspects() {
+	public Map<String, Card> getSuspects() {
 		return suspects;
 	}
 
@@ -53,7 +54,7 @@ public class Player {
 	 */
 	public void addCard(Card card) {
 		hand.add(card);
-		suspects.remove(card);
+		this.suspects.remove(card.toString());
 	}
 
 	/**
@@ -71,6 +72,14 @@ public class Player {
 	 */
 	public int getPlayerNumber(){
 		return playerNumber;
+	}
+
+	public boolean isInGame() {
+		return inGame;
+	}
+
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
 	}
 
 	/**
@@ -95,7 +104,7 @@ public class Player {
 	}
 
 	public void removeSuspect(Card refuted) {
-		suspects.remove(refuted);
+		suspects.remove(refuted.toString());
 
 	}
 

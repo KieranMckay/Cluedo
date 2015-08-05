@@ -69,6 +69,9 @@ public class Turn {
 	 */
 	private Accusation makeAccusation() {
 		Envelope guess = getChoiceEnvelope(false);
+		System.out.println(guess.characterToString());
+		System.out.println(guess.weaponToString());
+		System.out.println(guess.roomToString());
 		Accusation accuse = new Accusation(player, guess, murderEnvelope);
 		return accuse;
 	}
@@ -81,7 +84,7 @@ public class Turn {
 	private Envelope getChoiceEnvelope(boolean isSuggestion) {
 		//Choose a character from the list of all characters then get its card
 		String selection =  menu.selectMurderItem(Game.characters.keySet());
-		Card suspect = Game.cards.get(selection);
+		Card suspect = Game.allCards.get(selection);
 
 		if(isSuggestion){
 			//suggestion so room has to default to room player is currently in
@@ -91,13 +94,14 @@ public class Turn {
 			//Choose a Room from the list of all Rooms then get its card
 			selection =  menu.selectMurderItem(Game.rooms.keySet());
 		}
-		Card room = Game.cards.get(selection);
+		Card room = Game.allCards.get(selection);
 
 		//Choose a Weapon from the list of all weapons then get its card
 		selection =  menu.selectMurderItem(Game.weapons.keySet());
-		Card weapon = Game.cards.get(selection);
+		Card weapon = Game.allCards.get(selection);
 
-		return new Envelope(weapon,room,suspect);
+
+		return new Envelope(suspect, weapon,room);
 	}
 
 	private void movePlayer() {
