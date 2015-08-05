@@ -4,27 +4,27 @@ import model.*;
 
 public class Suggestion {
 	private Player player;
-	private Envelope guess;
+	private Envelope guessEnvelope;
 
-	public Suggestion(Player player, Envelope guess) {
+	public Suggestion(Player player, Envelope guessEnvelope) {
 		this.player = player;
-		this.guess = guess;
+		this.guessEnvelope = guessEnvelope;
 	}
 
 	public Envelope getGuess(){
-		return guess;
+		return guessEnvelope;
 	}
 
 	public String getSuggestedCharacter(){
-		return guess.characterToString();
+		return guessEnvelope.characterToString();
 	}
 
 	public String getSuggestedWeapon(){
-		return guess.weaponToString();
+		return guessEnvelope.weaponToString();
 	}
 
 	public String getSuggestedRoom(){
-		return guess.roomToString();
+		return guessEnvelope.roomToString();
 	}
 
 	/**
