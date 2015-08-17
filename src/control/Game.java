@@ -15,21 +15,21 @@ import view.Menu;
  */
 public class Game {
 	//All the characters names
-	private final static String[] CHARACTER_LIST = { "Shrek", "David Bain", "Kieran", "Johnny", "Batman", "Hannible" };
+	private final String[] CHARACTER_LIST = { "Shrek", "David Bain", "Kieran", "Johnny", "Batman", "Hannible" };
 	//all the weapons names
-	private final static String[] WEAPONS_LIST = { "Nokia", "Chainsaw", "Assault Rifle", "Chair", "Cucumber", "Brevel 600W Blender" };
+	private final String[] WEAPONS_LIST = { "Nokia", "Chainsaw", "Assault Rifle", "Chair", "Cucumber", "Brevel 600W Blender" };
 	//all the rooms names
-	private final static String[] ROOM_LIST = { "Swamp", "Dungeon","Lab X", "The Hub", "Watchtower", "Boat House",
+	private final String[] ROOM_LIST = { "Swamp", "Dungeon","Lab X", "The Hub", "Watchtower", "Boat House",
 		"Cardboard Box", "Mancave", "Patio" };
 
-	private final static int MIN_PLAYERS = 3;  	//minimum number of human players
-	private final static int MAX_PLAYERS = CHARACTER_LIST.length;	//maximum number of human players
+	private final int MIN_PLAYERS = 3;  	//minimum number of human players
+	private final int MAX_PLAYERS = CHARACTER_LIST.length;	//maximum number of human players
 
-	private static int numPlayers;  //number of human players in the game
-	private static Map<Integer, Player> players = new HashMap<Integer, Player>(); //map where key is the players number to the player
+	private int numPlayers;  //number of human players in the game
+	private Map<Integer, Player> players = new HashMap<Integer, Player>(); //map where key is the players number to the player
 
-	private static Board board; //holds the board object of the game
-	private static Envelope murderEnvelope; //contains the murder scene cards (one weapon, one character, one room)
+	private Board board; //holds the board object of the game
+	private Envelope murderEnvelope; //contains the murder scene cards (one weapon, one character, one room)
 
 	public static Map<String, Token> characters = new HashMap<String, Token>(); 	//all of the playable characters/suspects
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
@@ -43,6 +43,10 @@ public class Game {
 	 * @param args
 	 */
 	public static void main(String[] args){
+		Game game = new Game();
+	}
+
+	public Game(){
 		Menu menu = new Menu();
 		numPlayers = menu.promptNumberPlayers(MIN_PLAYERS, MAX_PLAYERS);
 
@@ -55,7 +59,7 @@ public class Game {
 	/**
 	 * Controls the game logic in a loop until the game is over
 	 */
-	private static void gameLoop(Menu menu){
+	private void gameLoop(Menu menu){
 		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
 		int playersLeft = players.size();
 
@@ -121,7 +125,7 @@ public class Game {
 		}
 	}
 
-	private static void handleSuggestion(Suggestion mySuggestion) {
+	private void handleSuggestion(Suggestion mySuggestion) {
 		Room suggestedRoom = rooms.get(mySuggestion.getSuggestedRoom());
 		Token suggestedCharacter = characters.get(mySuggestion.getSuggestedCharacter());
 		Weapon suggestedWeapon = weapons.get(mySuggestion.getSuggestedWeapon());
@@ -132,7 +136,7 @@ public class Game {
 
 	}
 
-	private static Card handleRefute(int pTurn, Suggestion mySuggestion) {
+	private Card handleRefute(int pTurn, Suggestion mySuggestion) {
 		for(int i= 0; i < players.size(); i++){
 			Player p;
 			do {
@@ -161,7 +165,7 @@ public class Game {
 	 * Initialises the Tokens, Weapons, Rooms and Cards
 	 * Also populates the envelope with one character, one weapon and one room card
 	 */
-	private static void initialise() {
+	private void initialise() {
 		Random random = new Random();
 		Card[] envelope = new Card[3];
 
@@ -230,7 +234,7 @@ public class Game {
 	 *
 	 * @param menu - used to interact with the user
 	 */
-	private static void assignPlayers(Menu menu) {
+	private void assignPlayers(Menu menu) {
 		List<String> availableCharacters = new ArrayList<String>();//List of all the available characters to choose from
 		for(int i = 0; i < CHARACTER_LIST.length; i++){
 			availableCharacters.add(CHARACTER_LIST[i]);
@@ -247,7 +251,7 @@ public class Game {
 	/**
 	 * Deal out the clue cards to the players.
 	 */
-	private static void dealCards() {
+	private void dealCards() {
 		int i = 0;
 		for (Card card : cards.values()){
 			int playernum = i % numPlayers;
