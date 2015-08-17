@@ -1,5 +1,7 @@
 package ui;
 
+import game.Board;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -10,34 +12,26 @@ import java.util.HashSet;
 import javax.swing.*;
 import javax.imageio.ImageIO;
 
-public class CluedoPanel extends JPanel{
+import control.Game;
+
+public class BoardPanel extends JPanel{
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private static final String IMAGE_PATH = "images/";
+	private Font font = new Font("Arial",Font.BOLD,24);
 
-	private static final Image[] WALL_IMGS = {	};
+	private Game game;
+	private Board gameBoard;
+	private JFrame frame;
 
-	private static final String[] preferredFonts = {"Courier New","Arial","Times New Roman"};
-	private Font font;
-	private final int uid;
-	private final Cluedo gameBoard;
-
-	public CluedoPanel(int uid, Cluedo gameBoard) {
-		this.gameBoard = gameBoard;
-		this.uid = uid;
-		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		HashSet<String> availableNames = new HashSet();
-
-		for(String name : env.getAvailableFontFamilyNames()) {
-			availableNames.add(name);
-		}
-
-		for(String pf : preferredFonts) {
-			if(availableNames.contains(pf)) {
-				font = new Font(pf,Font.BOLD,24);
-				break;
-			}
-		}
-		setSize(new Dimension(gameBoard.width()*30,(gameBoard.height()*30) + 30));
+	public BoardPanel(JFrame frame, Game game) {
+		this.game = game;
+		this.gameBoard = game.getBoard();
+		this.frame = frame;
 	}
 
 	public void paint(Graphics g) {
@@ -49,20 +43,6 @@ public class CluedoPanel extends JPanel{
 		// Second, draw the characters
 
 		// finally, draw any messages
-	}
-
-	private void drawScore(String score, Graphics g) {
-		g.setFont(font);
-		FontMetrics metrics = g.getFontMetrics();
-		int ascent = metrics.getAscent();
-		int width = gameBoard.width();
-		int height = gameBoard.height();
-		int y = (height*30);
-		g.setColor(Color.BLACK);
-		g.fillRect(0,y, width*30, 30);
-		char[] chars = score.toCharArray();
-		g.setColor(Color.YELLOW);
-		g.drawChars(chars,0,chars.length,5,y+ascent);
 	}
 
 	private void drawMessage(String msg, Graphics g) {
@@ -120,23 +100,6 @@ public class CluedoPanel extends JPanel{
 	}
 
 	/**
-	 * Rotate an image a given number of degrees.
-	 * @param src
-	 * @param angle
-	 * @return
-	 */
-	public static Image rotate(Image src, double angle) {
-		int width = src.getWidth(null);
-		int height = src.getHeight(null);
-		BufferedImage img = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
-		Graphics2D g = img.createGraphics();
-		g.rotate(Math.toRadians(angle), width/2, height/2);
-		g.drawImage(src,0,0,width,height,null);
-		g.dispose();
-		return img;
-	}
-
-	/**
 	 * Load an image from the file system, using a given filename.
 	 *
 	 * @param filename
@@ -145,7 +108,7 @@ public class CluedoPanel extends JPanel{
 	public static Image loadImage(String filename) {
 		// using the URL means the image loads when stored
 		// in a jar or expanded into individual files.
-		java.net.URL imageURL = CluedoPanel.class.getResource(IMAGE_PATH
+		java.net.URL imageURL = BoardPanel.class.getResource(IMAGE_PATH
 				+ filename);
 
 		try {

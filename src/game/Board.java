@@ -304,6 +304,14 @@ public class Board {
 		return boardString;
 	}
 
+	public int width(){
+		return BOARD_WIDTH;
+	}
+
+	public int height(){
+		return BOARD_HEIGHT;
+	}
+
 	/**
 	 * fail parsing
 	 * @param row

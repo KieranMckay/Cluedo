@@ -38,14 +38,6 @@ public class Game {
 	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (excluding murder envelope cards)
 	public static Map<String, Card> allCards = new HashMap<String, Card>();						//all of the clue cards (including murder envelope cards)
 
-	/**
-	 * Start point for the game, calls initial methods then the game loop method
-	 *
-	 * @param args
-	 */
-	public static void main(String[] args){
-		Game game = new Game();
-	}
 
 	public Game(){
 		Menu menu = new Menu();
@@ -260,5 +252,9 @@ public class Game {
 			p.addCard(card);;
 			i++;
 		}
+	}
+
+	public Board getBoard(){
+		return board;
 	}
 }
