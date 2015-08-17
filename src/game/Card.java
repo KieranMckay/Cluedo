@@ -1,4 +1,4 @@
-package model;
+package game;
 
 /**
  * A Class for representing a Card in the Cluedo game

@@ -1,5 +1,5 @@
 
-package model;
+package game;
 /**
  *  A class for representing a set of Cards
  *

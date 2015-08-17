@@ -1,10 +1,10 @@
-package view;
+package ui;
+
+import game.Card;
+import game.Envelope;
+import game.Player;
 
 import java.util.*;
-
-import model.Card;
-import model.Envelope;
-import model.Player;
 
 /**
  * A class for talking to the user and receiving responses from the user through

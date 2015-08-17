@@ -1,6 +1,6 @@
 package control;
 
-import model.*;
+import game.*;
 
 public class Suggestion {
 	private Player player;

@@ -1,9 +1,10 @@
 package control;
 
+import game.*;
+
 import java.util.*;
 
-import model.*;
-import view.Menu;
+import ui.Menu;
 
 /**
  * Wrapper class for cluedo game.

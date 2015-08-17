@@ -1,19 +1,20 @@
-package view;
+package ui;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.JFrame;
 
-import view.CluedoCanvas;
+import ui.CluedoPanel;
 
 public class CluedoFrame extends JFrame{
 
-	private final CluedoCanvas canvas;
+	private final CluedoPanel canvas;
 
 	public CluedoFrame(String title, Cluedo game, int uid, KeyListener... keys) {
 		super(title);
 
-		canvas = new CluedoCanvas(uid,game);
+		canvas = new CluedoPanel(uid,game);
 		setLayout(new BorderLayout());
 
 		for(KeyListener k : keys) {

@@ -1,51 +1,27 @@
-package view;
+package ui;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.awt.*;
-import java.awt.image.*;
 
+import javax.swing.*;
 import javax.imageio.ImageIO;
 
-public class CluedoCanvas extends Canvas{
+public class CluedoPanel extends JPanel{
 
 	private static final String IMAGE_PATH = "images/";
 
-	private static final Image WALL_S = loadImage("walls.png");
-	private static final Image WALL_E = loadImage("walle.png");
-	private static final Image WALL_C = loadImage("wallc.png");
-	private static final Image WALL_T = loadImage("wallt.png");
-	private static final Image WALL_O = loadImage("wallo.png");
-	private static final Image WALL_X = loadImage("wallx.png");
-	private static final Image PILL = loadImage("pill.png");
-
-	private static final Image[] WALL_IMGS = {
-		rotate(WALL_O,90),
-		rotate(WALL_E,180), // 1 -   |   |   | U
-		WALL_E,             // 2 -   |   | D |
-		WALL_S,             // 3 -   |   | D | U
-		rotate(WALL_E,90),  // 4 -   | L |   |
-		rotate(WALL_C,180), // 5 -   | L |   | U
-		rotate(WALL_C,90),  // 6 -   | L | D |
-		rotate(WALL_T,180), // 7 -   | L | D | U
-		rotate(WALL_E,-90), // 8 - R |   |   |
-		rotate(WALL_C,-90), // 9 - R |   |   | U
-		WALL_C,             // 0 - R |   | D |
-		WALL_T,             // 1 - R |   | D | U
-		rotate(WALL_S,90),  // 2 - R | L |   |
-		rotate(WALL_T,-90), // 3 - R | L |   | U
-		rotate(WALL_T,90),  // 4 - R | L | D |
-		WALL_X              // 5 - R | L | D | U
-	};
+	private static final Image[] WALL_IMGS = {	};
 
 	private static final String[] preferredFonts = {"Courier New","Arial","Times New Roman"};
 	private Font font;
 	private final int uid;
 	private final Cluedo gameBoard;
 
-	public CluedoCanvas(int uid, Cluedo gameBoard) {
+	public CluedoPanel(int uid, Cluedo gameBoard) {
 		this.gameBoard = gameBoard;
 		this.uid = uid;
 		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -70,90 +46,9 @@ public class CluedoCanvas extends Canvas{
 
 		// First, draw the board
 
-		for(int x=0;x!=width;++x) {
-			for(int y=0;y!=height;++y) {
-				if(gameBoard.isWall(x, y)) {
-					// do nothing
-				} else if(gameBoard.isPill(x,y)) {
-					g.drawImage(PILL, x*30,y*30, null, null);
-				} else {
-					g.setColor(Color.BLACK);
-					g.fillRect(x*30,y*30,30,30);
-				}
-			}
-		}
-
 		// Second, draw the characters
-		int score = 0;
-		int nlives = 0;
-		synchronized(gameBoard){
-			for(Character p : gameBoard.characters()) {
-
-				if(p instanceof Pacman) {
-					Pacman pm = (Pacman) p;
-					if(pm.uid() == uid) {
-						pm.drawOwn(g);
-						score = pm.score();
-						nlives = pm.lives();
-					}else{p.draw(g);}
-				}
-				else{p.draw(g);}
-			}
-		}
-
 
 		// finally, draw any messages
-		switch(gameBoard.state()) {
-		case Board.WAITING:
-			drawMessage("Waiting",g);
-			break;
-		case Board.READY:
-			drawMessage("Ready",g);
-			break;
-		case Board.GAMEOVER:
-			drawMessage("Game Over",g);
-			break;
-		case Board.GAMEWON:
-			drawGameWone(g);
-		}
-
-		drawScore("SCORE: " + score,g);
-		drawLives(nlives,g);
-	}
-
-	private static final String[] trails = {"st","nd","rd","th","th","th","th","th","th","th"};
-
-	public void drawGameWone(Graphics g) {
-		int myScore = gameBoard.player(uid).score();
-		int nAbove = 0;
-		int nBelow = 0;
-
-		synchronized(gameBoard){
-			for(Character c : gameBoard.characters()) {
-				if(c instanceof Pacman) {
-					Pacman p = (Pacman) c;
-					if(p.score() < myScore) {
-						nBelow++;
-					} else if(p.score() > myScore) {
-						nAbove++;
-					}
-				}
-			}
-		}
-
-		if(nAbove == 0 && nBelow == 0) {
-			// single user game
-			drawMessage("You Won!",g);
-		} else {
-			drawMessage("You came: " + (nAbove+1) + trails[(nAbove)%10],g);
-		}
-	}
-
-	private void drawLives(int nlives, Graphics g) {
-		for(int i=0;i!=nlives;++i) {
-			int rx = (gameBoard.width() - i - 1) * 30;
-			g.drawImage(Pacman.PACMAN_RIGHT[2],rx,gameBoard.height()*30,null,null);
-		}
 	}
 
 	private void drawScore(String score, Graphics g) {
@@ -195,6 +90,7 @@ public class CluedoCanvas extends Canvas{
 
 
 	private Image offscreen = null;
+
 	public void update(Graphics g) {
 		if(offscreen == null) {
 			initialiseOffscreen();
@@ -221,30 +117,6 @@ public class CluedoCanvas extends Canvas{
 
 		// First, draw the board
 
-		for(int x=0;x!=width;++x) {
-			for(int y=0;y!=height;++y) {
-				if(gameBoard.isWall(x, y)) {
-					drawWall(x,y,offgc);
-				}
-			}
-		}
-
-	}
-
-	private void drawWall(int x, int y, Graphics g) {
-		boolean above = (y-1) >= 0 && gameBoard.isWall(x, y-1);
-		boolean below = (y+1) < gameBoard.height() && gameBoard.isWall(x, y+1);
-		boolean left = (x-1) >= 0 && gameBoard.isWall(x-1, y);
-		boolean right = (x+1) < gameBoard.width() && gameBoard.isWall(x+1, y);
-
-		int mask = 0;
-
-		if(above) { mask |= 1; }
-		if(below) { mask |= 2; }
-		if(left) { mask |= 4; }
-		if(right) { mask |= 8; }
-
-		g.drawImage(WALL_IMGS[mask], x*30,y*30, null, null);
 	}
 
 	/**
@@ -273,7 +145,7 @@ public class CluedoCanvas extends Canvas{
 	public static Image loadImage(String filename) {
 		// using the URL means the image loads when stored
 		// in a jar or expanded into individual files.
-		java.net.URL imageURL = BoardCanvas.class.getResource(IMAGE_PATH
+		java.net.URL imageURL = CluedoPanel.class.getResource(IMAGE_PATH
 				+ filename);
 
 		try {

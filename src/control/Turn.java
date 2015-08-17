@@ -1,9 +1,10 @@
 package control;
 
+import game.*;
+
 import java.util.Random;
 
-import model.*;
-import view.*;
+import ui.*;
 
 /**
  * A basic class for handling a players turn.
