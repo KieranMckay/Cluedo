@@ -14,7 +14,7 @@ import ui.Menu;
  * @author Kieran Mckay
  *
  */
-public class Game {
+public class Game{
 	//All the characters names
 	private final String[] CHARACTER_LIST = { "Shrek", "David Bain", "Kieran", "Johnny", "Batman", "Hannible" };
 	//all the weapons names

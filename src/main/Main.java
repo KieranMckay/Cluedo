@@ -1,5 +1,9 @@
 package main;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import javax.swing.*;
 
 import control.Game;
@@ -12,10 +16,10 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		JFrame frame = new JFrame("Cluedo");
+		String title = "Cluedo";
+
 		Game game = new Game();
 
-		JPanel board = new BoardPanel(frame, game);
-		frame.add(board);
+		CluedoFrame frame = new CluedoFrame(game, title);
 	}
 }
