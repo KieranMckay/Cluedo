@@ -48,17 +48,17 @@ public class CluedoFrame extends JFrame{
 		setLayout(new BorderLayout());
 		
 		//add components to menu
+		menu.setBounds(0, 0, 400, 100);
 		menu.add(file);
 		menu.add(edit);
 		
 		//add components to panels
+		//options.setLayout(new BorderLayout());
 		options.add(dice, 0);
 		options.add(move, 1);
 		options.add(suggest, 2);
 		options.add(accuse, 3);
-		options.add(end, 4);
-		
-		board.setSize(900, 900);;
+		options.add(end, 4);		
 		
 		//then add menu and panels to frame
 		setJMenuBar(menu);
