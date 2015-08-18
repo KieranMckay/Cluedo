@@ -16,10 +16,7 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		String title = "Cluedo";
-
+		//TODO incorporate ui package here
 		Game game = new Game();
-
-		CluedoFrame frame = new CluedoFrame(game, title);
 	}
 }
