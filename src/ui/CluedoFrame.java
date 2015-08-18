@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,6 +8,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.BorderLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
@@ -48,23 +49,26 @@ public class CluedoFrame extends JFrame{
 		setLayout(new BorderLayout());
 		
 		//add components to menu
-		//file.setLayout(BorderLayout.WEST);
-		menu.add(file);
-		menu.add(edit);
+		menu.setLayout(new GridLayout(1,2));
+		menu.add(file, 0);
+		menu.add(edit, 1);
 		
-		//add components to panels
-		//options.setLayout(new BorderLayout());
+		//add components to options panel
+		options.setLayout(new GridLayout(5,1));
 		options.add(dice, 0);
 		options.add(move, 1);
 		options.add(suggest, 2);
 		options.add(accuse, 3);
 		options.add(end, 4);		
 		
+		//add components to cards panel
+		cards.
+		
 		//then add menu and panels to frame
 		setJMenuBar(menu);
 		add(board, BorderLayout.NORTH);		
 		add(options, BorderLayout.WEST);
-		add(cards, BorderLayout.SOUTH);
+		add(cards, BorderLayout.EAST);
 		
 		// Center window in screen
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
