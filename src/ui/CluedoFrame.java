@@ -48,7 +48,7 @@ public class CluedoFrame extends JFrame{
 		setLayout(new BorderLayout());
 		
 		//add components to menu
-		menu.setBounds(0, 0, 400, 100);
+		//file.setLayout(BorderLayout.WEST);
 		menu.add(file);
 		menu.add(edit);
 		
@@ -63,7 +63,7 @@ public class CluedoFrame extends JFrame{
 		//then add menu and panels to frame
 		setJMenuBar(menu);
 		add(board, BorderLayout.NORTH);		
-		add(options, BorderLayout.EAST);
+		add(options, BorderLayout.WEST);
 		add(cards, BorderLayout.SOUTH);
 		
 		// Center window in screen
@@ -73,7 +73,7 @@ public class CluedoFrame extends JFrame{
 		pack();
 				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(false);
+		setResizable(true);
 		setVisible(true);
 		repaint();
 	}

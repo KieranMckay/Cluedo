@@ -29,8 +29,9 @@ public class BoardPanel extends JPanel{
 
 	public BoardPanel(JFrame frame) {
 		this.frame = frame;
-		BufferedImage image = loadImage("cluedo_board_1.png");
+		BufferedImage image = loadImage("test.png");
 		JLabel boardImage = new JLabel(new ImageIcon(image));
+		boardImage.setMaximumSize(new Dimension(100, 100));
 		add(boardImage);
 	}
 	
