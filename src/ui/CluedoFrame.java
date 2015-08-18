@@ -29,7 +29,7 @@ public class CluedoFrame extends JFrame{
 	private JMenuItem edit = new JMenuItem("Edit");
 	
 	//TODO each of these needs to be a class that extends JPanel
-	private JPanel board = new JPanel();
+	private BoardPanel board = new BoardPanel(this);
 	private JPanel cards = new JPanel();
 	private JPanel options = new JPanel();
 
@@ -75,5 +75,10 @@ public class CluedoFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
+		repaint();
 	}
+	
+	public void repaint() {
+		board.repaint();
+	}	
 }

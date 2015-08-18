@@ -24,79 +24,26 @@ public class BoardPanel extends JPanel{
 	private static final String IMAGE_PATH = "images/";
 	private Font font = new Font("Arial",Font.BOLD,24);
 
-	private Game game;
-	private Board gameBoard;
 	private JFrame frame;
+	
 
-	public BoardPanel(JFrame frame, Game game) {
-		this.game = game;
-		this.gameBoard = game.getBoard();
+	public BoardPanel(JFrame frame) {
 		this.frame = frame;
+		BufferedImage image = loadImage("cluedo_board_1.png");
+		JLabel boardImage = new JLabel(new ImageIcon(image));
+		add(boardImage);
 	}
+	
+	
 
-	public void paint(Graphics g) {
-		int width = gameBoard.width();
-		int height = gameBoard.height();
-
+	public void paint(Graphics g) {		
+		super.paint(g);
+		
 		// First, draw the board
-
+		
 		// Second, draw the characters
 
 		// finally, draw any messages
-	}
-
-	private void drawMessage(String msg, Graphics g) {
-		g.setFont(font);
-		int width = gameBoard.width();
-		int height = gameBoard.height();
-		FontMetrics metrics = g.getFontMetrics();
-		int ascent = metrics.getAscent();
-		char[] chars = msg.toCharArray();
-		int msgWidth = metrics.charsWidth(msg.toCharArray(),0,msg.length());
-		int msgHeight = metrics.getHeight();
-		int boxWidth = msgWidth + 30;
-		int boxHeight = msgHeight + 30;
-		int x = ((width*30) - boxWidth) / 2;
-		int y = ((height*30) - boxHeight) / 2;
-		g.setColor(Color.DARK_GRAY);
-		g.fillRect(x,y, boxWidth, boxHeight);
-		g.setColor(Color.yellow);
-		g.drawRect(x,y, boxWidth, boxHeight);
-		g.drawRect(x+1,y+1, boxWidth-2, boxHeight-2);
-		g.drawChars(chars,0,chars.length,x+15,y+15+ascent);
-		offscreen = null; // reset offscreen, since we want to get rid of the
-							// message
-	}
-
-
-	private Image offscreen = null;
-
-	public void update(Graphics g) {
-		if(offscreen == null) {
-			initialiseOffscreen();
-		}
-		Image localOffscreen = offscreen;
-		Graphics offgc = offscreen.getGraphics();
-		// do normal redraw
-		paint(offgc);
-		// transfer offscreen to window
-		g.drawImage(localOffscreen, 0, 0, this);
-	}
-
-	private void initialiseOffscreen() {
-		Dimension d = size();
-		offscreen = createImage(d.width, d.height);
-		// clear the exposed area
-		Graphics offgc = offscreen.getGraphics();
-		offgc.setColor(getBackground());
-		offgc.fillRect(0, 0, d.width, d.height);
-		offgc.setColor(getForeground());
-
-		int width = gameBoard.width();
-		int height = gameBoard.height();
-
-		// First, draw the board
-
 	}
 
 	/**
@@ -105,14 +52,14 @@ public class BoardPanel extends JPanel{
 	 * @param filename
 	 * @return
 	 */
-	public static Image loadImage(String filename) {
+	public static BufferedImage loadImage(String filename) {
 		// using the URL means the image loads when stored
 		// in a jar or expanded into individual files.
 		java.net.URL imageURL = BoardPanel.class.getResource(IMAGE_PATH
 				+ filename);
 
 		try {
-			Image img = ImageIO.read(imageURL);
+			BufferedImage img = ImageIO.read(new File( IMAGE_PATH + filename ) ); //TODO get imageURL working?
 			return img;
 		} catch (IOException e) {
 			// we've encountered an error loading the image. There's not much we
