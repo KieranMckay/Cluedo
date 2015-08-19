@@ -1,0 +1,121 @@
+package gui_design;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import javax.swing.JRadioButton;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+
+
+public class playerSelection {
+
+	private JFrame frame;
+	private JPanel panel_1;
+	private JRadioButton rdbtnWhite;
+	private JRadioButton rdbtnGreen;
+	private JRadioButton rdbtnPeacock;
+	private JRadioButton rdbtnPlum;
+	private JRadioButton rdbtnMustard;
+	private JRadioButton rdbtnScarlet;
+	private JPanel panel_2;
+	private JLabel scarletLabel;
+	private JLabel mustardLabel;
+	private JLabel plumLabel;
+	private JLabel peacockLabel;
+	private JLabel greenLabel;
+	private JLabel whiteLabel;
+	private JLabel lblNewLabel;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					playerSelection window = new playerSelection();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public playerSelection() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 908, 899);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel = new JPanel();
+		frame.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		panel_1 = new JPanel();
+		panel.add(panel_1, BorderLayout.SOUTH);
+		
+		rdbtnScarlet = new JRadioButton("Scarlet");
+		panel_1.add(rdbtnScarlet);
+		
+		rdbtnMustard = new JRadioButton("Mustard");
+		panel_1.add(rdbtnMustard);
+		
+		rdbtnPlum = new JRadioButton("Plum");
+		panel_1.add(rdbtnPlum);
+		
+		rdbtnPeacock = new JRadioButton("Peacock");
+		panel_1.add(rdbtnPeacock);
+		
+		rdbtnGreen = new JRadioButton("Green");
+		panel_1.add(rdbtnGreen);
+		
+		rdbtnWhite = new JRadioButton("White");
+		panel_1.add(rdbtnWhite);
+		
+		panel_2 = new JPanel();
+		panel.add(panel_2, BorderLayout.CENTER);
+		
+		scarletLabel = new JLabel("");
+		scarletLabel.setLabelFor(rdbtnScarlet);
+		scarletLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\MissScarlet.png"));
+		panel_2.add(scarletLabel);
+		
+		mustardLabel = new JLabel("");
+		mustardLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\ColMustard.png"));
+		panel_2.add(mustardLabel);
+		
+		plumLabel = new JLabel("");
+		plumLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\ProfessorPlum.png"));
+		panel_2.add(plumLabel);
+		
+		peacockLabel = new JLabel("");
+		peacockLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\MrsPeacock.png"));
+		panel_2.add(peacockLabel);
+		
+		greenLabel = new JLabel("");
+		greenLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\MrGreen.png"));
+		panel_2.add(greenLabel);
+		
+		whiteLabel = new JLabel("");
+		whiteLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\MrsWhite.png"));
+		panel_2.add(whiteLabel);
+		
+		lblNewLabel = new JLabel("SELECT PLAYER MOTHER FUCKER");
+		panel.add(lblNewLabel, BorderLayout.NORTH);
+	}
+
+}

@@ -62,7 +62,7 @@ public class CluedoFrame extends JFrame{
 		options.add(end, 4);		
 		
 		//add components to cards panel
-		cards.
+		//cards.
 		
 		//then add menu and panels to frame
 		setJMenuBar(menu);
