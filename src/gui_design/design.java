@@ -60,7 +60,7 @@ public class design {
 		frmCluedo = new JFrame();
 		frmCluedo.setBackground(Color.RED);
 		frmCluedo.setTitle("Cluedo");
-		frmCluedo.setBounds(100, 100, 844, 850);
+		frmCluedo.setBounds(100, 100, 838, 1124);
 		frmCluedo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -84,7 +84,7 @@ public class design {
 		
 		JLabel lblBoardImage = new JLabel("");
 		boardPanel.add(lblBoardImage);
-		lblBoardImage.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\test.png"));
+		lblBoardImage.setIcon(new ImageIcon(design.class.getResource("/cluedo_board_3.png")));
 		lblBoardImage.setVerticalAlignment(SwingConstants.TOP);
 		lblBoardImage.setHorizontalAlignment(SwingConstants.LEFT);
 		lblBoardImage.setBackground(Color.DARK_GRAY);
