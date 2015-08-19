@@ -23,10 +23,11 @@ public class BoardPanel extends JPanel{
 	private Font font = new Font("Arial",Font.BOLD,24);
 
 	private JFrame frame;
-
+	BufferedImage testImage;
 	public BoardPanel(JFrame frame) {
 		this.frame = frame;
 		BufferedImage image = loadImage("cluedo_board.png");
+		testImage = loadImage("cluedo_board.png");
 		JLabel boardImage = new JLabel(new ImageIcon(image));
 		boardImage.setMaximumSize(new Dimension(100, 100));
 		add(boardImage);
@@ -40,7 +41,7 @@ public class BoardPanel extends JPanel{
 		g.setColor(Color.red);
 		g.fillOval(50, 50, 50, 50);
 		// First, draw the board
-
+		g.drawImage(testImage, 100, 100, 60, 60, null);
 		// Second, draw the characters
 
 		// finally, draw any messages
