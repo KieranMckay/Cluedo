@@ -25,7 +25,7 @@ public class BoardPanel extends JPanel{
 	private Font font = new Font("Arial",Font.BOLD,24);
 
 	private JFrame frame;
-	
+
 
 	public BoardPanel(JFrame frame) {
 		this.frame = frame;
@@ -34,14 +34,14 @@ public class BoardPanel extends JPanel{
 		boardImage.setMaximumSize(new Dimension(100, 100));
 		add(boardImage);
 	}
-	
-	
 
-	public void paint(Graphics g) {		
+
+
+	public void paint(Graphics g) {
 		super.paint(g);
-		
+
 		// First, draw the board
-		
+
 		// Second, draw the characters
 
 		// finally, draw any messages
