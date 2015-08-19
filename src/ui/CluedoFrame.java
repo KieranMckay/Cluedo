@@ -25,6 +25,7 @@ public class CluedoFrame extends JFrame{
 	}
 
 	private JMenuBar menu = new JMenuBar();
+
 	private JMenu file = new JMenu("File");
 	private JMenu edit = new JMenu("Edit");
 
