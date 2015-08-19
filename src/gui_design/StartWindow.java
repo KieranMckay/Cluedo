@@ -2,24 +2,44 @@ package gui_design;
 
 import java.awt.EventQueue;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
+
 import javax.swing.JToggleButton;
 
 import control.Game;
 
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
+
 import java.awt.event.ActionEvent;
+
 import javax.swing.Action;
+
+import java.awt.event.ActionListener;
+
+import javax.swing.JLabel;
+import javax.xml.bind.ParseConversionEvent;
+
+import ui.CluedoFrame;
+
+import com.jgoodies.forms.factories.DefaultComponentFactory;
+import java.awt.SystemColor;
+import java.awt.FlowLayout;
+import java.awt.Font;
 
 public class StartWindow {
 
 	private JFrame frame;
-	private final Action action = new SwingAction();
+	private int numPlayers = -1;
 
 	/**
 	 * Launch the application.
@@ -51,31 +71,49 @@ public class StartWindow {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
+		JDialog dlog = new JDialog();
+		dlog.setTitle("Select Number of Players");
+		dlog.setSize(400, 200);
+		dlog.getContentPane().setLayout(new GridLayout(2,1));
+		JButton dlogButton = new JButton("Start Game");
+		JTextArea dlogText= new JTextArea("Enter number of players...");
+
+		dlogButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					numPlayers = Integer.parseInt(dlogText.getText());
+					//Player choice Here
+					new CluedoFrame();
+				} catch(Exception error){
+					JOptionPane.showMessageDialog(dlog, "INVALID ENTRY");
+				}
+			}
+		});
+
+		dlog.getContentPane().add(dlogText, 0);
+		dlog.getContentPane().add(dlogButton, 1);
+
+
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new CardLayout(0, 0));
-		
-		JPanel welcome = new JPanel();
-		welcome.setBackground(Color.RED);
-		panel.add(welcome, "name_449189232793095");
-		
-		JButton btnStart = new JButton("Start");
-		btnStart.setAction(action);
-		welcome.add(btnStart);
-		
-		JPanel playerCount = new JPanel();
-		playerCount.setBackground(Color.ORANGE);
-		panel.add(playerCount, "name_449228520538786");
-	}
+		panel.setLayout(new BorderLayout(0, 0));
 
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-		public void actionPerformed(ActionEvent e) {
-			System.out.println("start");
-		}
+		JPanel welcome = new JPanel();
+		welcome.setBackground(SystemColor.desktop);
+		panel.add(welcome);
+
+		JButton btnStart = new JButton("Start");
+		btnStart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					dlog.show();
+			}
+		});
+		welcome.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblWelc = new JLabel("Welcome To Cluedo");
+		lblWelc.setFont(lblWelc.getFont().deriveFont(lblWelc.getFont().getSize() + 24f));
+		welcome.add(lblWelc, BorderLayout.CENTER);
+		welcome.add(btnStart, BorderLayout.SOUTH);
 	}
 }

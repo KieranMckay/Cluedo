@@ -66,7 +66,7 @@ public class CluedoFrame extends JFrame{
 		setJMenuBar(menu);
 		add(board, BorderLayout.NORTH);
 		add(options, BorderLayout.WEST);
-		add(cards, BorderLayout.EAST);
+		add(cards, BorderLayout.CENTER);
 
 		// Center window in screen
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
