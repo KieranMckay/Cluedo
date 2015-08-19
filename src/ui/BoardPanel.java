@@ -5,9 +5,7 @@ import game.Board;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
+
 
 import javax.swing.*;
 import javax.imageio.ImageIO;
@@ -26,20 +24,21 @@ public class BoardPanel extends JPanel{
 
 	private JFrame frame;
 
-
 	public BoardPanel(JFrame frame) {
 		this.frame = frame;
-		BufferedImage image = loadImage("test.png");
+		BufferedImage image = loadImage("cluedo_board.png");
 		JLabel boardImage = new JLabel(new ImageIcon(image));
 		boardImage.setMaximumSize(new Dimension(100, 100));
 		add(boardImage);
+
 	}
 
 
 
 	public void paint(Graphics g) {
 		super.paint(g);
-
+		g.setColor(Color.red);
+		g.fillOval(50, 50, 50, 50);
 		// First, draw the board
 
 		// Second, draw the characters
@@ -56,11 +55,10 @@ public class BoardPanel extends JPanel{
 	public static BufferedImage loadImage(String filename) {
 		// using the URL means the image loads when stored
 		// in a jar or expanded into individual files.
-		java.net.URL imageURL = BoardPanel.class.getResource(IMAGE_PATH
-				+ filename);
+		java.net.URL imageURL = BoardPanel.class.getResource("/"+filename);
 
 		try {
-			BufferedImage img = ImageIO.read(new File( IMAGE_PATH + filename ) ); //TODO get imageURL working?
+			BufferedImage img = ImageIO.read(imageURL); //TODO get imageURL working?
 			return img;
 		} catch (IOException e) {
 			// we've encountered an error loading the image. There's not much we
