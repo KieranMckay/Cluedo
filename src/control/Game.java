@@ -16,12 +16,12 @@ import ui.Menu;
  */
 public class Game{
 	//All the characters names
-	private final String[] CHARACTER_LIST = { "Shrek", "David Bain", "Kieran", "Johnny", "Batman", "Hannible" };
+	public static final String[] CHARACTER_LIST = { "Miss Scarlet", "Colonel Mustard", "Mrs Peacock", "Professor Plum", "Mr Green", "Mrs White" };
 	//all the weapons names
-	private final String[] WEAPONS_LIST = { "Nokia", "Chainsaw", "Assault Rifle", "Chair", "Cucumber", "Brevel 600W Blender" };
+	public static final String[] WEAPONS_LIST = { "Candlestick", "Lead Pipe", "Dagger", "Rope", "Revolver", "Spanner" };
 	//all the rooms names
-	private final String[] ROOM_LIST = { "Swamp", "Dungeon","Lab X", "The Hub", "Watchtower", "Boat House",
-		"Cardboard Box", "Mancave", "Patio" };
+	public static final String[] ROOM_LIST = { "Kitchen", "Ball Room","Conservatory", "Billiard Room", "Library", "Study",
+		"Hall", "Lounge", "Dining Room" };
 
 	private final int MIN_PLAYERS = 3;  	//minimum number of human players
 	private final int MAX_PLAYERS = CHARACTER_LIST.length;	//maximum number of human players
