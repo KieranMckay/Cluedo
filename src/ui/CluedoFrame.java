@@ -49,7 +49,6 @@ public class CluedoFrame extends JFrame{
 		setLayout(new BorderLayout());
 
 		//add components to menu
-		menu.setLayout(new GridLayout(1,2));
 		menu.add(file, 0);
 		menu.add(edit, 1);
 
@@ -62,7 +61,6 @@ public class CluedoFrame extends JFrame{
 		options.add(end, 4);
 
 		//add components to cards panel
-		//cards.
 
 		//then add menu and panels to frame
 		setJMenuBar(menu);
