@@ -3,7 +3,6 @@ package ui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
@@ -13,10 +12,10 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 
 import javax.swing.JButton;
+import javax.swing.JMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import javax.swing.JDialog;
 
 public class CluedoFrame extends JFrame{
@@ -26,8 +25,9 @@ public class CluedoFrame extends JFrame{
 	}
 
 	private JMenuBar menu = new JMenuBar();
-	private JMenuItem file = new JMenuItem("File");
-	private JMenuItem edit = new JMenuItem("Edit");
+
+	private JMenu file = new JMenu("File");
+	private JMenu edit = new JMenu("Edit");
 
 	//TODO each of these needs to be a class that extends JPanel
 	private BoardPanel board = new BoardPanel(this);
@@ -49,7 +49,6 @@ public class CluedoFrame extends JFrame{
 		setLayout(new BorderLayout());
 
 		//add components to menu
-		menu.setLayout(new GridLayout(1,2));
 		menu.add(file, 0);
 		menu.add(edit, 1);
 
@@ -62,7 +61,6 @@ public class CluedoFrame extends JFrame{
 		options.add(end, 4);
 
 		//add components to cards panel
-		//cards.
 
 		//then add menu and panels to frame
 		setJMenuBar(menu);

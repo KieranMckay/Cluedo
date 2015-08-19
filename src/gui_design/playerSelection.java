@@ -81,50 +81,45 @@ public class playerSelection {
 		rdbtnWhite = new JRadioButton("White");
 
 		btnGroup.add(rdbtnScarlet);
-		rdbtnPanel.add(rdbtnScarlet);
-
 		btnGroup.add(rdbtnMustard);
-		rdbtnPanel.add(rdbtnMustard);
-
 		btnGroup.add(rdbtnPlum);
-		rdbtnPanel.add(rdbtnPlum);
-
 		btnGroup.add(rdbtnPeacock);
-		rdbtnPanel.add(rdbtnPeacock);
-
 		btnGroup.add(rdbtnGreen);
-		rdbtnPanel.add(rdbtnGreen);
-
 		btnGroup.add(rdbtnWhite);
+		
+		rdbtnPanel.add(rdbtnScarlet);
+		rdbtnPanel.add(rdbtnMustard);
+		rdbtnPanel.add(rdbtnPlum);
+		rdbtnPanel.add(rdbtnPeacock);
+		rdbtnPanel.add(rdbtnGreen);
 		rdbtnPanel.add(rdbtnWhite);
-
 
 		characterLabelPanel = new JPanel();
 		panel.add(characterLabelPanel, BorderLayout.CENTER);
 
 		scarletLabel = new JLabel("");
 		scarletLabel.setLabelFor(rdbtnScarlet);
-		scarletLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\MissScarlet.png"));
+		scarletLabel.setIcon(new ImageIcon(playerSelection.class.getResource("/MissScarlet.png")));
 		characterLabelPanel.add(scarletLabel);
 
 		mustardLabel = new JLabel("");
-		mustardLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\ColMustard.png"));
+		mustardLabel.setIcon(new ImageIcon(playerSelection.class.getResource("/ColMustard.png")));
 		characterLabelPanel.add(mustardLabel);
 
 		plumLabel = new JLabel("");
-		plumLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\ProfessorPlum.png"));
+		plumLabel.setIcon(new ImageIcon(playerSelection.class.getResource("/ProfessorPlum.png")));
 		characterLabelPanel.add(plumLabel);
 
 		peacockLabel = new JLabel("");
-		peacockLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\MrsPeacock.png"));
+		peacockLabel.setIcon(new ImageIcon(playerSelection.class.getResource("/MrsPeacock.png")));
 		characterLabelPanel.add(peacockLabel);
 
 		greenLabel = new JLabel("");
-		greenLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\MrGreen.png"));
+		greenLabel.setIcon(new ImageIcon(playerSelection.class.getResource("/MrGreen.png")));
 		characterLabelPanel.add(greenLabel);
 
 		whiteLabel = new JLabel("");
-		whiteLabel.setIcon(new ImageIcon("E:\\Eclipse\\workspace\\Cluedo\\images\\MrsWhite.png"));
+		whiteLabel.setIcon(new ImageIcon(playerSelection.class.getResource("/MrsWhite.png")));
 		characterLabelPanel.add(whiteLabel);
 
 		lblNewLabel = new JLabel("SELECT PLAYER MOTHER FUCKER");
