@@ -55,13 +55,6 @@ public class CluedoFrame extends JFrame{
 
 	Map<String,BufferedImage> cardImages = new HashMap<String,BufferedImage>();
 
-	public  BufferedImage mrGreenImg;
-	public  BufferedImage colMustardImg;
-	public  BufferedImage missScarletImg;
-	public  BufferedImage mrsWhiteImg;
-	public  BufferedImage mrsPeacockImg;
-	public  BufferedImage profPlumImg;
-
 
 	public CluedoFrame(Game game){
 		super("Cluedo");
@@ -104,16 +97,20 @@ public class CluedoFrame extends JFrame{
 	}
 
 	private void importCards() {
-		for(String name : Game.CHARACTER_LIST){
-			cardImages.put(name,null); //populate with null
-		}
 		//populate map with images
-		/*mrGreenImg = BoardPanel.loadImage("MrGreen.png");
-		profPlumImg = BoardPanel.loadImage("ProfessorPlum.png");
-		colMustardImg = BoardPanel.loadImage("ColMustard.png");
-		missScarletImg = BoardPanel.loadImage("MissScarlet.png");
-		mrsPeacockImg = BoardPanel.loadImage("MrsPeacock.png");
-		mrsWhiteImg = BoardPanel.loadImage("MrsWhite.png");*/
+		cardImages.put(Game.CHARACTER_LIST[0], BoardPanel.loadImage("MissScarlet.png"));
+		cardImages.put(Game.CHARACTER_LIST[1],BoardPanel.loadImage("ColMustard.png"));
+		cardImages.put(Game.CHARACTER_LIST[2],BoardPanel.loadImage("MrsPeacock.png"));
+		cardImages.put(Game.CHARACTER_LIST[3],BoardPanel.loadImage("ProfessorPlum.png"));
+		cardImages.put(Game.CHARACTER_LIST[4],BoardPanel.loadImage("MrGreen.png"));
+		cardImages.put(Game.CHARACTER_LIST[5],BoardPanel.loadImage("MrsWhite.png"));
+		
+		cardImages.put(Game.WEAPONS_LIST[0],BoardPanel.loadImage("candlestick.png"));
+		cardImages.put(Game.WEAPONS_LIST[1],BoardPanel.loadImage("leadpipe.png"));
+		cardImages.put(Game.WEAPONS_LIST[2],BoardPanel.loadImage("dagger.png"));
+		cardImages.put(Game.WEAPONS_LIST[3],BoardPanel.loadImage("rope.png"));
+		cardImages.put(Game.WEAPONS_LIST[4],BoardPanel.loadImage("revolver.png"));
+		cardImages.put(Game.WEAPONS_LIST[5],BoardPanel.loadImage("spanner.png"));
 	}
 
 	public void repaint() {
