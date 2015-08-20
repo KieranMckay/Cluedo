@@ -1,4 +1,4 @@
-package gui_design;
+package ui;
 
 import java.awt.EventQueue;
 
@@ -29,9 +29,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.xml.bind.ParseConversionEvent;
 
-import ui.CluedoFrame;
-
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import java.awt.SystemColor;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -39,29 +36,14 @@ import java.awt.Font;
 public class StartWindow {
 
 	private JFrame frame;
-	private int numPlayers = -1;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StartWindow window = new StartWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private Game game;
 	/**
 	 * Create the application.
 	 */
-	public StartWindow() {
+	public StartWindow(Game game) {
+		this.game = game;
 		initialize();
+		frame.setVisible(true);
 	}
 
 	/**
@@ -77,14 +59,18 @@ public class StartWindow {
 		dlog.setSize(400, 200);
 		dlog.getContentPane().setLayout(new GridLayout(2,1));
 		JButton dlogButton = new JButton("Start Game");
-		JTextArea dlogText= new JTextArea("Enter number of players...");
+		JTextArea dlogText= new JTextArea(String.format("Enter number of players between %d and %d", game.MIN_PLAYERS, game.MAX_PLAYERS));
 
 		dlogButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					numPlayers = Integer.parseInt(dlogText.getText());
-					//Player choice Here
-					new CluedoFrame();
+					game.numPlayers = Integer.parseInt(dlogText.getText());
+					if (game.numPlayers >= game.MIN_PLAYERS && game.MAX_PLAYERS >= game.numPlayers){
+						//change this to player selection window
+						new CluedoFrame(game);
+					}else{
+						JOptionPane.showMessageDialog(dlog, "INVALID ENTRY");
+					}
 				} catch(Exception error){
 					JOptionPane.showMessageDialog(dlog, "INVALID ENTRY");
 				}

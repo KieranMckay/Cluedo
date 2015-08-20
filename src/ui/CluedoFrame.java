@@ -31,9 +31,7 @@ import control.Game;
 
 public class CluedoFrame extends JFrame{
 
-	public static void main(String[] args){
-		new CluedoFrame();
-	}
+	private Game game;
 
 	private JMenuBar menu = new JMenuBar();
 
@@ -41,7 +39,7 @@ public class CluedoFrame extends JFrame{
 	private JMenu edit = new JMenu("Edit");
 
 	//TODO each of these needs to be a class that extends JPanel
-	private BoardPanel board = new BoardPanel(this);
+	private BoardPanel board = new BoardPanel();
 	private JPanel cards = new CardsPanel();
 	private JPanel options = new JPanel();
 
@@ -65,8 +63,9 @@ public class CluedoFrame extends JFrame{
 	public  BufferedImage profPlumImg;
 
 
-	public CluedoFrame(){
+	public CluedoFrame(Game game){
 		super("Cluedo");
+		this.game = game;
 
 		importCards();
 
@@ -141,8 +140,8 @@ public class CluedoFrame extends JFrame{
 			int numCards = player.getHand().size();
 			int cardSize = this.WIDTH/(numCards+1);
 			for(Card c : player.getHand()){
-				BufferedImage img =
-				g.drawImage(img, , y, width, height, observer)
+			//	BufferedImage img =
+			//	g.drawImage(img, , y, width, height, observer)
 			}
 		}
 	}

@@ -14,36 +14,20 @@ import control.Game;
 
 public class BoardPanel extends JPanel{
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+	private static final String BOARD_NAME = "cluedo_board.png";
 
-	private static final String IMAGE_PATH = "images/";
-	private Font font = new Font("Arial",Font.BOLD,24);
-
-	private JFrame frame;
-	BufferedImage testImage;
-	public BoardPanel(JFrame frame) {
-		this.frame = frame;
-		BufferedImage image = loadImage("cluedo_board.png");
-		testImage = loadImage("cluedo_board.png");
+	public BoardPanel() {
+		BufferedImage image = loadImage(BOARD_NAME);
 		JLabel boardImage = new JLabel(new ImageIcon(image));
 		boardImage.setMaximumSize(new Dimension(100, 100));
 		add(boardImage);
 
 	}
 
-
-
 	public void paint(Graphics g) {
 		super.paint(g);
-		g.setColor(Color.red);
-		g.fillOval(50, 50, 50, 50);
 		// First, draw the board
-		g.drawImage(testImage, 100, 100, 60, 60, null);
 		// Second, draw the characters
-
 		// finally, draw any messages
 	}
 

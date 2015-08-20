@@ -5,6 +5,7 @@ import game.*;
 import java.util.*;
 
 import ui.Menu;
+import ui.StartWindow;
 
 /**
  * Wrapper class for cluedo game.
@@ -23,10 +24,10 @@ public class Game{
 	public static final String[] ROOM_LIST = { "Kitchen", "Ball Room","Conservatory", "Billiard Room", "Library", "Study",
 		"Hall", "Lounge", "Dining Room" };
 
-	private final int MIN_PLAYERS = 3;  	//minimum number of human players
-	private final int MAX_PLAYERS = CHARACTER_LIST.length;	//maximum number of human players
+	public final int MIN_PLAYERS = 3;  	//minimum number of human players
+	public final int MAX_PLAYERS = CHARACTER_LIST.length;	//maximum number of human players
 
-	private int numPlayers;  //number of human players in the game
+	public int numPlayers;  //number of human players in the game
 	private Map<Integer, Player> players = new HashMap<Integer, Player>(); //map where key is the players number to the player
 
 	private Board board; //holds the board object of the game
@@ -38,11 +39,18 @@ public class Game{
 	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (excluding murder envelope cards)
 	public static Map<String, Card> allCards = new HashMap<String, Card>();						//all of the clue cards (including murder envelope cards)
 
+	StartWindow start;
+
 
 	public Game(){
-		Menu menu = new Menu();
-		numPlayers = menu.promptNumberPlayers(MIN_PLAYERS, MAX_PLAYERS);
+		//numPlayers = menu.promptNumberPlayers(MIN_PLAYERS, MAX_PLAYERS);
 
+		start = new StartWindow(this);
+
+	}
+
+	public void start(){
+		Menu menu = new Menu();
 		initialise();
 		assignPlayers(menu);
 		dealCards();
