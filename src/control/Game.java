@@ -1,11 +1,13 @@
 package control;
 
 import game.*;
+import gui_design.PlayerSelectionFrame;
 
+import java.awt.Font;
 import java.util.*;
 
 import ui.Menu;
-import ui.StartWindow;
+import ui.StartFrame;
 
 /**
  * Wrapper class for cluedo game.
@@ -26,6 +28,7 @@ public class Game{
 
 	public final int MIN_PLAYERS = 3;  	//minimum number of human players
 	public final int MAX_PLAYERS = CHARACTER_LIST.length;	//maximum number of human players
+	public final Font FONT = new Font("Arial",Font.BOLD,24);
 
 	public int numPlayers;  //number of human players in the game
 	private Map<Integer, Player> players = new HashMap<Integer, Player>(); //map where key is the players number to the player
@@ -39,14 +42,9 @@ public class Game{
 	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (excluding murder envelope cards)
 	public static Map<String, Card> allCards = new HashMap<String, Card>();						//all of the clue cards (including murder envelope cards)
 
-	StartWindow start;
-
 
 	public Game(){
-		//numPlayers = menu.promptNumberPlayers(MIN_PLAYERS, MAX_PLAYERS);
-
-		start = new StartWindow(this);
-
+		new StartFrame(this);
 	}
 
 	public void start(){
@@ -54,7 +52,7 @@ public class Game{
 		initialise();
 		assignPlayers(menu);
 		dealCards();
-		gameLoop(menu);
+		//gameLoop(menu);
 	}
 
 	/**
@@ -235,18 +233,23 @@ public class Game{
 	 *
 	 * @param menu - used to interact with the user
 	 */
-	private void assignPlayers(Menu menu) {
+	public void assignPlayers(Menu menu) {
 		List<String> availableCharacters = new ArrayList<String>();//List of all the available characters to choose from
 		for(int i = 0; i < CHARACTER_LIST.length; i++){
 			availableCharacters.add(CHARACTER_LIST[i]);
 		}
-
+		new PlayerSelectionFrame(this, availableCharacters, numPlayers);
 		//each player gets to choose a character from the remaining list
-		for(int i = 0; i < numPlayers; i++){
-			String characterName = menu.newPlayer(i, availableCharacters);
-			Player p = new Player(i+1, characters.get(characterName), allCards);
-			players.put(i+1, p);
-		}
+		//for(int i = 0; i < numPlayers; i++){
+		//	String characterName = menu.newPlayer(i, availableCharacters);
+		//	Player p = new Player(i+1, characters.get(characterName), allCards);
+		//	players.put(i+1, p);
+		//}
+	}
+
+	public void createPlayer(int playerNumber, String choice){
+		Player p = new Player(playerNumber, characters.get(choice), allCards);
+		players.put(playerNumber, p);
 	}
 
 	/**

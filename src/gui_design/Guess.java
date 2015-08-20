@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import java.awt.BorderLayout;
 
-public class guess {
+public class Guess {
 
 	private JFrame frame;
 
@@ -17,7 +17,7 @@ public class guess {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					guess window = new guess();
+					Guess window = new Guess();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -29,7 +29,7 @@ public class guess {
 	/**
 	 * Create the application.
 	 */
-	public guess() {
+	public Guess() {
 		initialize();
 	}
 
