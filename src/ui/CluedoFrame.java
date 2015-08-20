@@ -55,7 +55,6 @@ public class CluedoFrame extends JFrame{
 
 	Map<String,BufferedImage> cardImages = new HashMap<String,BufferedImage>();
 
-
 	public CluedoFrame(Game game){
 		super("Cluedo");
 		this.game = game;
@@ -104,7 +103,7 @@ public class CluedoFrame extends JFrame{
 		cardImages.put(Game.CHARACTER_LIST[3],BoardPanel.loadImage("ProfessorPlum.png"));
 		cardImages.put(Game.CHARACTER_LIST[4],BoardPanel.loadImage("MrGreen.png"));
 		cardImages.put(Game.CHARACTER_LIST[5],BoardPanel.loadImage("MrsWhite.png"));
-		
+
 		cardImages.put(Game.WEAPONS_LIST[0],BoardPanel.loadImage("candlestick.png"));
 		cardImages.put(Game.WEAPONS_LIST[1],BoardPanel.loadImage("leadpipe.png"));
 		cardImages.put(Game.WEAPONS_LIST[2],BoardPanel.loadImage("dagger.png"));
@@ -122,7 +121,6 @@ public class CluedoFrame extends JFrame{
 
 		Player player;
 
-
 		public Player getPlayer() {
 			return player;
 		}
@@ -135,11 +133,14 @@ public class CluedoFrame extends JFrame{
 
 		public void paint(Graphics g){
 			int numCards = player.getHand().size();
-			int cardSize = this.WIDTH/(numCards+1);
-			for(Card c : player.getHand()){
-			//	BufferedImage img =
-			//	g.drawImage(img, , y, width, height, observer)
+			int cardWidth = this.WIDTH/(numCards+1);
+			int i = 0;
+			for(Card c : player.getHand()){ //draw the cards across the cardPanel
+				BufferedImage image = cardImages.get(c.toString());
+				g.drawImage(image, cardWidth*i, 0,cardWidth,(int)(((float)image.getWidth()/cardWidth)*image.getHeight()),null); 
+				i++;
 			}
 		}
 	}
+	
 }
