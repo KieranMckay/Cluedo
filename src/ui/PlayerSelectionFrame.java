@@ -151,7 +151,7 @@ public class PlayerSelectionFrame extends JFrame{
 						new PlayerSelectionFrame(game, remainingCharacters, remainingNumPlayers-1);
 					}else {
 						game.dealCards();
-						game.gameLoop();
+						game.game = new CluedoFrame(game);
 					}
 					dispose();
 				}

@@ -39,6 +39,7 @@ public class Game{
 	public Player player;
 	public int playersLeft = 0;
 	public Turn turn;
+	public CluedoFrame game;
 
 	public static Map<String, Token> characters = new HashMap<String, Token>(); 	//all of the playable characters/suspects
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
@@ -49,58 +50,6 @@ public class Game{
 
 	public Game(){
 		new StartFrame(this);
-	}
-
-	/**
-	 * Controls the game logic in a loop until the game is over
-	 */
-	public void gameLoop(){
-		CluedoFrame game = new CluedoFrame(this);
-
-
-		//while(true){
-
-			/*
-			Turn turn = new Turn(p, board, game, murderEnvelope);  //turn object for interfacing a player and the menu to control their turn
-
-			//perform turn methods here!!!!!!!!!!!!
-			Suggestion mySuggestion = turn.takeTurn();
-
-			if(mySuggestion != null){  //the player has made either a suggestion or accusation this turn
-				if(mySuggestion.isAccusation()){ // the player has made an accusation
-					//process accusation logic here
-					Accusation myAccusation = (Accusation) mySuggestion;
-					Player accuser = myAccusation.getPlayer();
-
-					if(myAccusation.isCorrect()){
-						menu.printWinner(accuser, murderEnvelope);
-						return;
-					} else {
-						accuser.setInGame(false);
-						playersLeft--;
-						//menu.playerRemoval(accuser, myAccusation.getGuess());
-
-						if(playersLeft == 1){
-							for ( Player player : players.values() ){
-								if(player.isInGame()){
-									//menu.printWinner(player, murderEnvelope);
-								}
-							}
-							return;
-						}
-					}
-				} else { //player made a suggestion
-					handleSuggestion(mySuggestion);
-					Card refuted = handleRefute(pTurn, mySuggestion);
-					if (refuted == null){
-						//menu.println("No one could refute your suggestion.");
-					} else {
-						p.removeSuspect(refuted);
-					}
-				}
-			}
-			*/
-		//}
 	}
 
 	public void makeTurn(CluedoFrame game){

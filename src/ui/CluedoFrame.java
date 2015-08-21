@@ -148,10 +148,10 @@ public class CluedoFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (game.turn.turns > 0){
-					JOptionPane.showMessageDialog(playerDialog, "You have already rolled the dice this turn.");
+					JOptionPane.showMessageDialog(dice, "You have already rolled the dice this turn.");
 				} else{
 					game.turn.rollDice();
-					JOptionPane.showMessageDialog(playerDialog, String.format("You rolled a %d",game.turn.turns));
+					JOptionPane.showMessageDialog(dice, String.format("You rolled a %d",game.turn.turns));
 				}
 			}
 		});
@@ -162,7 +162,7 @@ public class CluedoFrame extends JFrame{
 				if (game.turn.turns > 0){
 					// TODO MOVE HERE
 				} else{
-					JOptionPane.showMessageDialog(playerDialog, "Please roll the dice before moving.");
+					JOptionPane.showMessageDialog(move, "Please roll the dice before moving.");
 				}
 			}
 		});
@@ -172,9 +172,7 @@ public class CluedoFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				game.turn.makeSuggestion();
-				game.endPlayerTurn();
-				playerDialog.dispose();
-				currentPlayer();
+				endTurn();
 			}
 		});
 
@@ -183,6 +181,7 @@ public class CluedoFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				game.turn.makeAccusation();
+				endTurn();
 			}
 		});
 
@@ -190,13 +189,49 @@ public class CluedoFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO PROMPT ARE YOU SURE
-				game.endPlayerTurn();
-				playerDialog.dispose();
-				currentPlayer();
+				promptEndTurn();
 			}
 		});
 
+	}
+
+	public void promptEndTurn(){
+		JDialog end = new JDialog();
+		end.setTitle("End Turn");
+		end.setLayout(new BorderLayout());
+		end.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		end.setSize(300, 100);
+
+		JButton yes = new JButton("Yes");
+		JButton no = new JButton("No");
+		JLabel prompt = new JLabel("Are you sure you want to end your turn?");
+
+		yes.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				end.dispose();
+				endTurn();
+			}
+		});
+
+		no.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				end.dispose();
+			}
+		});
+
+		end.add(prompt, BorderLayout.NORTH);
+		end.add(yes, BorderLayout.WEST);
+		end.add(no, BorderLayout.EAST);
+
+		end.setVisible(true);
+	}
+
+	public void endTurn(){
+		game.endPlayerTurn();
+		playerDialog.dispose();
+		currentPlayer();
 	}
 
 	private class CardsPanel extends JPanel{
