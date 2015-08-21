@@ -147,15 +147,23 @@ public class CluedoFrame extends JFrame{
 		dice.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				game.turn.rollDice();
-				JOptionPane.showMessageDialog(playerDialog, String.format("You rolled a %d",game.turn.turns));
+				if (game.turn.turns > 0){
+					JOptionPane.showMessageDialog(playerDialog, "You have already rolled the dice this turn.");
+				} else{
+					game.turn.rollDice();
+					JOptionPane.showMessageDialog(playerDialog, String.format("You rolled a %d",game.turn.turns));
+				}
 			}
 		});
 
 		move.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO MOVE HERE
+				if (game.turn.turns > 0){
+					// TODO MOVE HERE
+				} else{
+					JOptionPane.showMessageDialog(playerDialog, "Please roll the dice before moving.");
+				}
 			}
 		});
 
@@ -164,6 +172,9 @@ public class CluedoFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				game.turn.makeSuggestion();
+				game.endPlayerTurn();
+				playerDialog.dispose();
+				currentPlayer();
 			}
 		});
 
