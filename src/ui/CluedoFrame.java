@@ -13,6 +13,8 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,6 +57,8 @@ public class CluedoFrame extends JFrame{
 
 		setLayout(new BorderLayout());
 
+		addActionListeners();
+
 		//add components to menu
 		menu.add(file, 0);
 		menu.add(edit, 1);
@@ -84,7 +88,6 @@ public class CluedoFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
-		//repaint();
 	}
 
 	private void importCards() {
@@ -105,7 +108,50 @@ public class CluedoFrame extends JFrame{
 	}
 
 	public void repaint() {
+		super.repaint();
 		board.repaint();
+	}
+
+	public void addActionListeners(){
+		dice.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				game.turn.rollDice();
+			}
+		});
+
+		move.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO MOVE HERE
+			}
+		});
+
+		suggest.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				game.turn.makeSuggestion();
+			}
+		});
+
+		accuse.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				game.turn.makeAccusation();
+			}
+		});
+
+		end.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				game.endPlayerTurn();
+			}
+		});
+
 	}
 
 	private class CardsPanel extends JPanel{

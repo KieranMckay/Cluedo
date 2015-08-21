@@ -5,7 +5,7 @@ import game.*;
 import java.awt.Font;
 import java.util.*;
 
-import ui.Menu;
+import ui.CluedoFrame;
 import ui.PlayerSelectionFrame;
 import ui.StartFrame;
 
@@ -36,6 +36,10 @@ public class Game{
 	private Board board; //holds the board object of the game
 	private Envelope murderEnvelope; //contains the murder scene cards (one weapon, one character, one room)
 
+	public Player player;
+	public int playersLeft = 0;
+	public Turn turn;
+
 	public static Map<String, Token> characters = new HashMap<String, Token>(); 	//all of the playable characters/suspects
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
 	public static Map<String, Room> rooms = new HashMap<String, Room>();			//all of the rooms in the game
@@ -50,25 +54,14 @@ public class Game{
 	/**
 	 * Controls the game logic in a loop until the game is over
 	 */
-	public void gameLoop(Menu menu){
-		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
-		int playersLeft = players.size();
+	public void gameLoop(){
+		CluedoFrame game = new CluedoFrame(this);
 
-		while(true){
-			Player p = players.get(pTurn);	//the current player whos turn it is
 
-			if(!p.isInGame()){ //the case the current player is no longer in the game, skip his turn
+		//while(true){
 
-				//increment pTurn so next loop will have next player
-				if(pTurn < players.size()){
-					pTurn++;
-				} else {
-					pTurn = 1;
-				}
-				continue;
-			}
-
-			Turn turn = new Turn(p, board, menu, murderEnvelope);  //turn object for interfacing a player and the menu to control their turn
+			/*
+			Turn turn = new Turn(p, board, game, murderEnvelope);  //turn object for interfacing a player and the menu to control their turn
 
 			//perform turn methods here!!!!!!!!!!!!
 			Suggestion mySuggestion = turn.takeTurn();
@@ -85,12 +78,12 @@ public class Game{
 					} else {
 						accuser.setInGame(false);
 						playersLeft--;
-						menu.playerRemoval(accuser, myAccusation.getGuess());
+						//menu.playerRemoval(accuser, myAccusation.getGuess());
 
 						if(playersLeft == 1){
 							for ( Player player : players.values() ){
 								if(player.isInGame()){
-									menu.printWinner(player, murderEnvelope);
+									//menu.printWinner(player, murderEnvelope);
 								}
 							}
 							return;
@@ -100,20 +93,81 @@ public class Game{
 					handleSuggestion(mySuggestion);
 					Card refuted = handleRefute(pTurn, mySuggestion);
 					if (refuted == null){
-						menu.println("No one could refute your suggestion.");
+						//menu.println("No one could refute your suggestion.");
 					} else {
 						p.removeSuspect(refuted);
 					}
 				}
 			}
+			*/
+		//}
+	}
 
-			//increment pTurn so next loop will have next player
-			if(pTurn < players.size()){
-				pTurn++;
-			} else {
-				pTurn = 1;
+	public void makeTurn(CluedoFrame game){
+
+		//TODO ADD START OF TURN DIALOG TO JFRAME HERE
+
+		Turn turn = new Turn(player, board, murderEnvelope);  //turn object for interfacing a player and the menu to control their turn
+
+		//perform turn methods here!!!!!!!!!!!!
+		Suggestion mySuggestion = null;
+
+		if(mySuggestion != null){  //the player has made either a suggestion or accusation this turn
+			if(mySuggestion.isAccusation()){ // the player has made an accusation
+				//process accusation logic here
+				Accusation myAccusation = (Accusation) mySuggestion;
+				Player accuser = myAccusation.getPlayer();
+
+				if(myAccusation.isCorrect()){
+					//TODO ADD WINNER JFRAME HERE
+					//Dialog should include winning by guess
+					return;
+				} else {
+					accuser.setInGame(false);
+					playersLeft--;
+					//TODO ADD PLAYER OUT OF GAME DIALOG BOX IN CLUEDO FRAME
+
+					if(playersLeft == 1){
+						for ( Player player : players.values() ){
+							if(player.isInGame()){
+								//TODO ADD WINNER JFRAME HERE
+								//Dialog should include winning by default, last remaining player
+							}
+						}
+						return;
+					}
+				}
+			} else { //player made a suggestion
+				handleSuggestion(mySuggestion);
+				Card refuted = handleRefute(player.getPlayerNumber(), mySuggestion);
+				if (refuted == null){
+					//TODO ADD NOT REFUTED DIALOG BOX IN CLUEDO FRAME
+				} else {
+					player.removeSuspect(refuted);
+					//TODO ADD REFUTED DIALOG BOX IN CLUEDO FRAME
+				}
 			}
 		}
+	}
+
+	/**
+	 * Updates the current player of the game when a turn is ended
+	 */
+	public void endPlayerTurn(){
+		int pTurn = player.getPlayerNumber();
+		if(pTurn < players.size()){
+			pTurn++;
+		} else {
+			pTurn = 1;
+		}
+		player = players.get(pTurn);
+
+		//TODO DEBUGGING ONLY REMOVE ME LATER
+		if (playersLeft <= 1){System.out.println("SHOULD NOT BE ABLE TO REACH, infinite loop in endPlayerTurn");}
+
+		//update player again if player is not in the game
+		if (!player.isInGame()){endPlayerTurn();}
+		turn = new Turn(player, board, murderEnvelope);
 	}
 
 	public void handleSuggestion(Suggestion mySuggestion) {
@@ -236,10 +290,13 @@ public class Game{
 	public void createPlayer(int playerNumber, String choice){
 		Player p = new Player(playerNumber, characters.get(choice), allCards);
 		players.put(playerNumber, p);
+		turn = new Turn(player, board, murderEnvelope);
+		playersLeft++;
 	}
 
 	/**
 	 * Deal out the clue cards to the players.
+	 * Also initialises the starting player at random.
 	 */
 	public void dealCards() {
 		int i = 0;
@@ -249,6 +306,9 @@ public class Game{
 			p.addCard(card);;
 			i++;
 		}
+
+		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
+		player = players.get(pTurn);
 	}
 
 	public Board getBoard(){

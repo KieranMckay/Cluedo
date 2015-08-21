@@ -1,7 +1,5 @@
 package ui;
 
-import game.Board;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -9,8 +7,6 @@ import java.io.*;
 
 import javax.swing.*;
 import javax.imageio.ImageIO;
-
-import control.Game;
 
 public class BoardPanel extends JPanel{
 

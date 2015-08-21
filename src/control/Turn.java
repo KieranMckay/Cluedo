@@ -17,47 +17,26 @@ import ui.*;
 public class Turn {
 	static Random dice = new Random();
 
+	Menu menu = new Menu();
+
 	private Player player;
-	private Menu menu;
+	//private Menu menu;
 	private Board board;
 	private Envelope murderEnvelope;
 	private int turns;
 
-	public Turn(Player player, Board board, Menu menu, Envelope murderEnvelope) {
+	public Turn(Player player, Board board, Envelope murderEnvelope) {
 		this.player = player;
-		this.menu = menu;
+		//this.menu = menu;
 		this.board = board;
 		this.murderEnvelope = murderEnvelope;
-		turns = rollDice();
-	}
-
-	/**
-	 * Initiates the logic of the player taking their turn.
-	 *
-	 * @return true if the player made an accusation or false if they did not
-	 */
-	public Suggestion takeTurn() {
-		menu.println(board.toString());
-		menu.playerInfo(player);
-		int choice = menu.promptTurn();
-		if (choice == 1) {
-			return makeAccusation();
-		} else if (choice == 2) {
-			movePlayer();
-			if (player.getToken().getPosition().isRoom()) {
-				if (menu.promptSuggestion()) {
-					return makeSuggestion();
-				}
-			}
-		}
-		return null;
 	}
 
 	/**
 	 * the given player will make a suggestion and check if it can be refuted
 	 * @return Boolean true if suggestion proved correct
 	 */
-	private Suggestion makeSuggestion() {
+	public Suggestion makeSuggestion() {
 		Envelope guess = getChoiceEnvelope(true);
 		Suggestion suggest = new Suggestion(player, guess);
 		return suggest;
@@ -68,7 +47,7 @@ public class Turn {
 	 *
 	 * @return true accusation correct
 	 */
-	private Accusation makeAccusation() {
+	public Accusation makeAccusation() {
 		Envelope guess = getChoiceEnvelope(false);
 		System.out.println(guess.characterToString());
 		System.out.println(guess.weaponToString());
@@ -82,7 +61,7 @@ public class Turn {
 	 *
 	 * @return Envelope with suspected cards involved in murder
 	 */
-	private Envelope getChoiceEnvelope(boolean isSuggestion) {
+	public Envelope getChoiceEnvelope(boolean isSuggestion) {
 		//Choose a character from the list of all characters then get its card
 		String selection =  menu.selectMurderItem(Game.characters.keySet());
 		Card suspect = Game.allCards.get(selection);
@@ -107,7 +86,7 @@ public class Turn {
 	/**
 	 * Prompt for and move the player around the board until turns have run out
 	 */
-	private void movePlayer() {
+	public void movePlayer() {
 		menu.println("It is " + player.toString() +"'s turn. ("
 				+player.getToken().toString()+")");
 		menu.println("You rolled a " + turns
@@ -131,7 +110,7 @@ public class Turn {
 	 *
 	 * @return Boolean successful move or not
 	 */
-	private boolean singleMove() {
+	public boolean singleMove() {
 		menu.println("Please choose a direction: ");
 		//menu.println(player.getToken().getLocation().getDirections().toString());
 		int choice = menu.chooseListIndex(player.getToken().getPosition().neighbourNames());
@@ -148,7 +127,7 @@ public class Turn {
 	 *
 	 * @return
 	 */
-	private static int rollDice() {
-		return dice.nextInt(11) + 2;
+	public void rollDice() {
+		turns = dice.nextInt(11) + 2;
 	}
 }

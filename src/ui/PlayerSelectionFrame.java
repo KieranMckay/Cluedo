@@ -70,6 +70,8 @@ public class PlayerSelectionFrame extends JFrame{
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
 
+		//TODO ADD TEXTFIELD FOR PLAYER NAME INPUT
+
 		ButtonGroup btnGroup = new ButtonGroup();
 
 		rdbtnPanel = new JPanel();
@@ -150,7 +152,7 @@ public class PlayerSelectionFrame extends JFrame{
 						new PlayerSelectionFrame(game, remainingCharacters, remainingNumPlayers-1);
 					}else {
 						game.dealCards();
-						new CluedoFrame(game);
+						game.gameLoop();
 					}
 					dispose();
 				}
