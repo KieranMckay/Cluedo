@@ -1,12 +1,12 @@
 package control;
 
 import game.*;
-import gui_design.PlayerSelectionFrame;
 
 import java.awt.Font;
 import java.util.*;
 
 import ui.Menu;
+import ui.PlayerSelectionFrame;
 import ui.StartFrame;
 
 /**
@@ -47,18 +47,10 @@ public class Game{
 		new StartFrame(this);
 	}
 
-	public void start(){
-		Menu menu = new Menu();
-		initialise();
-		assignPlayers(menu);
-		dealCards();
-		//gameLoop(menu);
-	}
-
 	/**
 	 * Controls the game logic in a loop until the game is over
 	 */
-	private void gameLoop(Menu menu){
+	public void gameLoop(Menu menu){
 		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
 		int playersLeft = players.size();
 
@@ -124,7 +116,7 @@ public class Game{
 		}
 	}
 
-	private void handleSuggestion(Suggestion mySuggestion) {
+	public void handleSuggestion(Suggestion mySuggestion) {
 		Room suggestedRoom = rooms.get(mySuggestion.getSuggestedRoom());
 		Token suggestedCharacter = characters.get(mySuggestion.getSuggestedCharacter());
 		Weapon suggestedWeapon = weapons.get(mySuggestion.getSuggestedWeapon());
@@ -135,7 +127,7 @@ public class Game{
 
 	}
 
-	private Card handleRefute(int pTurn, Suggestion mySuggestion) {
+	public Card handleRefute(int pTurn, Suggestion mySuggestion) {
 		for(int i= 0; i < players.size(); i++){
 			Player p;
 			do {
@@ -164,7 +156,7 @@ public class Game{
 	 * Initialises the Tokens, Weapons, Rooms and Cards
 	 * Also populates the envelope with one character, one weapon and one room card
 	 */
-	private void initialise() {
+	public void initialise() {
 		Random random = new Random();
 		Card[] envelope = new Card[3];
 
@@ -233,18 +225,12 @@ public class Game{
 	 *
 	 * @param menu - used to interact with the user
 	 */
-	public void assignPlayers(Menu menu) {
+	public void assignPlayers() {
 		List<String> availableCharacters = new ArrayList<String>();//List of all the available characters to choose from
 		for(int i = 0; i < CHARACTER_LIST.length; i++){
 			availableCharacters.add(CHARACTER_LIST[i]);
 		}
 		new PlayerSelectionFrame(this, availableCharacters, numPlayers);
-		//each player gets to choose a character from the remaining list
-		//for(int i = 0; i < numPlayers; i++){
-		//	String characterName = menu.newPlayer(i, availableCharacters);
-		//	Player p = new Player(i+1, characters.get(characterName), allCards);
-		//	players.put(i+1, p);
-		//}
 	}
 
 	public void createPlayer(int playerNumber, String choice){
@@ -255,7 +241,7 @@ public class Game{
 	/**
 	 * Deal out the clue cards to the players.
 	 */
-	private void dealCards() {
+	public void dealCards() {
 		int i = 0;
 		for (Card card : cards.values()){
 			int playernum = i % numPlayers;

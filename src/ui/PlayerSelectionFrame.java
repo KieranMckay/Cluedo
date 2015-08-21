@@ -1,4 +1,4 @@
-package gui_design;
+package ui;
 
 import java.awt.EventQueue;
 
@@ -61,6 +61,7 @@ public class PlayerSelectionFrame extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		setTitle("Player Selection");
 		setBounds(100, 100, 908, 899);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(new BorderLayout(0, 0));
@@ -139,12 +140,17 @@ public class PlayerSelectionFrame extends JFrame{
 					JOptionPane.showMessageDialog(panel, "INVALID CHOICE");
 				} else {
 					remainingCharacters.remove(character);
+
+
 					//TODO Display dialog box of player number and choice here
 
 
 					game.createPlayer(playerNumber, character);
 					if(remainingNumPlayers > 1){
 						new PlayerSelectionFrame(game, remainingCharacters, remainingNumPlayers-1);
+					}else {
+						game.dealCards();
+						new CluedoFrame(game);
 					}
 					dispose();
 				}

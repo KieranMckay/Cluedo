@@ -4,11 +4,9 @@ package ui;
 import game.Card;
 import game.Player;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,16 +14,12 @@ import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JMenu;
-import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JDialog;
 
 import control.Game;
 
@@ -42,8 +36,6 @@ public class CluedoFrame extends JFrame{
 	private BoardPanel board = new BoardPanel();
 	private JPanel cards = new CardsPanel();
 	private JPanel options = new JPanel();
-
-
 
 	private JButton dice = new JButton("Roll Dice");
 	private JButton move = new JButton("Move");
@@ -98,9 +90,9 @@ public class CluedoFrame extends JFrame{
 		pack();
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(true);
+		setResizable(false);
 		setVisible(true);
-		repaint();
+		//repaint();
 	}
 
 	private void importCards() {
@@ -108,41 +100,39 @@ public class CluedoFrame extends JFrame{
 			cardImages.put(name,null); //populate with null
 		}
 		//populate map with images
-		/*mrGreenImg = BoardPanel.loadImage("MrGreen.png");
+		/*
+		mrGreenImg = BoardPanel.loadImage("MrGreen.png");
 		profPlumImg = BoardPanel.loadImage("ProfessorPlum.png");
 		colMustardImg = BoardPanel.loadImage("ColMustard.png");
 		missScarletImg = BoardPanel.loadImage("MissScarlet.png");
 		mrsPeacockImg = BoardPanel.loadImage("MrsPeacock.png");
-		mrsWhiteImg = BoardPanel.loadImage("MrsWhite.png");*/
+		mrsWhiteImg = BoardPanel.loadImage("MrsWhite.png");
+		*/
 	}
 
 	public void repaint() {
 		board.repaint();
 	}
 
-
 	private class CardsPanel extends JPanel{
 
-		Player player;
-
+		private Player player;
 
 		public Player getPlayer() {
 			return player;
 		}
 
-
 		public void setPlayer(Player player) {
 			this.player = player;
 		}
 
-
 		public void paint(Graphics g){
-			int numCards = player.getHand().size();
-			int cardSize = this.WIDTH/(numCards+1);
-			for(Card c : player.getHand()){
+			//int numCards = player.getHand().size();
+			//int cardSize = this.WIDTH/(numCards+1);
+			//for(Card c : player.getHand()){
 			//	BufferedImage img =
 			//	g.drawImage(img, , y, width, height, observer)
-			}
+			//}
 		}
 	}
 }

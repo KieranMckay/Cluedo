@@ -35,6 +35,7 @@ public class StartFrame extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		setTitle("Cluedo");
 		setBounds(100, 100, 450, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -52,8 +53,9 @@ public class StartFrame extends JFrame{
 					game.numPlayers = Integer.parseInt(dlogText.getText());
 					if (game.numPlayers >= game.MIN_PLAYERS && game.MAX_PLAYERS >= game.numPlayers){
 						dlog.dispose();
+						game.initialise();
+						game.assignPlayers();
 						dispose();
-						game.start();
 					}else{
 						JOptionPane.showMessageDialog(dlog, "INVALID ENTRY");
 					}
