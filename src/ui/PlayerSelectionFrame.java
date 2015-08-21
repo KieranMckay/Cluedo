@@ -102,7 +102,6 @@ public class PlayerSelectionFrame extends JFrame{
 		panel.add(characterLabelPanel, BorderLayout.CENTER);
 
 		scarletLabel = new JLabel("");
-		scarletLabel.setLabelFor(rdbtnScarlet);
 		scarletLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/MissScarlet.png")));
 		characterLabelPanel.add(scarletLabel);
 

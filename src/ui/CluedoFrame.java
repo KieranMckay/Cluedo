@@ -4,9 +4,14 @@ package ui;
 import game.Card;
 import game.Player;
 
+import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
+import javax.swing.JTextArea;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -39,13 +44,13 @@ public class CluedoFrame extends JFrame{
 	private JPanel cards = new CardsPanel();
 	private JPanel options = new JPanel();
 
+	private JDialog playerDialog;
+
 	private JButton dice = new JButton("Roll Dice");
 	private JButton move = new JButton("Move");
 	private JButton suggest = new JButton("Make a suggestion");
 	private JButton accuse = new JButton("Make an accusation");
 	private JButton end = new JButton("End Turn");
-
-	private JTextField text = new JTextField("text field", 20);
 
 	Map<String,BufferedImage> cardImages = new HashMap<String,BufferedImage>();
 
@@ -85,6 +90,8 @@ public class CluedoFrame extends JFrame{
 		setBounds((scrnsize.width - getWidth()) / 2, (scrnsize.height - getHeight()) / 2, getWidth(), getHeight());
 		pack();
 
+		currentPlayer();
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
@@ -112,11 +119,36 @@ public class CluedoFrame extends JFrame{
 		board.repaint();
 	}
 
+	public void currentPlayer(){
+		playerDialog = new JDialog();
+		playerDialog.setTitle("Current Player");
+		playerDialog.setSize(300, 600);
+		playerDialog.getContentPane().setLayout(new BorderLayout());
+		JLabel playerIcon = new JLabel();
+
+		BufferedImage icon = cardImages.get(game.player.getToken().toString());
+		playerIcon.setIcon(new ImageIcon(icon));
+
+		JButton closeButton = new JButton("Close");
+		closeButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				playerDialog.dispose();
+			}
+		});
+
+		playerDialog.add(playerIcon, BorderLayout.CENTER);
+		playerDialog.add(closeButton, BorderLayout.SOUTH);
+
+		playerDialog.setVisible(true);
+	}
+
 	public void addActionListeners(){
 		dice.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				game.turn.rollDice();
+				JOptionPane.showMessageDialog(playerDialog, String.format("You rolled a %d",game.turn.turns));
 			}
 		});
 
@@ -147,8 +179,10 @@ public class CluedoFrame extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				//TODO PROMPT ARE YOU SURE
 				game.endPlayerTurn();
+				playerDialog.dispose();
+				currentPlayer();
 			}
 		});
 
@@ -163,7 +197,7 @@ public class CluedoFrame extends JFrame{
 		}
 
 		public void setPlayer(Player player) {
-			this.player = player;
+			this.player = game.player;
 		}
 
 		public void paint(Graphics g){

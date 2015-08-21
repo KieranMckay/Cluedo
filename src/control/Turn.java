@@ -23,7 +23,7 @@ public class Turn {
 	//private Menu menu;
 	private Board board;
 	private Envelope murderEnvelope;
-	private int turns;
+	public int turns;
 
 	public Turn(Player player, Board board, Envelope murderEnvelope) {
 		this.player = player;
