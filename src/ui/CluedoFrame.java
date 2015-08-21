@@ -121,6 +121,7 @@ public class CluedoFrame extends JFrame{
 		}
 
 		public void paint(Graphics g){
+			/*
 			int numCards = player.getHand().size();
 			int cardWidth = this.WIDTH/(numCards+1);
 			int i = 0;
@@ -129,6 +130,7 @@ public class CluedoFrame extends JFrame{
 				g.drawImage(image, cardWidth*i, 0,cardWidth,(int)(((float)image.getWidth()/cardWidth)*image.getHeight()),null);
 				i++;
 			}
+			*/
 		}
 	}
 
