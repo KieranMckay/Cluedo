@@ -59,7 +59,7 @@ public class StartFrame extends JFrame{
 					}else{
 						JOptionPane.showMessageDialog(dlog, "INVALID ENTRY");
 					}
-				} catch(Exception error){
+				} catch(NumberFormatException error){
 					JOptionPane.showMessageDialog(dlog, "INVALID ENTRY");
 				}
 			}

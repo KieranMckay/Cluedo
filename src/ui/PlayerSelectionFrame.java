@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -18,6 +19,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import control.Game;
 
@@ -70,7 +73,16 @@ public class PlayerSelectionFrame extends JFrame{
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
 
-		//TODO ADD TEXTFIELD FOR PLAYER NAME INPUT
+		JPanel namePanel = new JPanel();
+		JLabel nameLabel = new JLabel();
+		nameLabel.setText("Please enter your name: ");
+		nameLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
+		JTextField playerName = new JTextField();
+		namePanel.setLayout(new GridLayout(1, 2));
+		namePanel.add(nameLabel, 0);
+		namePanel.add(namePanel, 1);
+
+		panel.add(namePanel, BorderLayout.NORTH);
 
 		ButtonGroup btnGroup = new ButtonGroup();
 
@@ -101,28 +113,29 @@ public class PlayerSelectionFrame extends JFrame{
 		characterLabelPanel = new JPanel();
 		panel.add(characterLabelPanel, BorderLayout.CENTER);
 
-		scarletLabel = new JLabel("");
+		scarletLabel = new JLabel();
 		scarletLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/MissScarlet.png")));
-		characterLabelPanel.add(scarletLabel);
 
-		mustardLabel = new JLabel("");
+		mustardLabel = new JLabel();
 		mustardLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/ColMustard.png")));
-		characterLabelPanel.add(mustardLabel);
 
-		plumLabel = new JLabel("");
+		plumLabel = new JLabel();
 		plumLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/ProfessorPlum.png")));
-		characterLabelPanel.add(plumLabel);
 
-		peacockLabel = new JLabel("");
+		peacockLabel = new JLabel();
 		peacockLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/MrsPeacock.png")));
-		characterLabelPanel.add(peacockLabel);
 
-		greenLabel = new JLabel("");
+		greenLabel = new JLabel();
 		greenLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/MrGreen.png")));
-		characterLabelPanel.add(greenLabel);
 
-		whiteLabel = new JLabel("");
+		whiteLabel = new JLabel();
 		whiteLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/MrsWhite.png")));
+
+		characterLabelPanel.add(scarletLabel);
+		characterLabelPanel.add(mustardLabel);
+		characterLabelPanel.add(plumLabel);
+		characterLabelPanel.add(peacockLabel);
+		characterLabelPanel.add(greenLabel);
 		characterLabelPanel.add(whiteLabel);
 
 		titleLabel = new JLabel(String.format("Select your character player %d", playerNumber));

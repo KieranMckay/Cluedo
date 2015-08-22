@@ -186,7 +186,6 @@ public class CluedoFrame extends JFrame{
 		});
 
 		end.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				promptEndTurn();
