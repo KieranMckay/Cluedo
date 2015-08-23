@@ -5,7 +5,8 @@ public class Door extends Tile{
 	public Location location;
 	private String name;
 
-	public Door(String name){
+	public Door(String name,int x, int y){
+		super(x,y);
 		this.name = name;
 	}
 	@Override
