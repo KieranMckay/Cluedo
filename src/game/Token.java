@@ -33,18 +33,18 @@ public class Token {
 	public String toString() {
 		return name;
 	}
-	
+
 	public int getX(){
 		return position.getX();
 	}
-	
+
 	public int getY(){
-		return position.getY();
+		return position.getY()-1;
 	}
-	
+
 	public void draw(Graphics g){
 		g.setColor(Color.red);
-		g.drawImage(icon, (7*size)+offset, (7*size)+offset, size, size, null);
+		g.drawImage(icon, (getX()*size)+offset, (getY()*size)+offset, size, size, null);
 	}
 
 

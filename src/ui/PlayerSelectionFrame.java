@@ -157,7 +157,7 @@ public class PlayerSelectionFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				String character = getSelectedButtonText(btnGroup);
 				String player = playerName.getText();
-				if(character == null || !remainingCharacters.contains(character) || player == null) {
+				if(character == null || !remainingCharacters.contains(character) || player.isEmpty()) {
 					JOptionPane.showMessageDialog(panel, "INVALID CHOICE");
 				} else {
 					remainingCharacters.remove(character);

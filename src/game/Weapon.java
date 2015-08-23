@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -10,6 +11,8 @@ import java.awt.image.BufferedImage;
  *
  */
 public class Weapon {
+	public int size = 27;
+	public int offset = 3;
 	private String name;
 	private BufferedImage icon;
 	private Room room;
@@ -31,7 +34,17 @@ public class Weapon {
 		return room;
 	}
 
+
+	public int getX(){
+		return room.getX();
+	}
+
+	public int getY(){
+		return room.getY()-1;
+	}
+
 	public void draw(Graphics g){
-		//TODO draw weapon
+		g.setColor(Color.red);
+		g.drawImage(icon, (getX()*size)+offset, (getY()*size)+offset, size, size, null);
 	}
 }

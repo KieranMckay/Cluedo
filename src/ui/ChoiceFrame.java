@@ -199,12 +199,15 @@ public class ChoiceFrame extends JFrame{
 			label.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/"+game.CHARACTER_LIST[i]+".png")));
 			label.setToolTipText(game.CHARACTER_LIST[i]);
 
+			ImageResize size = new ImageResize(label);
+			size.resize(.5);
+
 			label.addMouseListener(new MouseListener() {
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					characterLabel.setIcon(label.getIcon());
 					charSelected = true;
-					charDialog.dispose();
+					//charDialog.dispose();
 				}
 
 				@Override public void mousePressed(MouseEvent e) {}
@@ -235,7 +238,7 @@ public class ChoiceFrame extends JFrame{
 				public void mouseReleased(MouseEvent e) {
 					weaponLabel.setIcon(label.getIcon());
 					weaponSelected = true;
-					weaponDialog.dispose();
+					//weaponDialog.dispose();
 				}
 
 				@Override public void mousePressed(MouseEvent e) {}
@@ -266,7 +269,7 @@ public class ChoiceFrame extends JFrame{
 				public void mouseReleased(MouseEvent e) {
 					roomLabel.setIcon(label.getIcon());
 					roomSelected = true;
-					roomDialog.dispose();
+					//roomDialog.dispose();
 				}
 
 				@Override public void mousePressed(MouseEvent e) {}
