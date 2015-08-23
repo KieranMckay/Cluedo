@@ -4,6 +4,9 @@ import java.util.*;
 
 
 public class Location extends Tile {
+	public Location(int x, int y) {
+		super(x, y);
+	}
 	private Token member;
 
 	@Override

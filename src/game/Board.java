@@ -102,7 +102,7 @@ public class Board {
 					continue;
 				}
 				if(stringVal.charAt(0) == 'l'){ //is a location
-					board[i][j] = new Location();
+					board[i][j] = new Location(j,i);
 					if(stringVal.contains("char"))spawns.add(board[i][j]); //is a character spawn point
 				}
 				else if(Pattern.matches("[a-z,A-Z, ]+-+\\d-*[a-z,A-Z, ]*",stringVal)){//has a digit, must be a room
@@ -117,7 +117,7 @@ public class Board {
 							rooms.get(roomDetails[0]).addNeighbour("Teleport to "+ teleRoom, rooms.get(teleRoom)); //connect this room to the teleroom
 						}
 					}
-					Door newDoor = new Door(roomDetails[1]);
+					Door newDoor = new Door(roomDetails[1],j,i);
 					Room neighbourRoom = rooms.get(roomDetails[0]);
 					newDoor.room = neighbourRoom;
 					neighbourRoom.addNeighbour(roomDetails[1],newDoor); //add the door with the door number to the room //TODO add "door: to roomdetails arg

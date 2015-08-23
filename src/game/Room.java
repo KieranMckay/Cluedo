@@ -16,6 +16,7 @@ public class Room extends Tile{
 
 
 	public Room(String name){
+		super(-1,-1); //TODO remove this
 		this.name = name;
 		this.weapons = new HashSet<Weapon>();
 	}
