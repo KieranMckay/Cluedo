@@ -3,8 +3,10 @@ package control;
 import game.*;
 
 import java.awt.Font;
+import java.awt.image.BufferedImage;
 import java.util.*;
 
+import ui.BoardPanel;
 import ui.CluedoFrame;
 import ui.PlayerSelectionFrame;
 import ui.StartFrame;
@@ -21,7 +23,7 @@ public class Game{
 	//All the characters names
 	public static final String[] CHARACTER_LIST = { "Miss Scarlet", "Colonel Mustard", "Mrs Peacock", "Professor Plum", "Mr Green", "Mrs White" };
 	//all the weapons names
-	public static final String[] WEAPONS_LIST = { "Candlestick", "Lead Pipe", "Dagger", "Rope", "Revolver", "Spanner" };
+	public static final String[] WEAPONS_LIST = { "Candlestick", "Pipe", "Knife", "Rope", "Revolver", "Spanner" };
 	//all the rooms names
 	public static final String[] ROOM_LIST = { "Kitchen", "Ball Room","Conservatory", "Billiard Room", "Library", "Study",
 		"Hall", "Lounge", "Dining Room" };
@@ -41,7 +43,7 @@ public class Game{
 	public Turn turn;
 	public CluedoFrame game;
 
-	public static Map<String, Token> characters = new HashMap<String, Token>(); 	//all of the playable characters/suspects
+	public static Map<String, Token> tokens = new HashMap<String, Token>(); 	//all of the playable characters/suspects
 	public static Map<String, Weapon> weapons = new HashMap<String, Weapon>();		//all of the weapons
 	public static Map<String, Room> rooms = new HashMap<String, Room>();			//all of the rooms in the game
 	public static Map<String, Card> cards = new HashMap<String, Card>();			//all of the clue cards (excluding murder envelope cards)
@@ -52,11 +54,25 @@ public class Game{
 		new StartFrame(this);
 	}
 
+	public void accuse(String character, String weapon, String room){
+		Card c = allCards.get(character);
+		Card w = allCards.get(weapon);
+		Card r = allCards.get(room);
+		Envelope guessEnvelope = new Envelope(c, w, r);
+		Accusation accuse = new Accusation(player, guessEnvelope, murderEnvelope);
+	}
+
+	public void suggest(String character, String weapon, String room){
+		Card c = allCards.get(character);
+		Card w = allCards.get(weapon);
+		Card r = allCards.get(room);
+		Envelope guessEnvelope = new Envelope(c, w, r);
+		Suggestion suggest = new Suggestion(player, guessEnvelope);
+	}
+
 	public void makeTurn(CluedoFrame game){
 
 		//TODO ADD START OF TURN DIALOG TO JFRAME HERE
-
-		Turn turn = new Turn(player, board, murderEnvelope);  //turn object for interfacing a player and the menu to control their turn
 
 		//perform turn methods here!!!!!!!!!!!!
 		Suggestion mySuggestion = null;
@@ -121,7 +137,7 @@ public class Game{
 
 	public void handleSuggestion(Suggestion mySuggestion) {
 		Room suggestedRoom = rooms.get(mySuggestion.getSuggestedRoom());
-		Token suggestedCharacter = characters.get(mySuggestion.getSuggestedCharacter());
+		Token suggestedCharacter = tokens.get(mySuggestion.getSuggestedCharacter());
 		Weapon suggestedWeapon = weapons.get(mySuggestion.getSuggestedWeapon());
 		suggestedRoom.moveTo(suggestedCharacter);
 		suggestedWeapon.getRoom().getWeapons().remove(suggestedWeapon); //remove weapon from old room
@@ -183,10 +199,12 @@ public class Game{
 		//initialise characters and character cards
 		for (int i = 0; i < CHARACTER_LIST.length; i++){
 
+			BufferedImage icon = BoardPanel.loadImage(CHARACTER_LIST[i]+"Token.png");
+
 			Tile loc = board.getFreeSpawn();
-			Token t = new Token(CHARACTER_LIST[i], loc);
+			Token t = new Token(CHARACTER_LIST[i], loc, icon);
 			Card c = new Card(CHARACTER_LIST[i]);
-			characters.put(t.toString(), t);
+			tokens.put(t.toString(), t);
 
 			//put one random character card into murder envelope, the rest into the "deck"
 			if (i == murderCard){
@@ -237,7 +255,7 @@ public class Game{
 	}
 
 	public void createPlayer(int playerNumber, String choice){
-		Player p = new Player(playerNumber, characters.get(choice), allCards);
+		Player p = new Player(playerNumber, tokens.get(choice), allCards);
 		players.put(playerNumber, p);
 		turn = new Turn(player, board, murderEnvelope);
 		playersLeft++;

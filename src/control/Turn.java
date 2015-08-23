@@ -33,57 +33,6 @@ public class Turn {
 	}
 
 	/**
-	 * the given player will make a suggestion and check if it can be refuted
-	 * @return Boolean true if suggestion proved correct
-	 */
-	public Suggestion makeSuggestion() {
-		Envelope guess = getChoiceEnvelope(true);
-		Suggestion suggest = new Suggestion(player, guess);
-		return suggest;
-	}
-
-	/**
-	 * The given player makes an accusation
-	 *
-	 * @return true accusation correct
-	 */
-	public Accusation makeAccusation() {
-		Envelope guess = getChoiceEnvelope(false);
-		System.out.println(guess.characterToString());
-		System.out.println(guess.weaponToString());
-		System.out.println(guess.roomToString());
-		Accusation accuse = new Accusation(player, guess, murderEnvelope);
-		return accuse;
-	}
-
-	/**
-	 * Prompts the player to choose a Character, Room and Weapon involved in commiting the murder
-	 *
-	 * @return Envelope with suspected cards involved in murder
-	 */
-	public Envelope getChoiceEnvelope(boolean isSuggestion) {
-		//Choose a character from the list of all characters then get its card
-		String selection =  menu.selectMurderItem(Game.characters.keySet());
-		Card suspect = Game.allCards.get(selection);
-
-		if(isSuggestion){
-			//suggestion so room has to default to room player is currently in
-			selection = player.getToken().getRoom().toString();
-		} else {
-			//accusation so we choose a room
-			//Choose a Room from the list of all Rooms then get its card
-			selection =  menu.selectMurderItem(Game.rooms.keySet());
-		}
-		Card room = Game.allCards.get(selection);
-
-		//Choose a Weapon from the list of all weapons then get its card
-		selection =  menu.selectMurderItem(Game.weapons.keySet());
-		Card weapon = Game.allCards.get(selection);
-
-
-		return new Envelope(suspect, weapon,room);
-	}
-	/**
 	 * Prompt for and move the player around the board until turns have run out
 	 */
 	public void movePlayer() {

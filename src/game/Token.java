@@ -1,5 +1,9 @@
 package game;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
 /**
  * A class representing the token of a Character for moving around the Board in the game Cluedo.
  *
@@ -7,10 +11,14 @@ package game;
  *
  */
 public class Token {
+	public int size = 27;
+	public int offset = 3;
+	private BufferedImage icon;
 	private String name;
 	private Tile position;
 
-	public Token(String name, Tile position) {
+	public Token(String name, Tile position, BufferedImage icon) {
+		this.icon = icon;
 		this.name = name;
 		this.position = position;
 		this.position.addToken(this);
@@ -25,6 +33,12 @@ public class Token {
 	public String toString() {
 		return name;
 	}
+
+	public void draw(Graphics g){
+		g.setColor(Color.red);
+		g.drawImage(icon, (7*size)+offset, (7*size)+offset, size, size, null);
+	}
+
 
 	/**
 	 * Returns characters current position.

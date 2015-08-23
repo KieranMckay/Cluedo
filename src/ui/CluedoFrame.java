@@ -3,6 +3,7 @@ package ui;
 
 import game.Card;
 import game.Player;
+import game.Room;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -40,7 +41,7 @@ public class CluedoFrame extends JFrame{
 	private JMenu edit = new JMenu("Edit");
 
 	//TODO each of these needs to be a class that extends JPanel
-	private BoardPanel board = new BoardPanel();
+	private BoardPanel board = new BoardPanel(game);
 	private JPanel cards = new CardsPanel();
 	private JPanel options = new JPanel();
 
@@ -99,19 +100,31 @@ public class CluedoFrame extends JFrame{
 
 	private void importCards() {
 		//populate map with images
-		cardImages.put(Game.CHARACTER_LIST[0], BoardPanel.loadImage("MissScarlet.png"));
-		cardImages.put(Game.CHARACTER_LIST[1],BoardPanel.loadImage("ColMustard.png"));
-		cardImages.put(Game.CHARACTER_LIST[2],BoardPanel.loadImage("MrsPeacock.png"));
-		cardImages.put(Game.CHARACTER_LIST[3],BoardPanel.loadImage("ProfessorPlum.png"));
-		cardImages.put(Game.CHARACTER_LIST[4],BoardPanel.loadImage("MrGreen.png"));
-		cardImages.put(Game.CHARACTER_LIST[5],BoardPanel.loadImage("MrsWhite.png"));
 
-		cardImages.put(Game.WEAPONS_LIST[0],BoardPanel.loadImage("candlestick.png"));
-		cardImages.put(Game.WEAPONS_LIST[1],BoardPanel.loadImage("leadpipe.png"));
-		cardImages.put(Game.WEAPONS_LIST[2],BoardPanel.loadImage("dagger.png"));
-		cardImages.put(Game.WEAPONS_LIST[3],BoardPanel.loadImage("rope.png"));
-		cardImages.put(Game.WEAPONS_LIST[4],BoardPanel.loadImage("revolver.png"));
-		cardImages.put(Game.WEAPONS_LIST[5],BoardPanel.loadImage("spanner.png"));
+
+		cardImages.put(Game.CHARACTER_LIST[0],BoardPanel.loadImage(Game.CHARACTER_LIST[0]+".png"));
+		cardImages.put(Game.CHARACTER_LIST[1],BoardPanel.loadImage(Game.CHARACTER_LIST[1]+".png"));
+		cardImages.put(Game.CHARACTER_LIST[2],BoardPanel.loadImage(Game.CHARACTER_LIST[2]+".png"));
+		cardImages.put(Game.CHARACTER_LIST[3],BoardPanel.loadImage(Game.CHARACTER_LIST[3]+".png"));
+		cardImages.put(Game.CHARACTER_LIST[4],BoardPanel.loadImage(Game.CHARACTER_LIST[4]+".png"));
+		cardImages.put(Game.CHARACTER_LIST[5],BoardPanel.loadImage(Game.CHARACTER_LIST[5]+".png"));
+
+		cardImages.put(Game.WEAPONS_LIST[0],BoardPanel.loadImage(Game.WEAPONS_LIST[0]+".png"));
+		cardImages.put(Game.WEAPONS_LIST[1],BoardPanel.loadImage(Game.WEAPONS_LIST[1]+".png"));
+		cardImages.put(Game.WEAPONS_LIST[2],BoardPanel.loadImage(Game.WEAPONS_LIST[2]+".png"));
+		cardImages.put(Game.WEAPONS_LIST[3],BoardPanel.loadImage(Game.WEAPONS_LIST[3]+".png"));
+		cardImages.put(Game.WEAPONS_LIST[4],BoardPanel.loadImage(Game.WEAPONS_LIST[4]+".png"));
+		cardImages.put(Game.WEAPONS_LIST[5],BoardPanel.loadImage(Game.WEAPONS_LIST[5]+".png"));
+
+		cardImages.put(Game.ROOM_LIST[0],BoardPanel.loadImage(Game.ROOM_LIST[0]+".png"));
+		cardImages.put(Game.ROOM_LIST[1],BoardPanel.loadImage(Game.ROOM_LIST[1]+".png"));
+		cardImages.put(Game.ROOM_LIST[2],BoardPanel.loadImage(Game.ROOM_LIST[2]+".png"));
+		cardImages.put(Game.ROOM_LIST[3],BoardPanel.loadImage(Game.ROOM_LIST[3]+".png"));
+		cardImages.put(Game.ROOM_LIST[4],BoardPanel.loadImage(Game.ROOM_LIST[4]+".png"));
+		cardImages.put(Game.ROOM_LIST[5],BoardPanel.loadImage(Game.ROOM_LIST[5]+".png"));
+		cardImages.put(Game.ROOM_LIST[6],BoardPanel.loadImage(Game.ROOM_LIST[6]+".png"));
+		cardImages.put(Game.ROOM_LIST[7],BoardPanel.loadImage(Game.ROOM_LIST[7]+".png"));
+		cardImages.put(Game.ROOM_LIST[8],BoardPanel.loadImage(Game.ROOM_LIST[8]+".png"));
 	}
 
 	public void repaint() {
@@ -148,10 +161,10 @@ public class CluedoFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (game.turn.turns > 0){
-					JOptionPane.showMessageDialog(dice, "You have already rolled the dice this turn.");
+					JOptionPane.showMessageDialog(getParent(), "You have already rolled the dice this turn.");
 				} else{
 					game.turn.rollDice();
-					JOptionPane.showMessageDialog(dice, String.format("You rolled a %d",game.turn.turns));
+					JOptionPane.showMessageDialog(getParent(), String.format("You rolled a %d",game.turn.turns));
 				}
 			}
 		});
@@ -162,7 +175,7 @@ public class CluedoFrame extends JFrame{
 				if (game.turn.turns > 0){
 					// TODO MOVE HERE
 				} else{
-					JOptionPane.showMessageDialog(move, "Please roll the dice before moving.");
+					JOptionPane.showMessageDialog(getParent(), "Please roll the dice before moving.");
 				}
 			}
 		});
@@ -170,18 +183,20 @@ public class CluedoFrame extends JFrame{
 		suggest.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				game.turn.makeSuggestion();
-				endTurn();
+				Room room = game.player.getToken().getRoom();
+				if(room != null){
+					choice(room.toString());
+				}else{
+					JOptionPane.showMessageDialog(getParent(), "You must be in a room to make a suggestion.");
+				}
 			}
 		});
 
 		accuse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				game.turn.makeAccusation();
-				endTurn();
+				//TODO prompt are you sure here
+				choice("Accuse");
 			}
 		});
 
@@ -192,6 +207,10 @@ public class CluedoFrame extends JFrame{
 			}
 		});
 
+	}
+
+	public void choice(String room){
+		new ChoiceFrame(this, game, room);
 	}
 
 	public void promptEndTurn(){

@@ -1,18 +1,23 @@
 package ui;
 
+import game.Token;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-
 import javax.swing.*;
 import javax.imageio.ImageIO;
 
+import control.Game;
+
 public class BoardPanel extends JPanel{
 
-	private static final String BOARD_NAME = "cluedo_board.png";
+	private static final String BOARD_NAME = "Cluedo Board.png";
+	Game game;
 
-	public BoardPanel() {
+	public BoardPanel(Game game) {
+		this.game = game;
 		BufferedImage image = loadImage(BOARD_NAME);
 		JLabel boardImage = new JLabel(new ImageIcon(image));
 		boardImage.setMaximumSize(new Dimension(100, 100));
@@ -24,6 +29,9 @@ public class BoardPanel extends JPanel{
 		super.paint(g);
 		// First, draw the board
 		// Second, draw the characters
+		for(Token t : game.tokens.values()){
+			t.draw(g);
+		}
 		// finally, draw any messages
 	}
 
@@ -39,7 +47,7 @@ public class BoardPanel extends JPanel{
 		java.net.URL imageURL = BoardPanel.class.getResource("/"+filename);
 
 		try {
-			BufferedImage img = ImageIO.read(imageURL); //TODO get imageURL working?
+			BufferedImage img = ImageIO.read(imageURL);
 			return img;
 		} catch (IOException e) {
 			// we've encountered an error loading the image. There's not much we
