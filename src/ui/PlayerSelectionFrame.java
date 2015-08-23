@@ -156,16 +156,12 @@ public class PlayerSelectionFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String character = getSelectedButtonText(btnGroup);
-				if(character == null || !remainingCharacters.contains(character)) {
+				String player = playerName.getText();
+				if(character == null || !remainingCharacters.contains(character) || player == null) {
 					JOptionPane.showMessageDialog(panel, "INVALID CHOICE");
 				} else {
 					remainingCharacters.remove(character);
-
-
-					//TODO Display dialog box of player number and choice here
-
-
-					game.createPlayer(playerNumber, character);
+					game.createPlayer(playerNumber, player, character);
 					if(remainingNumPlayers > 1){
 						new PlayerSelectionFrame(game, remainingCharacters, remainingNumPlayers-1);
 					}else {

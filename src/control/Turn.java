@@ -17,17 +17,15 @@ import ui.*;
 public class Turn {
 	static Random dice = new Random();
 
-	Menu menu = new Menu();
+	Menu menu = new Menu(); //TODO remove when menu no longer exists
 
 	private Player player;
-	//private Menu menu;
 	private Board board;
 	private Envelope murderEnvelope;
 	public int turns = -1;
 
 	public Turn(Player player, Board board, Envelope murderEnvelope) {
 		this.player = player;
-		//this.menu = menu;
 		this.board = board;
 		this.murderEnvelope = murderEnvelope;
 	}
@@ -53,6 +51,7 @@ public class Turn {
 			}
 		}
 	}
+
 	/**
 	 * Prompt the player for a move
 	 * move them in the given direction and decrement turns

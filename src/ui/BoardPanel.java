@@ -1,6 +1,7 @@
 package ui;
 
 import game.Token;
+import game.Weapon;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -28,10 +29,14 @@ public class BoardPanel extends JPanel{
 	public void paint(Graphics g) {
 		super.paint(g);
 		// First, draw the board
-		// Second, draw the characters
+		// Second, draw the weapons then characters
+		for (Weapon w : game.weapons.values()){
+			w.draw(g);
+		}
 		for(Token t : game.tokens.values()){
 			t.draw(g);
 		}
+
 		// finally, draw any messages
 	}
 

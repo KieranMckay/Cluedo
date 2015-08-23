@@ -6,6 +6,8 @@ import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
+import javax.swing.JOptionPane;
+
 import ui.BoardPanel;
 import ui.CluedoFrame;
 import ui.PlayerSelectionFrame;
@@ -59,7 +61,32 @@ public class Game{
 		Card w = allCards.get(weapon);
 		Card r = allCards.get(room);
 		Envelope guessEnvelope = new Envelope(c, w, r);
-		Accusation accuse = new Accusation(player, guessEnvelope, murderEnvelope);
+		Accusation accusation = new Accusation(player, guessEnvelope, murderEnvelope);
+
+		if (accusation.isCorrect()){
+			JOptionPane.showMessageDialog(game, "Accusation was correct. Game over");
+			//game.dispose();
+			//TODO ADD WINNER JFRAME HERE
+			//new GameOverFrame();
+		} else {
+			player.setInGame(false);
+			playersLeft--;
+			JOptionPane.showMessageDialog(game, "Accusation was incorrect");
+			//TODO ADD PLAYER OUT OF GAME DIALOG BOX IN CLUEDO FRAME
+			//new FailedAccusationFrame();
+
+			if(playersLeft == 1){
+				for ( Player player : players.values() ){
+					if(player.isInGame()){
+						JOptionPane.showMessageDialog(game, "Only one player remains. Game Over");
+						//game.dispose();
+						//TODO ADD WINNER JFRAME HERE
+						//Dialog should include winning by default, last remaining player
+						//new GameOverFrame();
+					}
+				}
+			}
+		}
 	}
 
 	public void suggest(String character, String weapon, String room){
@@ -67,51 +94,17 @@ public class Game{
 		Card w = allCards.get(weapon);
 		Card r = allCards.get(room);
 		Envelope guessEnvelope = new Envelope(c, w, r);
-		Suggestion suggest = new Suggestion(player, guessEnvelope);
-	}
+		Suggestion suggestion = new Suggestion(player, guessEnvelope);
 
-	public void makeTurn(CluedoFrame game){
-
-		//TODO ADD START OF TURN DIALOG TO JFRAME HERE
-
-		//perform turn methods here!!!!!!!!!!!!
-		Suggestion mySuggestion = null;
-
-		if(mySuggestion != null){  //the player has made either a suggestion or accusation this turn
-			if(mySuggestion.isAccusation()){ // the player has made an accusation
-				//process accusation logic here
-				Accusation myAccusation = (Accusation) mySuggestion;
-				Player accuser = myAccusation.getPlayer();
-
-				if(myAccusation.isCorrect()){
-					//TODO ADD WINNER JFRAME HERE
-					//Dialog should include winning by guess
-					return;
-				} else {
-					accuser.setInGame(false);
-					playersLeft--;
-					//TODO ADD PLAYER OUT OF GAME DIALOG BOX IN CLUEDO FRAME
-
-					if(playersLeft == 1){
-						for ( Player player : players.values() ){
-							if(player.isInGame()){
-								//TODO ADD WINNER JFRAME HERE
-								//Dialog should include winning by default, last remaining player
-							}
-						}
-						return;
-					}
-				}
-			} else { //player made a suggestion
-				handleSuggestion(mySuggestion);
-				Card refuted = handleRefute(player.getPlayerNumber(), mySuggestion);
-				if (refuted == null){
-					//TODO ADD NOT REFUTED DIALOG BOX IN CLUEDO FRAME
-				} else {
-					player.removeSuspect(refuted);
-					//TODO ADD REFUTED DIALOG BOX IN CLUEDO FRAME
-				}
-			}
+		handleSuggestion(suggestion);
+		Card refuted = handleRefute(player.getPlayerNumber(), suggestion);
+		if (refuted == null){
+			//TODO ADD NOT REFUTED DIALOG BOX IN CLUEDO FRAME
+			JOptionPane.showMessageDialog(game, "Suggestion could not be refuted");
+		} else {
+			player.removeSuspect(refuted);
+			//TODO ADD REFUTED DIALOG BOX IN CLUEDO FRAME
+			JOptionPane.showMessageDialog(game, String.format("Suggestion was refuted.\n%s was removed from %s's remaining suspects",refuted,player));
 		}
 	}
 
@@ -126,9 +119,6 @@ public class Game{
 			pTurn = 1;
 		}
 		player = players.get(pTurn);
-
-		//TODO DEBUGGING ONLY REMOVE ME LATER
-		if (playersLeft <= 1){System.out.println("SHOULD NOT BE ABLE TO REACH, infinite loop in endPlayerTurn");}
 
 		//update player again if player is not in the game
 		if (!player.isInGame()){endPlayerTurn();}
@@ -217,7 +207,10 @@ public class Game{
 		murderCard = random.nextInt(WEAPONS_LIST.length);
 		//initialise weapons and weapon cards
 		for (int i = 0; i < WEAPONS_LIST.length; i++){
-			Weapon w = new Weapon(WEAPONS_LIST[i]);
+
+			BufferedImage icon = BoardPanel.loadImage(WEAPONS_LIST[i]+"Token.png");
+
+			Weapon w = new Weapon(WEAPONS_LIST[i], icon);
 			Card c = new Card(WEAPONS_LIST[i]);
 			//assigns weapon to room
 			w.setLocation(rooms.get(ROOM_LIST[i]));
@@ -254,8 +247,8 @@ public class Game{
 		new PlayerSelectionFrame(this, availableCharacters, numPlayers);
 	}
 
-	public void createPlayer(int playerNumber, String choice){
-		Player p = new Player(playerNumber, tokens.get(choice), allCards);
+	public void createPlayer(int playerNumber, String playerName, String choice){
+		Player p = new Player(playerNumber, playerName, tokens.get(choice), allCards);
 		players.put(playerNumber, p);
 		turn = new Turn(player, board, murderEnvelope);
 		playersLeft++;

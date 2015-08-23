@@ -11,6 +11,7 @@ import java.util.*;
  */
 public class Player {
 	private int playerNumber;
+	private String name;
 	private Token myToken;
 	private Set<Card> hand;
 	private Map<String, Card> suspects;
@@ -21,7 +22,8 @@ public class Player {
 	 *
 	 * @param - Token the character belonging to this player.
 	 */
-	public Player(int playerNumber, Token myToken, Map<String, Card> suspects) {
+	public Player(int playerNumber, String playerName, Token myToken, Map<String, Card> suspects) {
+		this.name = playerName;
 		this.playerNumber = playerNumber;
 		this.myToken = myToken;
 		this.hand = new HashSet<Card>();
@@ -88,6 +90,10 @@ public class Player {
 	@Override
 	public String toString(){
 		return "Player "+playerNumber;
+	}
+
+	public String getName(){
+		return name;
 	}
 
 	public boolean move(String direction) { //TODO fix this so that the tile handles moving
