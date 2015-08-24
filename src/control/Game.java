@@ -239,7 +239,8 @@ public class Game{
 	 *
 	 * @param menu - used to interact with the user
 	 */
-	public void assignPlayers() {
+	public void assignPlayers(int numPlayers) {
+		this.numPlayers = numPlayers;
 		List<String> availableCharacters = new ArrayList<String>();//List of all the available characters to choose from
 		for(int i = 0; i < CHARACTER_LIST.length; i++){
 			availableCharacters.add(CHARACTER_LIST[i]);

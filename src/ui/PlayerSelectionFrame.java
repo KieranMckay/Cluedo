@@ -125,22 +125,22 @@ public class PlayerSelectionFrame extends JFrame{
 		panel.add(characterLabelPanel, BorderLayout.CENTER);
 
 		scarletLabel = new JLabel();
-		scarletLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/Miss Scarlet.png")));
+		scarletLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[0]+".png")));
 
 		mustardLabel = new JLabel();
-		mustardLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/Colonel Mustard.png")));
-
-		plumLabel = new JLabel();
-		plumLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/Professor Plum.png")));
+		mustardLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[1]+".png")));
 
 		peacockLabel = new JLabel();
-		peacockLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/Mrs Peacock.png")));
+		peacockLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[2]+".png")));
+
+		plumLabel = new JLabel();
+		plumLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[3]+".png")));;
 
 		greenLabel = new JLabel();
-		greenLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/Mr Green.png")));
+		greenLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[4]+".png")));
 
 		whiteLabel = new JLabel();
-		whiteLabel.setIcon(new ImageIcon(PlayerSelectionFrame.class.getResource("/Mrs White.png")));
+		whiteLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[5]+".png")));
 
 		characterLabelPanel.add(scarletLabel);
 		characterLabelPanel.add(mustardLabel);

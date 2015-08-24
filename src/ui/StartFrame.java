@@ -1,23 +1,33 @@
 package ui;
 
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
+import java.awt.Toolkit;
 
 import control.Game;
 
 import javax.swing.JButton;
-import java.awt.event.ActionEvent;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+
 import java.awt.SystemColor;
+import java.util.Enumeration;
 
 public class StartFrame extends JFrame{
 
@@ -26,8 +36,13 @@ public class StartFrame extends JFrame{
 	 * Create the application.
 	 */
 	public StartFrame(Game game) {
+		getContentPane().setBackground(SystemColor.desktop);
 		this.game = game;
+
 		initialize();
+
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setResizable(false);
 		setVisible(true);
 	}
 
@@ -36,59 +51,84 @@ public class StartFrame extends JFrame{
 	 */
 	private void initialize() {
 		setTitle("Cluedo");
-		setBounds(100, 100, 450, 300);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JDialog dlog = new JDialog();
-		dlog.setTitle("Select Number of Players");
-		dlog.setSize(400, 200);
-		dlog.getContentPane().setLayout(new GridLayout(2,1));
-		JButton dlogButton = new JButton("Start Game");
-		JTextArea dlogText= new JTextArea(String.format("Enter number of players between %d and %d", game.MIN_PLAYERS, game.MAX_PLAYERS));
+		// Center window in screen
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension scrnsize = toolkit.getScreenSize();
 
-		dlogButton.addActionListener(new ActionListener() {
+		setSize(scrnsize.width/2, scrnsize.height/2);
+		setBounds((scrnsize.width - getWidth()) / 2, (scrnsize.height - getHeight()) / 2, getWidth(), getHeight());
+
+		JPanel centerPanel = new JPanel();
+		centerPanel.setBackground(SystemColor.desktop);
+		getContentPane().add(centerPanel, BorderLayout.CENTER);
+		centerPanel.setLayout(new BorderLayout());
+
+		JPanel inputPanel = new JPanel();
+		inputPanel.setBackground(SystemColor.desktop);
+		centerPanel.add(inputPanel, BorderLayout.SOUTH);
+
+		ButtonGroup rdbtnGroup = new ButtonGroup();
+		JPanel btnPanel = new JPanel();
+		btnPanel.setBackground(SystemColor.desktop);
+		btnPanel.setForeground(SystemColor.desktop);
+		btnPanel.setLayout(new GridLayout(1,5));
+		createRadioBtns(rdbtnGroup, btnPanel);
+		JButton btnStart = new JButton("Start");
+		btnPanel.add(btnStart, 4);
+
+		btnStart.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {
-					game.numPlayers = Integer.parseInt(dlogText.getText());
-					if (game.numPlayers >= game.MIN_PLAYERS && game.MAX_PLAYERS >= game.numPlayers){
-						dlog.dispose();
-						game.initialise();
-						game.assignPlayers();
-						dispose();
-					}else{
-						JOptionPane.showMessageDialog(dlog, "INVALID ENTRY");
-					}
-				} catch(NumberFormatException error){
-					JOptionPane.showMessageDialog(dlog, "INVALID ENTRY");
+				String numPlayers = getSelectedButtonText(rdbtnGroup);
+				if (numPlayers != null){
+					game.initialise();
+					int num = Integer.parseInt(numPlayers);
+					game.assignPlayers(num);
+					dispose();
+				}else{
+					JOptionPane.showMessageDialog(getParent(), "INVALID ENTRY");
 				}
 			}
 		});
 
-		dlog.getContentPane().add(dlogText, 0);
-		dlog.getContentPane().add(dlogButton, 1);
+		inputPanel.setLayout(new BorderLayout());
 
+		JLabel welcomelbl = new JLabel("Welcome To Cluedo");
+		welcomelbl.setFont(welcomelbl.getFont().deriveFont(welcomelbl.getFont().getSize() + 24f));
+		centerPanel.add(welcomelbl, BorderLayout.CENTER);
 
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setLayout(new BorderLayout(0, 0));
-
-		JPanel welcome = new JPanel();
-		welcome.setBackground(SystemColor.desktop);
-		panel.add(welcome);
-
-		JButton btnStart = new JButton("Start");
-		btnStart.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-					dlog.setVisible(true);
-			}
-		});
-		welcome.setLayout(new BorderLayout(0, 0));
-
-		JLabel lblWelc = new JLabel("Welcome To Cluedo");
-		lblWelc.setFont(lblWelc.getFont().deriveFont(lblWelc.getFont().getSize() + 24f));
-		welcome.add(lblWelc, BorderLayout.CENTER);
-		welcome.add(btnStart, BorderLayout.SOUTH);
+		JLabel numPlayerslbl = new JLabel("How many Players?");
+		numPlayerslbl.setBackground(SystemColor.desktop);
+		inputPanel.add(numPlayerslbl, BorderLayout.CENTER);
+		inputPanel.add(btnPanel, BorderLayout.SOUTH);
 	}
+
+	private void createRadioBtns(ButtonGroup rdbtnGroup, JPanel parent) {
+		JRadioButton rdbtn3 = new JRadioButton("3");
+		JRadioButton rdbtn4 = new JRadioButton("4");
+		JRadioButton rdbtn5 = new JRadioButton("5");
+		JRadioButton rdbtn6 = new JRadioButton("6");
+
+		rdbtnGroup.add(rdbtn3);
+		rdbtnGroup.add(rdbtn4);
+		rdbtnGroup.add(rdbtn5);
+		rdbtnGroup.add(rdbtn6);
+
+		parent.add(rdbtn3, 0);
+		parent.add(rdbtn4, 1);
+		parent.add(rdbtn5, 2);
+		parent.add(rdbtn6, 3);
+	}
+
+	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.isSelected()) {
+                return button.getText();
+            }
+        }
+        return null;
+    }
 }
