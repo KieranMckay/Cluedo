@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import ui.BoardPanel;
+
 /**
  * A class representing the token of a Character for moving around the Board in the game Cluedo.
  *
@@ -11,11 +13,13 @@ import java.awt.image.BufferedImage;
  *
  */
 public class Token {
-	public int size = 27;
-	public int offset = 3;
+	public int size = 33;
+	public int offset = 10;
 	private BufferedImage icon;
 	private String name;
 	private Tile position;
+	private double offsetX = 0;
+	private double offsetY = 0;
 
 	public Token(String name, Tile position, BufferedImage icon) {
 		this.icon = icon;
@@ -23,7 +27,15 @@ public class Token {
 		this.position = position;
 		this.position.addToken(this);
 	}
+	/*increment the visual position of this token between 0 -1.0 per square*/
+	public void setYoffset(double amt){
+		this.offsetY = amt%1.0;
+	}
 
+	/*increment the visual position of this token between 0 -1.0 per square*/
+	public void setXoffset(double amt){
+		this.offsetX = amt%1.0;
+	}
 	/**
 	 * Returns the name of this character.
 	 *
@@ -39,14 +51,14 @@ public class Token {
 	}
 
 	public int getY(){
-		return position.getY()-1;
+		return position.getY();
 	}
 
-	public void draw(Graphics g){
+	public void draw(Graphics g,BoardPanel panel){
+		double squareSize = panel.getWidth()/25.0;
 		g.setColor(Color.red);
-		g.drawImage(icon, (getX()*size)+offset, (getY()*size)+offset, size, size, null);
+		g.drawImage(icon, (int)((getX()*squareSize*1.01)+(offsetX*squareSize))+offset, (int)((getY()*squareSize)+(offsetY*squareSize))+offset, size, size, null);
 	}
-
 
 	/**
 	 * Returns characters current position.
@@ -86,5 +98,18 @@ public class Token {
 	 */
 	public char toChar(){
 		return this.name.charAt(0);
+	}
+
+	public boolean move(String direction) {
+		// TODO Auto-generated method stub
+		double drawIncrement = 0.01;
+		Tile tile = getPosition();
+		Tile newTile = tile.getNeighbour(direction);
+		if(newTile != null && newTile.hasSpace()){//can move in the given direction
+			newTile.moveTo(this);
+			return true;
+		}
+		System.out.println("Not a valid Move");
+		return false;
 	}
 }

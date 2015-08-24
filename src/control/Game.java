@@ -250,7 +250,6 @@ public class Game{
 	public void createPlayer(int playerNumber, String playerName, String choice){
 		Player p = new Player(playerNumber, playerName, tokens.get(choice), allCards);
 		players.put(playerNumber, p);
-		turn = new Turn(player, board, murderEnvelope);
 		playersLeft++;
 	}
 
@@ -263,12 +262,13 @@ public class Game{
 		for (Card card : cards.values()){
 			int playernum = i % numPlayers;
 			Player p = players.get(playernum+1);
-			p.addCard(card);;
+			p.addCard(card);
 			i++;
 		}
 
 		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
 		player = players.get(pTurn);
+		turn = new Turn(player, board, murderEnvelope);
 	}
 
 	public Board getBoard(){

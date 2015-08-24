@@ -44,7 +44,7 @@ public class StartFrame extends JFrame{
 		dlog.setSize(400, 200);
 		dlog.getContentPane().setLayout(new GridLayout(2,1));
 		JButton dlogButton = new JButton("Start Game");
-		JTextArea dlogText= new JTextArea(String.format("Enter number of players between %d and %d", game.MIN_PLAYERS, game.MAX_PLAYERS));
+		JTextArea dlogText= new JTextArea(String.format("3"));
 
 		dlogButton.addActionListener(new ActionListener() {
 			@Override

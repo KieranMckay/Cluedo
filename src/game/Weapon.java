@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import ui.BoardPanel;
+
 /**
  * A class representing a Weapon in the game Cluedo
  *
@@ -40,11 +42,12 @@ public class Weapon {
 	}
 
 	public int getY(){
-		return room.getY()-1;
+		return room.getY();
 	}
 
-	public void draw(Graphics g){
+	public void draw(Graphics g,BoardPanel panel){
+		double squareSize = panel.getWidth()/25.0;
 		g.setColor(Color.red);
-		g.drawImage(icon, (getX()*size)+offset, (getY()*size)+offset, size, size, null);
+		g.drawImage(icon, (int)((getX()*squareSize)+offset), (int)((getY()*squareSize)+offset), size, size, null);
 	}
 }

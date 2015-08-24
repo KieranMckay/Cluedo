@@ -86,7 +86,7 @@ public class PlayerSelectionFrame extends JFrame{
 		JLabel nameLabel = new JLabel();
 		nameLabel.setText("Please enter your name: ");
 		nameLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
-		JTextField playerName = new JTextField();
+		JTextField playerName = new JTextField("abc");
 		namePanel.setLayout(new BorderLayout());//(new GridLayout(1, 2));
 		namePanel.add(nameLabel, BorderLayout.WEST);
 		namePanel.add(playerName, BorderLayout.CENTER);

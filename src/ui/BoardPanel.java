@@ -15,12 +15,13 @@ import control.Game;
 public class BoardPanel extends JPanel{
 
 	private static final String BOARD_NAME = "Cluedo Board.png";
-	Game game;
+	private Game game;
+	public JLabel boardImage;
 
 	public BoardPanel(Game game) {
 		this.game = game;
 		BufferedImage image = loadImage(BOARD_NAME);
-		JLabel boardImage = new JLabel(new ImageIcon(image));
+		boardImage = new JLabel(new ImageIcon(image));
 		boardImage.setMaximumSize(new Dimension(100, 100));
 		add(boardImage);
 
@@ -31,10 +32,10 @@ public class BoardPanel extends JPanel{
 		// First, draw the board
 		// Second, draw the weapons then characters
 		for (Weapon w : game.weapons.values()){
-			w.draw(g);
+			w.draw(g,this);
 		}
 		for(Token t : game.tokens.values()){
-			t.draw(g);
+			t.draw(g,this);
 		}
 
 		// finally, draw any messages
@@ -59,5 +60,9 @@ public class BoardPanel extends JPanel{
 			// can actually do at this point, except to abort the game.
 			throw new RuntimeException("Unable to load image: " + filename);
 		}
+	}
+
+	public static void main(String[] args){
+		new BoardPanel(new Game());
 	}
 }

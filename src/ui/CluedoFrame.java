@@ -21,6 +21,8 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +32,9 @@ import javax.swing.JMenu;
 import javax.swing.JTextField;
 
 import control.Game;
+import control.Turn;
 
-public class CluedoFrame extends JFrame{
+public class CluedoFrame extends JFrame implements KeyListener{
 
 	private Game game;
 
@@ -62,6 +65,8 @@ public class CluedoFrame extends JFrame{
 		importCards();
 
 		setLayout(new BorderLayout());
+
+
 
 		addActionListeners();
 
@@ -96,6 +101,10 @@ public class CluedoFrame extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setVisible(true);
+		//add key listener to main window
+		setFocusable(true);
+		requestFocusInWindow();
+		addKeyListener(this);
 	}
 
 	private void importCards() {
@@ -174,11 +183,15 @@ public class CluedoFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if (game.turn.turns > 0){
 					// TODO MOVE HERE
+					requestFocusInWindow();
+					//game.turn.movePlayer("South");
 				} else{
 					JOptionPane.showMessageDialog(getParent(), "Please roll the dice before moving.");
 				}
 			}
 		});
+
+
 
 		suggest.addActionListener(new ActionListener() {
 			@Override
@@ -278,4 +291,84 @@ public class CluedoFrame extends JFrame{
 		}
 	}
 
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		//TODO add wasd
+		System.out.println("key Pressed " + e.toString());
+		if(game == null || game.turn == null)return;
+		System.out.println("game not null");
+		int keyCode = e.getKeyCode();
+		 switch( keyCode ) {
+	        case KeyEvent.VK_UP:
+	        	System.out.println("UPUPUP");
+	        	//animateNorth();
+	    		game.turn.movePlayer("North");
+	            break;
+	        case KeyEvent.VK_DOWN:
+	        	System.out.println("DownDown");
+	    		game.turn.movePlayer("South");
+	            break;
+	        case KeyEvent.VK_LEFT:
+	        	System.out.println("LeftLeft");
+	    		game.turn.movePlayer("West");
+	            break;
+	        case KeyEvent.VK_RIGHT :
+	        	System.out.println("RightRight");
+	    		game.turn.movePlayer("East");
+	            break;
+	     }
+//    	if(e.equals(KeyEvent.VK_UP)){
+//    		System.out.println("UPUPUP");
+//    		game.turn.movePlayer("North");
+//    	}else if(e.equals(KeyEvent.VK_DOWN)){
+//    		game.turn.movePlayer("South");
+//    	}
+//    	else if(e.equals(KeyEvent.VK_LEFT)){
+//    		game.turn.movePlayer("East");
+//    	}else if(e.equals(KeyEvent.VK_RIGHT)){
+//    		game.turn.movePlayer("West");
+//    	}
+    	repaint();
+	}
+
+	private void animateNorth() {
+		double offset = 0.0;
+//		while(offset < 1.0){
+//			offset-=0.01;
+//			System.out.println("offset: "+ offset);
+//			game.player.getToken().setYoffset(offset);
+//			//board.paintImmediately(0, 0, 1000, 1000);
+//		}
+	}
+
+
+
+//	addKeyListener(new KeyListener(){
+//		public void keyTyped(KeyEvent e){};
+//
+//	    public void keyPressed(KeyEvent e){};
+//
+//	    public void keyReleased(KeyEvent e){
+//	    	System.out.println("key Pressed " + e.toString());
+//	    	if(e.equals(KeyEvent.VK_UP)){
+//	    		System.out.println("UPUPUP");
+//	    		game.turn.movePlayer("North");
+//	    	}else if(e.equals(KeyEvent.VK_DOWN)){
+//
+//	    	}
+//	    }
+//
+//	});
 }
