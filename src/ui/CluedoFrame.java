@@ -260,7 +260,6 @@ public class CluedoFrame extends JFrame implements KeyListener{
 		end.add(prompt, 0);
 		end.add(btnPanel, 1);
 
-		end.setIconImage(BoardPanel.loadImage("Miss ScarlettToken.png"));
 		end.setLocationRelativeTo(this);
 		end.setVisible(true);
 	}
