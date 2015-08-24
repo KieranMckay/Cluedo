@@ -73,12 +73,10 @@ public class Room extends Tile{
 		return weapons;
 	}
 
-	/**
-	 * Returns the first character of this rooms name
-	 */
-	/*public char toChar(){
-		return super.toChar();
-		//return this.name.charAt(0);
+	/*void draw(Graphics g){
+		for (int i = 0; i < inRoom.size(); i++) {
+
+		}
 	}*/
 
 }
