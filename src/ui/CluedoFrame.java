@@ -1,6 +1,7 @@
 package ui;
 
 
+import game.Board;
 import game.Card;
 import game.Player;
 import game.Room;
@@ -216,13 +217,16 @@ public class CluedoFrame extends JFrame{
 	public void promptEndTurn(){
 		JDialog end = new JDialog();
 		end.setTitle("End Turn");
-		end.setLayout(new BorderLayout());
+		end.setLayout(new GridLayout(2,1));
 		end.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		end.setSize(300, 100);
 
 		JButton yes = new JButton("Yes");
 		JButton no = new JButton("No");
-		JLabel prompt = new JLabel("Are you sure you want to end your turn?");
+		JPanel btnPanel = new JPanel();
+		btnPanel.setLayout(new GridLayout(1,2));
+		btnPanel.add(yes, 0);
+		btnPanel.add(no, 1);
 
 		yes.addActionListener(new ActionListener() {
 			@Override
@@ -239,10 +243,12 @@ public class CluedoFrame extends JFrame{
 			}
 		});
 
-		end.add(prompt, BorderLayout.NORTH);
-		end.add(yes, BorderLayout.WEST);
-		end.add(no, BorderLayout.EAST);
+		JLabel prompt = new JLabel("Are you sure you want to end your turn?");
+		end.add(prompt, 0);
+		end.add(btnPanel, 1);
 
+		end.setIconImage(BoardPanel.loadImage("Miss ScarlettToken.png"));
+		end.setLocationRelativeTo(this);
 		end.setVisible(true);
 	}
 

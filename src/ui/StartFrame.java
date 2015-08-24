@@ -40,7 +40,6 @@ public class StartFrame extends JFrame{
 		this.game = game;
 
 		initialize();
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setResizable(false);
 		setVisible(true);
@@ -51,7 +50,9 @@ public class StartFrame extends JFrame{
 	 */
 	private void initialize() {
 		setTitle("Cluedo");
-
+		
+		setIconImage(BoardPanel.loadImage("Miss ScarletToken.png"));
+		
 		// Center window in screen
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension scrnsize = toolkit.getScreenSize();

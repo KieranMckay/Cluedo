@@ -36,7 +36,6 @@ public class BoardPanel extends JPanel{
 		for(Token t : game.tokens.values()){
 			t.draw(g);
 		}
-
 		// finally, draw any messages
 	}
 
