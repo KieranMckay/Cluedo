@@ -59,7 +59,7 @@ public class Token {
 		g.setColor(Color.red);
 		g.drawImage(icon, (int)((getX()*squareSize*1.01)+(offsetX*squareSize))+offset, (int)((getY()*squareSize)+(offsetY*squareSize))+offset, size, size, null);
 	}
-	
+
 	/*an overloading method for drawing a token in a room, specifiying the x and y*/
 	public void draw(Graphics g,BoardPanel panel,int x, int y){
 		double squareSize = panel.getWidth()/25.0;

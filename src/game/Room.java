@@ -19,20 +19,20 @@ public class Room extends Tile{
 
 
 	public Room(String name,int x, int y){
-		super(x,y); 
+		super(x,y);
 		this.name = name;
 		this.weapons = new HashSet<Weapon>();
 	}
-	
+
 	public void draw(Graphics g,BoardPanel panel){
 		int size = 34;
 		int offset = 10;
 		for(int i = 0; i < inRoom.size(); i++){
-			inRoom.get(i).draw(g, panel, getX(), getY());
+			inRoom.get(i).draw(g, panel, getX()+(i%4), getY()+(i/4));
 			System.out.println("room " + getX() +" " + getY() + " drawing: " + inRoom.get(i).toString());
 		}
 	}
-	
+
 	@Override
 	public void addToken(Token t){
 		this.inRoom.add(t);
@@ -42,7 +42,7 @@ public class Room extends Tile{
 	public void moveTo(Token t) {
 		if(t != null){
 			t.getPosition().removeToken(t);
-			inRoom.add(t);
+			//inRoom.add(t);
 			t.setLocation(this);
 		}
 	}
@@ -85,10 +85,5 @@ public class Room extends Tile{
 		return weapons;
 	}
 
-	/*void draw(Graphics g){
-		for (int i = 0; i < inRoom.size(); i++) {
-
-		}
-	}*/
 
 }

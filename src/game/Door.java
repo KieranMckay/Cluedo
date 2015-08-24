@@ -1,5 +1,9 @@
 package game;
 
+import java.awt.Graphics;
+
+import ui.CluedoFrame;
+
 public class Door extends Tile{
 	public Room room;
 	public Location location;
@@ -22,6 +26,10 @@ public class Door extends Tile{
 		else{ //must be a location
 			room.moveTo(t);
 		}
+	}
+
+	void draw(Graphics g, CluedoFrame frame){
+
 	}
 
 	@Override

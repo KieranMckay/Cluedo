@@ -3,6 +3,7 @@ package control;
 import game.*;
 
 import java.awt.Font;
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.*;
 
@@ -172,7 +173,14 @@ public class Game{
 		int murderCard = random.nextInt(ROOM_LIST.length);
 		//initialise rooms and room cards
 		for (int i = 0; i < ROOM_LIST.length; i++){
-			Room r = new Room(ROOM_LIST[i],-1,-1);//TODO check this is okay, where are the actual rooms being initalised?
+			Point coord = getRoomPosition(ROOM_LIST[i]);
+
+			int x = coord.x;
+			int y = coord.y;
+			//TODO give rooms initial x and y (top left corner)
+
+
+			Room r = new Room(ROOM_LIST[i],x,y);//TODO check this is okay, where are the actual rooms being initalised?
 			Card c = new Card(ROOM_LIST[i]);
 			rooms.put(r.toString(), r);
 
@@ -232,6 +240,50 @@ public class Game{
 		allCards.put(envelope[0].toString(), envelope[0]);
 		allCards.put(envelope[1].toString(), envelope[1]);
 		allCards.put(envelope[2].toString(), envelope[2]);
+	}
+
+	private Point getRoomPosition(String roomName) {
+		int x = 0;
+		int y = 0;
+		switch (roomName){
+		case "Kitchen": //kichen
+			x = 1;
+			y = 2;
+			break;
+		case "Ball Room": //ballroom
+			x = 10;
+			y = 3;
+			break;
+		case "Conservatory": //conservatory
+			x = 20;
+			y = 3;
+			break;
+		case "Billiard Room": //billiard
+			x = 20;
+			y = 10;
+			break;
+		case "Library": //library
+			x = 20;
+			y = 16;
+			break;
+		case "Study": //study
+			x = 20;
+			y = 23;
+			break;
+		case "Hall": //hall
+			x = 11;
+			y = 20;
+			break;
+		case  "Lounge": //lounge
+			x = 2;
+			y = 21;
+			break;
+		case "Dining Room": //dining room
+			x = 2;
+			y = 10;
+			break;
+		}
+		return new Point(x,y);
 	}
 
 	/**

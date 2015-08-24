@@ -117,7 +117,7 @@ public class StartFrame extends JFrame{
 		parent.add(rdbtn6, 3);
 	}
 
-	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+	public static String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 
