@@ -26,9 +26,9 @@ public class Board {
 	 * constructs new board given csv file
 	 * @param boardFile
 	 */
-	public Board(String boardFile) {
+	public Board() {
 		try {
-			Scanner sc = new Scanner(new File(boardFile));
+			Scanner sc = new Scanner(new File("board.csv"));
 			parseBoard(csvToArray(sc));
 
 		} catch (FileNotFoundException e) {
