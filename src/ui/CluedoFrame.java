@@ -311,26 +311,26 @@ public class CluedoFrame extends JFrame implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		//TODO add wasd
-		System.out.println("key Pressed " + e.toString());
+		//System.out.println("key Pressed " + e.toString());
 		if(game == null || game.turn == null)return;
-		System.out.println("game not null");
+		//System.out.println("game not null");
 		int keyCode = e.getKeyCode();
 		 switch( keyCode ) {
 	        case KeyEvent.VK_UP:
-	        	System.out.println("UPUPUP");
+	        	//System.out.println("UPUPUP");
 	        	//animateNorth();
 	    		game.turn.movePlayer("North");
 	            break;
 	        case KeyEvent.VK_DOWN:
-	        	System.out.println("DownDown");
+	        	//System.out.println("DownDown");
 	    		game.turn.movePlayer("South");
 	            break;
 	        case KeyEvent.VK_LEFT:
-	        	System.out.println("LeftLeft");
+	        	//System.out.println("LeftLeft");
 	    		game.turn.movePlayer("West");
 	            break;
 	        case KeyEvent.VK_RIGHT :
-	        	System.out.println("RightRight");
+	        	//System.out.println("RightRight");
 	    		game.turn.movePlayer("East");
 	            break;
 	     }

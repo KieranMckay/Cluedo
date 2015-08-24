@@ -65,7 +65,7 @@ public class Game{
 
 		if (accusation.isCorrect()){
 			JOptionPane.showMessageDialog(game, "Accusation was correct. Game over");
-			//game.dispose();
+			game.dispose();
 			//TODO ADD WINNER JFRAME HERE
 			//new GameOverFrame();
 		} else {
@@ -79,7 +79,7 @@ public class Game{
 				for ( Player player : players.values() ){
 					if(player.isInGame()){
 						JOptionPane.showMessageDialog(game, "Only one player remains. Game Over");
-						//game.dispose();
+						game.dispose();
 						//TODO ADD WINNER JFRAME HERE
 						//Dialog should include winning by default, last remaining player
 						//new GameOverFrame();

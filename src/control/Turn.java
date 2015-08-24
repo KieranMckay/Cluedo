@@ -59,7 +59,7 @@ public class Turn {
 	 * @return Boolean successful move or not
 	 */
 	public boolean singleMove(String direction) {
-		menu.println("Please choose a direction: ");
+		//menu.println("Please choose a direction: ");
 		if (player.move(direction)){
 			turns--;
 			return true;

@@ -65,7 +65,7 @@ public class ChoiceFrame extends JFrame{
 		setTitle("Murder Selection");
 		getContentPane().setBackground(SystemColor.desktop);
 		setBounds(100, 100, 802, 531);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		JPanel selectionPanel = new JPanel();
 		selectionPanel.setBackground(SystemColor.desktop);
@@ -203,6 +203,7 @@ public class ChoiceFrame extends JFrame{
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					characterLabel.setIcon(label.getIcon());
+					characterLabel.setToolTipText(label.getToolTipText());
 					charSelected = true;
 					charDialog.dispose();
 				}
@@ -234,6 +235,7 @@ public class ChoiceFrame extends JFrame{
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					weaponLabel.setIcon(label.getIcon());
+					weaponLabel.setToolTipText(label.getToolTipText());
 					weaponSelected = true;
 					weaponDialog.dispose();
 				}
@@ -265,6 +267,7 @@ public class ChoiceFrame extends JFrame{
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					roomLabel.setIcon(label.getIcon());
+					roomLabel.setToolTipText(label.getToolTipText());
 					roomSelected = true;
 					roomDialog.dispose();
 				}
@@ -297,6 +300,7 @@ public class ChoiceFrame extends JFrame{
 				@Override
 				public void mouseReleased(MouseEvent e) {
 					roomLabel.setIcon(label.getIcon());
+					roomLabel.setToolTipText(label.getToolTipText());
 					roomSelected = true;
 					roomDialog.dispose();
 				}
