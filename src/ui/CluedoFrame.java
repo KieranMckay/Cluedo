@@ -424,24 +424,40 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 	}
 
 	private void animateNorth() {
-		        boolean notDone = true;
-				while(notDone) {
-		            // Do your processing
-					notDone = slideNorth();
-		        }
+
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	boolean notDone = true;
+        		while(notDone) {
+                    // Do your processing
+        			notDone = slideNorth();
+        			try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                }
+               System.out.println("new thread painting");
+               //
+            }
+          });
+
 	}
 
 	boolean slideNorth(){
-		if(game.player.getToken().getYOffset() >= 1){
+		if(game.player.getToken().getYOffset() <= -1){
 			game.player.getToken().setYoffset(0);
-			return true; //finished moving
+			System.out.println("player has finished sliding");
+			return false; //finished moving
 		}
 		else{
-			System.out.println(game.player.getToken().getYOffset());
-			game.player.getToken().setYoffset(game.player.getToken().getYOffset()-0.001);
+			System.out.println("player sliding: "+game.player.getToken().getYOffset());
+			game.player.getToken().setYoffset(game.player.getToken().getYOffset()-0.1);
 		}
-		repaint();
-		return false;
+		board.repaint();
+		//board.paintImmediately((game.player.getToken().getX()-2)*34, (game.player.getToken().getY()-2)*34, 100, 100);
+		return true;
 	}
 
 
