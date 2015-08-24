@@ -218,15 +218,14 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 					Tile curPosition = game.player.getToken().getPosition();
 					if(curPosition.isRoom()){
 						JDialog dialog = new JDialog();
-						dialog.setLayout(new GridLayout(curPosition.neighbourNames().size(),1));
-						dialog.setSize(300,curPosition.neighbourNames().size()*100);
+						dialog.setLayout(new GridLayout(curPosition.neighbourNames().size()+1,1));
+						dialog.setSize(150,curPosition.neighbourNames().size()*100);
 						dialog.setTitle("Choose an exit");
 						ButtonGroup bg = new ButtonGroup();
 						int i = 0;
 						for(String exit : curPosition.neighbourNames()){
-
 							JRadioButton radioButton = new JRadioButton(exit);
-							if(i == 0) radioButton.setSelected(true);
+							if(i == 0) radioButton.setSelected(true); //set the first button as default
 							bg.add(radioButton);
 							dialog.add(radioButton);
 							i++;
