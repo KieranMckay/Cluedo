@@ -12,7 +12,7 @@ import ui.BoardPanel;
  * @author Kieran Mckay
  *
  */
-public class Token {
+public class Token{
 	public int size = 33;
 	public int offset = 10;
 	private BufferedImage icon;
@@ -29,12 +29,18 @@ public class Token {
 	}
 	/*increment the visual position of this token between 0 -1.0 per square*/
 	public void setYoffset(double amt){
-		this.offsetY = amt%1.0;
+		this.offsetY = amt;
+	}
+	public double getXOffset(){
+		return offsetX;
+	}
+	public double getYOffset(){
+		return offsetY;
 	}
 
 	/*increment the visual position of this token between 0 -1.0 per square*/
 	public void setXoffset(double amt){
-		this.offsetX = amt%1.0;
+		this.offsetX = amt;
 	}
 	/**
 	 * Returns the name of this character.
@@ -57,14 +63,14 @@ public class Token {
 	public void draw(Graphics g,BoardPanel panel){
 		double squareSize = panel.getWidth()/25.0;
 		g.setColor(Color.red);
-		g.drawImage(icon, (int)((getX()*squareSize*1.01)+(offsetX*squareSize))+offset, (int)((getY()*squareSize)+(offsetY*squareSize))+offset, size, size, null);
+		g.drawImage(icon, (int)((getX()*squareSize*1.01)+((offsetX%1)*squareSize))+offset, (int)((getY()*squareSize)+((offsetY%1)*squareSize))+offset, size, size, null);
 	}
 
 	/*an overloading method for drawing a token in a room, specifiying the x and y*/
 	public void draw(Graphics g,BoardPanel panel,int x, int y){
 		double squareSize = panel.getWidth()/25.0;
 		g.setColor(Color.red);
-		g.drawImage(icon, (int)((x*squareSize*1.01)+(offsetX*squareSize))+offset, (int)((y*squareSize)+(offsetY*squareSize))+offset, size, size, null);
+		g.drawImage(icon, (int)((x*squareSize*1.01)+((offsetX%1)*squareSize))+offset, (int)((y*squareSize)+((offsetY%1)*squareSize))+offset, size, size, null);
 	}
 
 	/**

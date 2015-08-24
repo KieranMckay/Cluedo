@@ -30,8 +30,7 @@ public class BoardPanel extends JPanel{
 
 	public void paint(Graphics g) {
 		super.paint(g);
-		// First, draw the board
-		// Second, draw the weapons then characters
+
 		for (Weapon w : game.weapons.values()){
 			w.draw(g,this);
 		}

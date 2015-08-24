@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -70,7 +71,7 @@ public class CluedoFrame extends JFrame implements KeyListener{
 		importCards();
 
 		setLayout(new BorderLayout());
-		
+
 		addActionListeners();
 
 		//add components to menu
@@ -338,14 +339,11 @@ public class CluedoFrame extends JFrame implements KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		//TODO add wasd
-		//System.out.println("key Pressed " + e.toString());
 		if(game == null || game.turn == null)return;
-		//System.out.println("game not null");
 		int keyCode = e.getKeyCode();
 		 switch( keyCode ) {
 	        case KeyEvent.VK_UP:
-	        	//animateNorth();
+	        	animateNorth();
 	    		game.turn.movePlayer("North");
 	            break;
 	        case KeyEvent.VK_DOWN:
@@ -362,13 +360,24 @@ public class CluedoFrame extends JFrame implements KeyListener{
 	}
 
 	private void animateNorth() {
-		double offset = 0.0;
-//		while(offset < 1.0){
-//			offset-=0.01;
-//			System.out.println("offset: "+ offset);
-//			game.player.getToken().setYoffset(offset);
-//			//board.paintImmediately(0, 0, 1000, 1000);
-//		}
+		        boolean notDone = true;
+				while(notDone) {
+		            // Do your processing
+					notDone = slideNorth();
+		        }
+	}
+
+	boolean slideNorth(){
+		if(game.player.getToken().getYOffset() >= 1){
+			game.player.getToken().setYoffset(0);
+			return true; //finished moving
+		}
+		else{
+			System.out.println(game.player.getToken().getYOffset());
+			game.player.getToken().setYoffset(game.player.getToken().getYOffset()-0.001);
+		}
+		repaint();
+		return false;
 	}
 
 
