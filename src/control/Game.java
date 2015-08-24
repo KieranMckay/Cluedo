@@ -10,7 +10,6 @@ import javax.swing.JOptionPane;
 
 import ui.BoardPanel;
 import ui.CluedoFrame;
-import ui.PlayerSelectionFrame;
 import ui.StartFrame;
 
 /**
@@ -239,13 +238,13 @@ public class Game{
 	 *
 	 * @param menu - used to interact with the user
 	 */
-	public void assignPlayers(int numPlayers) {
+	public List<String> assignPlayers(int numPlayers) {
 		this.numPlayers = numPlayers;
 		List<String> availableCharacters = new ArrayList<String>();//List of all the available characters to choose from
 		for(int i = 0; i < CHARACTER_LIST.length; i++){
 			availableCharacters.add(CHARACTER_LIST[i]);
 		}
-		new PlayerSelectionFrame(this, availableCharacters, numPlayers);
+		return availableCharacters;
 	}
 
 	public void createPlayer(int playerNumber, String playerName, String choice){

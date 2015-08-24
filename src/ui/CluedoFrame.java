@@ -66,9 +66,7 @@ public class CluedoFrame extends JFrame implements KeyListener{
 		importCards();
 
 		setLayout(new BorderLayout());
-
-
-
+		
 		addActionListeners();
 
 		//add components to menu

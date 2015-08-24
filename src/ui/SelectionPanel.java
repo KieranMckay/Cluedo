@@ -1,43 +1,24 @@
 package ui;
 
-import java.awt.EventQueue;
-import java.awt.GridLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
-import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import control.Game;
 
+public class SelectionPanel extends JPanel{
 
-public class PlayerSelectionFrame extends JFrame{
 
-	/*
-	private JPanel rdbtnPanel;
-	private JRadioButton rdbtnWhite;
-	private JRadioButton rdbtnGreen;
-	private JRadioButton rdbtnPeacock;
-	private JRadioButton rdbtnPlum;
-	private JRadioButton rdbtnMustard;
-	private JRadioButton rdbtnScarlet;
-	*/
 	private JPanel characterLabelPanel;
 	private JLabel charLabel0;
 	private JLabel charLabel1;
@@ -58,7 +39,7 @@ public class PlayerSelectionFrame extends JFrame{
 	/**
 	 * Create the application.
 	 */
-	public PlayerSelectionFrame(Game game, List<String>remainingCharacters, int remainingNumPlayers) {
+	public SelectionPanel(Game game, List<String>remainingCharacters, int remainingNumPlayers) {
 		this.playerNumber = game.numPlayers-remainingNumPlayers+1;
 		this.game = game;
 		this.remainingCharacters = remainingCharacters;
@@ -71,13 +52,9 @@ public class PlayerSelectionFrame extends JFrame{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		setTitle("Player Selection");
-		setBounds(100, 100, 908, 899);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		getContentPane().setLayout(new BorderLayout(0, 0));
+		setPreferredSize(new Dimension(900, 900));
 
 		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
 
 
@@ -143,6 +120,10 @@ public class PlayerSelectionFrame extends JFrame{
 		characterLabelPanel.add(charLabel2);
 		characterLabelPanel.add(charLabel4);
 		characterLabelPanel.add(charLabel5);
+
+		this.add(northPanel);
+		this.add(namePanel);
+		this.add(characterLabelPanel);
 	}
 
 	private void addPlayer(JLabel label, String character, String player){
@@ -153,12 +134,15 @@ public class PlayerSelectionFrame extends JFrame{
 			remainingCharacters.remove(character);
 			game.createPlayer(playerNumber, player, character);
 			if(remainingNumPlayers > 1){
-				new PlayerSelectionFrame(game, remainingCharacters, remainingNumPlayers-1);
+				remainingNumPlayers--;
+				this.playerNumber = game.numPlayers-remainingNumPlayers+1;
+				titleLabel = new JLabel(String.format("Select your character Player %d", playerNumber));
+				//this.repaint();
 			}else {
 				game.dealCards();
 				game.game = new CluedoFrame(game);
+				//TODO dispose the frame containing this panel
 			}
-			dispose();
 		}
 	}
 
