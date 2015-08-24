@@ -28,6 +28,7 @@ public class SelectionPanel extends JPanel{
 	private JLabel charLabel5;
 
 	private JLabel titleLabel;
+	private JPanel northPanel;
 
 	JTextField playerName;
 
@@ -58,7 +59,7 @@ public class SelectionPanel extends JPanel{
 		panel.setLayout(new BorderLayout(0, 0));
 
 
-		JPanel northPanel = new JPanel();
+		northPanel = new JPanel();
 		northPanel.setLayout(new GridLayout(2, 1));
 
 		titleLabel = new JLabel(String.format("Select your character Player %d", playerNumber));
@@ -136,8 +137,14 @@ public class SelectionPanel extends JPanel{
 			if(remainingNumPlayers > 1){
 				remainingNumPlayers--;
 				this.playerNumber = game.numPlayers-remainingNumPlayers+1;
+				titleLabel.removeAll();
+				northPanel.remove(titleLabel);
 				titleLabel = new JLabel(String.format("Select your character Player %d", playerNumber));
-				//this.repaint();
+				titleLabel.setHorizontalAlignment(0); //sets to center
+				titleLabel.setFont(game.FONT);
+				northPanel.add(titleLabel, 0);
+				revalidate();
+				super.repaint();
 			}else {
 				game.dealCards();
 				game.game = new CluedoFrame(game);

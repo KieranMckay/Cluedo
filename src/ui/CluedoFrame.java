@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
@@ -29,6 +30,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,17 +40,20 @@ import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JTextField;
 
+import sun.tools.jar.Main;
 import control.Game;
 import control.Turn;
 
-public class CluedoFrame extends JFrame implements KeyListener{
+public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 
 	private Game game;
 
 	private JMenuBar menu = new JMenuBar();
 
 	private JMenu file = new JMenu("File");
-	private JMenu edit = new JMenu("Edit");
+	private JMenuItem newMenuItem = new JMenuItem("New Game");
+	private JMenuItem quitMenuItem = new JMenuItem("Quit");
+
 
 	//TODO each of these needs to be a class that extends JPanel
 	private BoardPanel board = new BoardPanel(game);
@@ -69,6 +75,7 @@ public class CluedoFrame extends JFrame implements KeyListener{
 		this.game = game;
 
 		importCards();
+		menuItems();
 
 		setLayout(new BorderLayout());
 
@@ -76,7 +83,6 @@ public class CluedoFrame extends JFrame implements KeyListener{
 
 		//add components to menu
 		menu.add(file, 0);
-		menu.add(edit, 1);
 
 		//add components to options panel
 		options.setLayout(new GridLayout(5,1));
@@ -102,7 +108,11 @@ public class CluedoFrame extends JFrame implements KeyListener{
 
 		currentPlayer();
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// tell frame to fire a WindowsListener event
+		// but not to close when "x" button clicked.
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+		addWindowListener(this);
+
 		setResizable(false);
 		setVisible(true);
 		//add key listener to main window
@@ -143,6 +153,25 @@ public class CluedoFrame extends JFrame implements KeyListener{
 	public void repaint() {
 		super.repaint();
 		board.repaint();
+	}
+
+	private void menuItems(){
+		file.add(newMenuItem);
+		file.add(quitMenuItem);
+		newMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new Game();
+			}
+		});
+
+		quitMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 	}
 
 	public void currentPlayer(){
@@ -238,7 +267,6 @@ public class CluedoFrame extends JFrame implements KeyListener{
 		accuse.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//TODO prompt are you sure here
 				choice("Accuse");
 			}
 		});
@@ -298,6 +326,36 @@ public class CluedoFrame extends JFrame implements KeyListener{
 		playerDialog.dispose();
 		currentPlayer();
 	}
+
+	/**
+	 * This method is called when the user clicks on the "X" button in the
+	 * right-hand corner.
+	 *
+	 * @param e
+	 */
+	public void windowClosing(WindowEvent e) {
+		// Ask the user to confirm they wanted to do this
+		int r = JOptionPane.showConfirmDialog(this, new JLabel(
+		"Exit Cluedo?"), "Confirm Exit",
+		JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		if (r == JOptionPane.YES_OPTION) {
+			System.exit(0);
+		}
+	}
+
+	/**
+	 * This method is called after the X button has been depressed.
+	 * @param e
+	 */
+    public void windowClosed(WindowEvent e) {}
+
+    // The following methods are part of the WindowListener interface,
+    // but are not needed here.
+    public void windowActivated(WindowEvent e) {}
+    public void windowDeactivated(WindowEvent e) {}
+    public void windowDeiconified(WindowEvent e) {}
+    public void windowIconified(WindowEvent e) {}
+    public void windowOpened(WindowEvent e) {}
 
 	private class CardsPanel extends JPanel{
 
