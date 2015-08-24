@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -27,6 +29,7 @@ import control.Game;
 
 public class PlayerSelectionFrame extends JFrame{
 
+	/*
 	private JPanel rdbtnPanel;
 	private JRadioButton rdbtnWhite;
 	private JRadioButton rdbtnGreen;
@@ -34,14 +37,18 @@ public class PlayerSelectionFrame extends JFrame{
 	private JRadioButton rdbtnPlum;
 	private JRadioButton rdbtnMustard;
 	private JRadioButton rdbtnScarlet;
+	*/
 	private JPanel characterLabelPanel;
-	private JLabel scarletLabel;
-	private JLabel mustardLabel;
-	private JLabel plumLabel;
-	private JLabel peacockLabel;
-	private JLabel greenLabel;
-	private JLabel whiteLabel;
+	private JLabel charLabel0;
+	private JLabel charLabel1;
+	private JLabel charLabel3;
+	private JLabel charLabel2;
+	private JLabel charLabel4;
+	private JLabel charLabel5;
+
 	private JLabel titleLabel;
+
+	JTextField playerName;
 
 	private List<String> remainingCharacters;
 	private int remainingNumPlayers;
@@ -86,8 +93,8 @@ public class PlayerSelectionFrame extends JFrame{
 		JLabel nameLabel = new JLabel();
 		nameLabel.setText("Please enter your name: ");
 		nameLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
-		JTextField playerName = new JTextField("abc");
-		namePanel.setLayout(new BorderLayout());//(new GridLayout(1, 2));
+		playerName = new JTextField("abc");
+		namePanel.setLayout(new BorderLayout());
 		namePanel.add(nameLabel, BorderLayout.WEST);
 		namePanel.add(playerName, BorderLayout.CENTER);
 
@@ -95,94 +102,132 @@ public class PlayerSelectionFrame extends JFrame{
 
 		panel.add(northPanel, BorderLayout.NORTH);
 
-		ButtonGroup btnGroup = new ButtonGroup();
-
-		rdbtnPanel = new JPanel();
-		panel.add(rdbtnPanel, BorderLayout.SOUTH);
-
-		rdbtnScarlet = new JRadioButton("Miss Scarlet");
-		rdbtnMustard = new JRadioButton("Colonel Mustard");
-		rdbtnPlum = new JRadioButton("Professor Plum");
-		rdbtnPeacock = new JRadioButton("Mrs Peacock");
-		rdbtnGreen = new JRadioButton("Mr Green");
-		rdbtnWhite = new JRadioButton("Mrs White");
-
-		btnGroup.add(rdbtnScarlet);
-		btnGroup.add(rdbtnMustard);
-		btnGroup.add(rdbtnPlum);
-		btnGroup.add(rdbtnPeacock);
-		btnGroup.add(rdbtnGreen);
-		btnGroup.add(rdbtnWhite);
-
-		rdbtnPanel.add(rdbtnScarlet);
-		rdbtnPanel.add(rdbtnMustard);
-		rdbtnPanel.add(rdbtnPlum);
-		rdbtnPanel.add(rdbtnPeacock);
-		rdbtnPanel.add(rdbtnGreen);
-		rdbtnPanel.add(rdbtnWhite);
-
 		characterLabelPanel = new JPanel();
 		panel.add(characterLabelPanel, BorderLayout.CENTER);
 
-		scarletLabel = new JLabel();
-		scarletLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[0]+".png")));
+		charLabel0 = new JLabel();
+		charLabel0.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[0]+".png")));
+		charLabel0.setToolTipText(game.CHARACTER_LIST[0]);
+		charLabel0.setDisabledIcon(new ImageIcon(BoardPanel.loadImage("Questionmark.png")));
 
-		mustardLabel = new JLabel();
-		mustardLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[1]+".png")));
+		charLabel1 = new JLabel();
+		charLabel1.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[1]+".png")));
+		charLabel1.setToolTipText(game.CHARACTER_LIST[1]);
+		charLabel1.setDisabledIcon(new ImageIcon(BoardPanel.loadImage("Questionmark.png")));
 
-		peacockLabel = new JLabel();
-		peacockLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[2]+".png")));
+		charLabel2 = new JLabel();
+		charLabel2.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[2]+".png")));
+		charLabel2.setToolTipText(game.CHARACTER_LIST[2]);
+		charLabel2.setDisabledIcon(new ImageIcon(BoardPanel.loadImage("Questionmark.png")));
 
-		plumLabel = new JLabel();
-		plumLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[3]+".png")));;
+		charLabel3 = new JLabel();
+		charLabel3.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[3]+".png")));;
+		charLabel3.setToolTipText(game.CHARACTER_LIST[3]);
+		charLabel3.setDisabledIcon(new ImageIcon(BoardPanel.loadImage("Questionmark.png")));
 
-		greenLabel = new JLabel();
-		greenLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[4]+".png")));
+		charLabel4 = new JLabel();
+		charLabel4.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[4]+".png")));
+		charLabel4.setToolTipText(game.CHARACTER_LIST[4]);
+		charLabel4.setDisabledIcon(new ImageIcon(BoardPanel.loadImage("Questionmark.png")));
 
-		whiteLabel = new JLabel();
-		whiteLabel.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[5]+".png")));
+		charLabel5 = new JLabel();
+		charLabel5.setIcon(new ImageIcon(BoardPanel.loadImage(game.CHARACTER_LIST[5]+".png")));
+		charLabel5.setToolTipText(game.CHARACTER_LIST[5]);
+		charLabel5.setDisabledIcon(new ImageIcon(BoardPanel.loadImage("Questionmark.png")));
 
-		characterLabelPanel.add(scarletLabel);
-		characterLabelPanel.add(mustardLabel);
-		characterLabelPanel.add(plumLabel);
-		characterLabelPanel.add(peacockLabel);
-		characterLabelPanel.add(greenLabel);
-		characterLabelPanel.add(whiteLabel);
+		addActionListeners();
 
-		JButton select = new JButton("Select");
-		rdbtnPanel.add(select);
-
-		select.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String character = getSelectedButtonText(btnGroup);
-				String player = playerName.getText();
-				if(character == null || !remainingCharacters.contains(character) || player.isEmpty()) {
-					JOptionPane.showMessageDialog(panel, "INVALID CHOICE");
-				} else {
-					remainingCharacters.remove(character);
-					game.createPlayer(playerNumber, player, character);
-					if(remainingNumPlayers > 1){
-						new PlayerSelectionFrame(game, remainingCharacters, remainingNumPlayers-1);
-					}else {
-						game.dealCards();
-						game.game = new CluedoFrame(game);
-					}
-					dispose();
-				}
-			}
-		});
+		characterLabelPanel.add(charLabel0);
+		characterLabelPanel.add(charLabel1);
+		characterLabelPanel.add(charLabel3);
+		characterLabelPanel.add(charLabel2);
+		characterLabelPanel.add(charLabel4);
+		characterLabelPanel.add(charLabel5);
 	}
 
-	public String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
+	private void addPlayer(JLabel label, String character, String player){
+		if(character == null || !remainingCharacters.contains(character) || player.isEmpty()) {
+			JOptionPane.showMessageDialog(getParent(), "INVALID CHOICE");
+		} else {
+			label.setEnabled(false);
+			remainingCharacters.remove(character);
+			game.createPlayer(playerNumber, player, character);
+			if(remainingNumPlayers > 1){
+				new PlayerSelectionFrame(game, remainingCharacters, remainingNumPlayers-1);
+			}else {
+				game.dealCards();
+				game.game = new CluedoFrame(game);
+			}
+			dispose();
+		}
+	}
 
-            if (button.isSelected()) {
-                return button.getText();
-            }
-        }
+	private void addActionListeners(){
+		charLabel0.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				addPlayer(charLabel0, charLabel0.getToolTipText(), playerName.getText());
+			}
 
-        return null;
-    }
+			@Override public void mousePressed(MouseEvent e) {}
+			@Override public void mouseExited(MouseEvent e) {}
+			@Override public void mouseEntered(MouseEvent e) {}
+			@Override public void mouseClicked(MouseEvent e) {}
+		});
+		charLabel1.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				addPlayer(charLabel1, charLabel1.getToolTipText(), playerName.getText());
+			}
+
+			@Override public void mousePressed(MouseEvent e) {}
+			@Override public void mouseExited(MouseEvent e) {}
+			@Override public void mouseEntered(MouseEvent e) {}
+			@Override public void mouseClicked(MouseEvent e) {}
+		});
+		charLabel2.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				addPlayer(charLabel2, charLabel2.getToolTipText(), playerName.getText());
+			}
+
+			@Override public void mousePressed(MouseEvent e) {}
+			@Override public void mouseExited(MouseEvent e) {}
+			@Override public void mouseEntered(MouseEvent e) {}
+			@Override public void mouseClicked(MouseEvent e) {}
+		});
+		charLabel3.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				addPlayer(charLabel3, charLabel3.getToolTipText(), playerName.getText());
+			}
+
+			@Override public void mousePressed(MouseEvent e) {}
+			@Override public void mouseExited(MouseEvent e) {}
+			@Override public void mouseEntered(MouseEvent e) {}
+			@Override public void mouseClicked(MouseEvent e) {}
+		});
+		charLabel4.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				addPlayer(charLabel4, charLabel4.getToolTipText(), playerName.getText());
+			}
+
+			@Override public void mousePressed(MouseEvent e) {}
+			@Override public void mouseExited(MouseEvent e) {}
+			@Override public void mouseEntered(MouseEvent e) {}
+			@Override public void mouseClicked(MouseEvent e) {}
+		});
+		charLabel5.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				addPlayer(charLabel5, charLabel5.getToolTipText(), playerName.getText());
+			}
+
+			@Override public void mousePressed(MouseEvent e) {}
+			@Override public void mouseExited(MouseEvent e) {}
+			@Override public void mouseEntered(MouseEvent e) {}
+			@Override public void mouseClicked(MouseEvent e) {}
+		});
+	}
 }
