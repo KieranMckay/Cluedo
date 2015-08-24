@@ -16,7 +16,6 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		//TODO incorporate ui package here
-		Game game = new Game();
+		new Game();
 	}
 }
