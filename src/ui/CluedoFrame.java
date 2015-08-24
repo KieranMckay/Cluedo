@@ -210,7 +210,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 				}
 			}
 		});
-
+		//When move is clicked
 		move.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -219,14 +219,20 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 					if(curPosition.isRoom()){
 						JDialog dialog = new JDialog();
 						dialog.setLayout(new GridLayout(curPosition.neighbourNames().size(),1));
-						dialog.setSize(curPosition.neighbourNames().size()*50, 100);
+						dialog.setSize(300,curPosition.neighbourNames().size()*100);
 						dialog.setTitle("Choose an exit");
 						ButtonGroup bg = new ButtonGroup();
+						int i = 0;
 						for(String exit : curPosition.neighbourNames()){
+
 							JRadioButton radioButton = new JRadioButton(exit);
+							if(i == 0) radioButton.setSelected(true);
 							bg.add(radioButton);
 							dialog.add(radioButton);
+							i++;
 						}
+						dialog.setLocationRelativeTo(board);
+						dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
 						JButton acceptButton = new JButton("accept");
 						acceptButton.addActionListener(new ActionListener(){

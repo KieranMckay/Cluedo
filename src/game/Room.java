@@ -76,7 +76,6 @@ public class Room extends Tile{
 		return this.name;
 	}
 
-
 	public void addWeapon(Weapon weapon) {
 		weapons.add(weapon);
 	}
