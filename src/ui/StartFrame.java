@@ -2,19 +2,14 @@ package ui;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.LayoutManager;
 import java.awt.Toolkit;
 
 import control.Game;
@@ -50,9 +45,9 @@ public class StartFrame extends JFrame{
 	 */
 	private void initialize() {
 		setTitle("Cluedo");
-		
+
 		setIconImage(BoardPanel.loadImage("Miss ScarletToken.png"));
-		
+
 		// Center window in screen
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
 		Dimension scrnsize = toolkit.getScreenSize();

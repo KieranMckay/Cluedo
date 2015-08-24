@@ -33,23 +33,23 @@ public class Turn {
 	/**
 	 * Prompt for and move the player around the board until turns have run out
 	 */
-	public void movePlayer() {
-		menu.println("It is " + player.toString() +"'s turn. ("
-				+player.getToken().toString()+")");
-		menu.println("You rolled a " + turns
-				+ " please move to your destination");
-		menu.println(board.toString());
+	public void movePlayer(String direction) {
+//		menu.println("It is " + player.toString() +"'s turn. ("
+//				+player.getToken().toString()+")");
+//		menu.println("You rolled a " + turns
+//				+ " please move to your destination");
+//		menu.println(board.toString());
 
-		while (turns > 0) {
-			if (!singleMove()) {
+		//while (turns > 0) {
+			if (!singleMove(direction)) {
 				menu.println("Invalid Move, try again");
-				continue;
-			} else if (player.getToken().getPosition().isRoom()) { // they have reached a room
+				//continue;
+			} /*else if (player.getToken().getPosition().isRoom()) { // they have reached a room
 				return;
 			} else {
 				menu.println(board.toString());
-			}
-		}
+			}*/
+		//}
 	}
 
 	/**
@@ -58,11 +58,8 @@ public class Turn {
 	 *
 	 * @return Boolean successful move or not
 	 */
-	public boolean singleMove() {
+	public boolean singleMove(String direction) {
 		menu.println("Please choose a direction: ");
-		//menu.println(player.getToken().getLocation().getDirections().toString());
-		int choice = menu.chooseListIndex(player.getToken().getPosition().neighbourNames());
-		String direction = player.getToken().getPosition().neighbourNames().get(choice);
 		if (player.move(direction)){
 			turns--;
 			return true;
