@@ -111,10 +111,8 @@ public class Board {
 						if(roomDetails.length > 2){ //the room has a teleport room
 							String teleRoom = roomDetails[2]; //the name of the room to teleport to
 							if(!rooms.containsKey(teleRoom)){ //the teleport room doesnt exist yet
-								int x = 0;
-								int y = 0;
-								//TODO give rooms initial x and y (top left corner)
-								rooms.put(teleRoom,new Room(teleRoom)); //add the new room to the map
+
+								rooms.put(teleRoom,new Room(teleRoom,-1,-1)); //add the new room to the map //TODO remove this room construction
 							}
 							rooms.get(roomDetails[0]).addNeighbour("Teleport to "+ teleRoom, rooms.get(teleRoom)); //connect this room to the teleroom
 						}

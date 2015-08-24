@@ -5,7 +5,10 @@ import game.Board;
 import game.Card;
 import game.Player;
 import game.Room;
+import game.Tile;
+import javafx.scene.control.RadioButton;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -13,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
 import java.awt.Dimension;
@@ -181,9 +185,35 @@ public class CluedoFrame extends JFrame implements KeyListener{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (game.turn.turns > 0){
-					// TODO MOVE HERE
-					requestFocusInWindow();
-					//game.turn.movePlayer("South");
+					Tile curPosition = game.player.getToken().getPosition();
+					if(curPosition.isRoom()){
+						JDialog dialog = new JDialog();
+						dialog.setLayout(new GridLayout(curPosition.neighbourNames().size(),1));
+						dialog.setSize(curPosition.neighbourNames().size()*50, 100);
+						dialog.setTitle("Choose an exit");
+						ButtonGroup bg = new ButtonGroup();
+						for(String exit : curPosition.neighbourNames()){
+							JRadioButton radioButton = new JRadioButton(exit);
+							bg.add(radioButton);
+							dialog.add(radioButton);
+						}
+						dialog.setVisible(true);
+						JButton acceptButton = new JButton("accept");
+						acceptButton.addActionListener(new ActionListener(){
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								String choice = StartFrame.getSelectedButtonText(bg);
+								curPosition.getNeighbour(choice).moveTo(game.player.getToken());
+								dialog.dispose();
+								repaint();
+							}
+
+						});
+						dialog.add(acceptButton);
+						System.out.println("Choose an exit");
+					}else{
+						requestFocusInWindow();
+					}
 				} else{
 					JOptionPane.showMessageDialog(getParent(), "Please roll the dice before moving.");
 				}
@@ -315,34 +345,19 @@ public class CluedoFrame extends JFrame implements KeyListener{
 		int keyCode = e.getKeyCode();
 		 switch( keyCode ) {
 	        case KeyEvent.VK_UP:
-	        	//System.out.println("UPUPUP");
 	        	//animateNorth();
 	    		game.turn.movePlayer("North");
 	            break;
 	        case KeyEvent.VK_DOWN:
-	        	//System.out.println("DownDown");
 	    		game.turn.movePlayer("South");
 	            break;
 	        case KeyEvent.VK_LEFT:
-	        	//System.out.println("LeftLeft");
 	    		game.turn.movePlayer("West");
 	            break;
 	        case KeyEvent.VK_RIGHT :
-	        	//System.out.println("RightRight");
 	    		game.turn.movePlayer("East");
 	            break;
 	     }
-//    	if(e.equals(KeyEvent.VK_UP)){
-//    		System.out.println("UPUPUP");
-//    		game.turn.movePlayer("North");
-//    	}else if(e.equals(KeyEvent.VK_DOWN)){
-//    		game.turn.movePlayer("South");
-//    	}
-//    	else if(e.equals(KeyEvent.VK_LEFT)){
-//    		game.turn.movePlayer("East");
-//    	}else if(e.equals(KeyEvent.VK_RIGHT)){
-//    		game.turn.movePlayer("West");
-//    	}
     	repaint();
 	}
 

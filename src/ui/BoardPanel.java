@@ -1,5 +1,6 @@
 package ui;
 
+import game.Room;
 import game.Token;
 import game.Weapon;
 
@@ -36,6 +37,9 @@ public class BoardPanel extends JPanel{
 		}
 		for(Token t : game.tokens.values()){
 			t.draw(g,this);
+		}
+		for(Room r : game.rooms.values()){
+			r.draw(g, this);
 		}
 		// finally, draw any messages
 	}
