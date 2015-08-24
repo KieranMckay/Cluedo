@@ -184,7 +184,7 @@ public class Game{
 			}
 		}
 
-		board = new Board("board.csv");
+		board = new Board();
 		murderCard = random.nextInt(CHARACTER_LIST.length);
 		//initialise characters and character cards
 		for (int i = 0; i < CHARACTER_LIST.length; i++){
