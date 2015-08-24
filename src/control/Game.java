@@ -172,7 +172,7 @@ public class Game{
 		int murderCard = random.nextInt(ROOM_LIST.length);
 		//initialise rooms and room cards
 		for (int i = 0; i < ROOM_LIST.length; i++){
-			Room r = new Room(ROOM_LIST[i]);
+			Room r = new Room(ROOM_LIST[i],-1,-1);//TODO check this is okay, where are the actual rooms being initalised?
 			Card c = new Card(ROOM_LIST[i]);
 			rooms.put(r.toString(), r);
 

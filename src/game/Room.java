@@ -1,6 +1,9 @@
 package game;
 
+import java.awt.Graphics;
 import java.util.*;
+
+import ui.BoardPanel;
 
 /**
  * A class representing a Room in the game Cluedo
@@ -15,12 +18,21 @@ public class Room extends Tile{
 	private Set<Weapon> weapons;
 
 
-	public Room(String name){
-		super(-1,-1); //TODO remove this
+	public Room(String name,int x, int y){
+		super(x,y); 
 		this.name = name;
 		this.weapons = new HashSet<Weapon>();
 	}
-
+	
+	public void draw(Graphics g,BoardPanel panel){
+		int size = 34;
+		int offset = 10;
+		for(int i = 0; i < inRoom.size(); i++){
+			inRoom.get(i).draw(g, panel, getX(), getY());
+			System.out.println("room " + getX() +" " + getY() + " drawing: " + inRoom.get(i).toString());
+		}
+	}
+	
 	@Override
 	public void addToken(Token t){
 		this.inRoom.add(t);

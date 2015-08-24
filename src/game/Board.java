@@ -114,7 +114,45 @@ public class Board {
 								int x = 0;
 								int y = 0;
 								//TODO give rooms initial x and y (top left corner)
-								rooms.put(teleRoom,new Room(teleRoom)); //add the new room to the map
+								switch (teleRoom){
+									case "Kitchen": //kichen
+										x = 1;
+										y = 2;
+										break;
+									case "Ball Room": //ballroom
+										x = 10;
+										y = 3;
+										break;
+									case "Conservatory": //conservatory
+										x = 20;
+										y = 3;
+										break;
+									case "Billiard Room": //billiard
+										x = 20;
+										y = 10;
+										break;
+									case "Library": //library
+										x = 20;
+										y = 16;
+										break;
+									case "Study": //study
+										x = 20;
+										y = 23;
+										break;
+									case "Hall": //hall
+										x = 11;
+										y = 20;
+										break;
+									case  "Lounge": //lounge
+										x = 2;
+										y = 21;
+										break;
+									case "Dining Room": //dining room
+										x = 2;
+										y = 10;
+										break;
+								}
+								rooms.put(teleRoom,new Room(teleRoom,x,y)); //add the new room to the map
 							}
 							rooms.get(roomDetails[0]).addNeighbour("Teleport to "+ teleRoom, rooms.get(teleRoom)); //connect this room to the teleroom
 						}
