@@ -52,13 +52,14 @@ public class BoardPanel extends JPanel implements MouseListener{
 	 * @param filename
 	 * @return
 	 */
+
 	public static BufferedImage loadImage(String filename) {
 		// using the URL means the image loads when stored
 		// in a jar or expanded into individual files.
 		java.net.URL imageURL = BoardPanel.class.getResource("/"+filename);
 
 		try {
-			BufferedImage img = ImageIO.read(imageURL);
+			BufferedImage img = ImageIO.read(new File("images/"+filename));
 			return img;
 		} catch (IOException e) {
 			// we've encountered an error loading the image. There's not much we
