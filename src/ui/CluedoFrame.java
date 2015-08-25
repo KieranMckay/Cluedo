@@ -242,7 +242,6 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 								dialog.dispose();
 								repaint();
 							}
-
 						});
 						dialog.add(acceptButton);
 						System.out.println("Choose an exit");

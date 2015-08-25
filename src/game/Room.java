@@ -47,7 +47,6 @@ public class Room extends Tile{
 	public void moveTo(Token t) {
 		if(t != null){
 			t.getPosition().removeToken(t);
-			//inRoom.add(t);
 			t.setLocation(this);
 		}
 	}

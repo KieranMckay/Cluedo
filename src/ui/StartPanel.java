@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -9,8 +10,11 @@ import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.List;
 
+import javafx.scene.image.Image;
+
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +32,7 @@ public class StartPanel extends JPanel{
 	 */
 	public StartPanel(Game game, StartFrame frame) {
 		this.frame = frame;
+		//ImagePanel panel = new ImagePanel(new Image("WelcomeImage.png"));
 		setBackground(SystemColor.desktop);
 		this.game = game;
 
@@ -118,4 +123,28 @@ public class StartPanel extends JPanel{
         }
         return null;
     }
+
+	/*private class ImagePanel extends JPanel{
+		private Image img;
+
+		  public ImagePanel(String img) {
+			  this(new Image(img).getImage());
+		  }
+
+		  public ImagePanel(Image img) {
+		    this.img = img;
+		    Dimension size = new Dimension((int)img.getWidth(), (int)img.getHeight());
+		    setPreferredSize(size);
+		    setMinimumSize(size);
+		    setMaximumSize(size);
+		    setSize(size);
+		    setLayout(null);
+		  }
+
+		  public void paintComponent(Graphics g) {
+		    g.drawImage(img, 0, 0, null);
+		  }
+
+		}*/
+
 }
