@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.*;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import ui.BoardPanel;
 import ui.CluedoFrame;
@@ -323,5 +324,42 @@ public class Game{
 
 	public Board getBoard(){
 		return board;
+	}
+	//-------------------------- TODO Animation Logic to be implemented or removed
+	private void animateNorth() {
+
+		SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+            	boolean notDone = true;
+        		while(notDone) {
+                    // Do your processing
+        			notDone = slideNorth();
+        			try {
+						Thread.sleep(50);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+                }
+               System.out.println("new thread painting");
+               //
+            }
+          });
+	}
+
+	boolean slideNorth(){
+		if(player.getToken().getYOffset() <= -1){
+			player.getToken().setYoffset(0);
+			System.out.println("player has finished sliding");
+			turn.movePlayer("North");
+			return false; //finished moving
+		}
+		else{
+			System.out.println("player sliding: "+player.getToken().getYOffset());
+			player.getToken().setYoffset(player.getToken().getYOffset()-0.1);
+		}
+		game.repaint();
+		//board.paintImmediately((game.player.getToken().getX()-2)*34, (game.player.getToken().getY()-2)*34, 100, 100);
+		return true;
 	}
 }
