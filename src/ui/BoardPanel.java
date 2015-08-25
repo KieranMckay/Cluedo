@@ -101,8 +101,6 @@ public class BoardPanel extends JPanel implements MouseListener{
 				return;
 			}
 		}
-		//System.out.println("clicked: x"+squareX + "  y:"+squareY + "player :" + curXPos + " "+ curYPos);
-		//this.game.turn.movePlayer(getMoveDirection(curXPos, curYPos,squareX,squareY));
 	}
 
 	@Override
