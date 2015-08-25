@@ -56,7 +56,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 
 
 	//TODO each of these needs to be a class that extends JPanel
-	private BoardPanel board = new BoardPanel(game);
+	private BoardPanel board;
 	private JPanel cards = new CardsPanel();
 	private JPanel options = new JPanel();
 
@@ -73,7 +73,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 	public CluedoFrame(Game game){
 		super("Cluedo");
 		this.game = game;
-
+		board = new BoardPanel(game);
 		importCards();
 		menuItems();
 
@@ -202,7 +202,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		dice.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (game.turn.turns > 0){
+				if (game.turn.turns > -1){
 					JOptionPane.showMessageDialog(getParent(), "You have already rolled the dice this turn.");
 				} else{
 					game.turn.rollDice();
@@ -401,79 +401,27 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		if(game.turn.turns < 1)return;
 		if(game == null || game.turn == null)return;
 		int keyCode = e.getKeyCode();
 		 switch( keyCode ) {
 	        case KeyEvent.VK_UP:
-	        	animateNorth();
-
-	            break;
+	        	//animateNorth();
+	        	game.turn.movePlayer("North");
+	        	break;
 	        case KeyEvent.VK_DOWN:
 	    		game.turn.movePlayer("South");
-	            break;
+	    		break;
 	        case KeyEvent.VK_LEFT:
 	    		game.turn.movePlayer("West");
 	            break;
 	        case KeyEvent.VK_RIGHT :
 	    		game.turn.movePlayer("East");
+
 	            break;
 	     }
     	repaint();
 	}
 
-	private void animateNorth() {
 
-		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	boolean notDone = true;
-        		while(notDone) {
-                    // Do your processing
-        			notDone = slideNorth();
-        			try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-                }
-               System.out.println("new thread painting");
-               //
-            }
-          });
-	}
-
-	boolean slideNorth(){
-		if(game.player.getToken().getYOffset() <= -1){
-			game.player.getToken().setYoffset(0);
-			System.out.println("player has finished sliding");
-			game.turn.movePlayer("North");
-			return false; //finished moving
-		}
-		else{
-			System.out.println("player sliding: "+game.player.getToken().getYOffset());
-			game.player.getToken().setYoffset(game.player.getToken().getYOffset()-0.1);
-		}
-		board.repaint();
-		//board.paintImmediately((game.player.getToken().getX()-2)*34, (game.player.getToken().getY()-2)*34, 100, 100);
-		return true;
-	}
-
-
-
-//	addKeyListener(new KeyListener(){
-//		public void keyTyped(KeyEvent e){};
-//
-//	    public void keyPressed(KeyEvent e){};
-//
-//	    public void keyReleased(KeyEvent e){
-//	    	System.out.println("key Pressed " + e.toString());
-//	    	if(e.equals(KeyEvent.VK_UP)){
-//	    		System.out.println("UPUPUP");
-//	    		game.turn.movePlayer("North");
-//	    	}else if(e.equals(KeyEvent.VK_DOWN)){
-//
-//	    	}
-//	    }
-//
-//	});
 }

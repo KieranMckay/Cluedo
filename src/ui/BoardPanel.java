@@ -1,6 +1,7 @@
 package ui;
 
 import game.Room;
+import game.Tile;
 import game.Token;
 import game.Weapon;
 
@@ -84,16 +85,24 @@ public class BoardPanel extends JPanel implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
+		if(game.turn.turns <= 0)return;
 		// TODO Auto-generated method stub
-		int squareX = (e.getX()-10)/32;
-		int squareY = (e.getY()-10)/32;
-		System.out.println("clicked: x"+squareX + "  y:"+squareY);
+		int squareX = (int)((e.getX()-10)/33.0);
+		int squareY = (int)((e.getY()-10)/33.0);
+
 		int curXPos = game.player.getToken().getX();
 		int curYPos = game.player.getToken().getY();
-		if(squareX == curXPos-1){ //move
-			
+		for(String name:game.player.getToken().getPosition().neighbourNames()){
+			Tile t = game.player.getToken().getPosition().getNeighbour(name);
+			System.out.println("neighbour "+ name);
+			if(t.getX() == squareX && t.getY() == squareY){
+				game.turn.movePlayer(name);
+				repaint();
+				return;
+			}
 		}
+		//System.out.println("clicked: x"+squareX + "  y:"+squareY + "player :" + curXPos + " "+ curYPos);
+		//this.game.turn.movePlayer(getMoveDirection(curXPos, curYPos,squareX,squareY));
 	}
 
 	@Override
@@ -105,4 +114,5 @@ public class BoardPanel extends JPanel implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 
 	}
+
 }
