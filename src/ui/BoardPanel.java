@@ -5,6 +5,8 @@ import game.Token;
 import game.Weapon;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
@@ -13,7 +15,7 @@ import javax.imageio.ImageIO;
 
 import control.Game;
 
-public class BoardPanel extends JPanel{
+public class BoardPanel extends JPanel implements MouseListener{
 
 	private static final String BOARD_NAME = "Cluedo Board.png";
 	private Game game;
@@ -25,7 +27,7 @@ public class BoardPanel extends JPanel{
 		boardImage = new JLabel(new ImageIcon(image));
 		boardImage.setMaximumSize(new Dimension(100, 100));
 		add(boardImage);
-
+		addMouseListener(this);
 	}
 
 	public void paint(Graphics g) {
@@ -66,5 +68,41 @@ public class BoardPanel extends JPanel{
 
 	public static void main(String[] args){
 		new BoardPanel(new Game());
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+
+		// TODO Auto-generated method stub
+		int squareX = (e.getX()-10)/32;
+		int squareY = (e.getY()-10)/32;
+		System.out.println("clicked: x"+squareX + "  y:"+squareY);
+		int curXPos = game.player.getToken().getX();
+		int curYPos = game.player.getToken().getY();
+		if(squareX == curXPos-1){ //move
+			
+		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
 	}
 }

@@ -406,7 +406,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		 switch( keyCode ) {
 	        case KeyEvent.VK_UP:
 	        	animateNorth();
-	    		game.turn.movePlayer("North");
+
 	            break;
 	        case KeyEvent.VK_DOWN:
 	    		game.turn.movePlayer("South");
@@ -430,7 +430,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
                     // Do your processing
         			notDone = slideNorth();
         			try {
-						Thread.sleep(10);
+						Thread.sleep(50);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -440,13 +440,13 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
                //
             }
           });
-
 	}
 
 	boolean slideNorth(){
 		if(game.player.getToken().getYOffset() <= -1){
 			game.player.getToken().setYoffset(0);
 			System.out.println("player has finished sliding");
+			game.turn.movePlayer("North");
 			return false; //finished moving
 		}
 		else{
