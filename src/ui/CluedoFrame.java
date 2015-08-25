@@ -57,7 +57,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 
 	//TODO each of these needs to be a class that extends JPanel
 	private BoardPanel board = new BoardPanel(game);
-	private JPanel cards = new CardsPanel();
+	private CardsPanel cards;
 	private JPanel options = new JPanel();
 
 	private JDialog playerDialog;
@@ -93,6 +93,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		options.add(end, 4);
 
 		//add components to cards panel
+		cards = new CardsPanel(game);
 
 		//then add menu and panels to frame
 		setJMenuBar(menu);
@@ -106,8 +107,6 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		setBounds((scrnsize.width - getWidth()) / 2, (scrnsize.height - getHeight()) / 2, getWidth(), getHeight());
 		pack();
 
-		currentPlayer();
-
 		// tell frame to fire a WindowsListener event
 		// but not to close when "x" button clicked.
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -119,6 +118,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		setFocusable(true);
 		requestFocusInWindow();
 		addKeyListener(this);
+		cards.update();
 	}
 
 	private void importCards() {
@@ -153,6 +153,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 	public void repaint() {
 		super.repaint();
 		board.repaint();
+		cards.repaint();
 	}
 
 	private void menuItems(){
@@ -327,8 +328,9 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 
 	public void endTurn(){
 		game.endPlayerTurn();
-		playerDialog.dispose();
-		currentPlayer();
+		//playerDialog.dispose();
+		cards.update();
+		repaint();
 	}
 
 	/**
@@ -361,45 +363,10 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
     public void windowIconified(WindowEvent e) {}
     public void windowOpened(WindowEvent e) {}
 
-	private class CardsPanel extends JPanel{
 
-		private Player player;
+	public void keyTyped(KeyEvent e) {}
+	public void keyPressed(KeyEvent e) {}
 
-		public Player getPlayer() {
-			return player;
-		}
-
-		public void setPlayer(Player player) {
-			this.player = game.player;
-		}
-
-		public void paint(Graphics g){
-			/*
-			int numCards = player.getHand().size();
-			int cardWidth = this.WIDTH/(numCards+1);
-			int i = 0;
-			for(Card c : player.getHand()){ //draw the cards across the cardPanel
-				BufferedImage image = cardImages.get(c.toString());
-				g.drawImage(image, cardWidth*i, 0,cardWidth,(int)(((float)image.getWidth()/cardWidth)*image.getHeight()),null);
-				i++;
-			}
-			*/
-		}
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void keyReleased(KeyEvent e) {
 		if(game == null || game.turn == null)return;
 		int keyCode = e.getKeyCode();

@@ -39,12 +39,13 @@ public class StartFrame extends JFrame{
 		setIconImage(BoardPanel.loadImage("Miss ScarletToken.png"));
 
 		// Center window in screen
-				Toolkit toolkit = Toolkit.getDefaultToolkit();
-				Dimension scrnsize = toolkit.getScreenSize();
-				setSize(1000, 1000);
-				setBounds((scrnsize.width - getWidth()) / 2, (scrnsize.height - getHeight()) / 2, getWidth(), getHeight());
-				window = new StartPanel(game, this);
-				getContentPane().add(window);
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension scrnsize = toolkit.getScreenSize();
+		setSize(1000, 1000);
+		setBounds((scrnsize.width - getWidth()) / 2,
+				(scrnsize.height - getHeight()) / 2, getWidth(), getHeight());
+		window = new StartPanel(game, this);
+		getContentPane().add(window);
 	}
 
 	public void setWindow(JPanel window){
