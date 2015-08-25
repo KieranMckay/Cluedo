@@ -32,7 +32,7 @@ public class BoardPanel extends JPanel{
 		super.paint(g);
 
 		for (Weapon w : game.weapons.values()){
-			w.draw(g,this);
+			//w.draw(g,this);
 		}
 		for(Token t : game.tokens.values()){
 			t.draw(g,this);

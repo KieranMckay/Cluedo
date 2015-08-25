@@ -15,21 +15,26 @@ public class Room extends Tile{
 	Map<String,Tile> neighbours = new HashMap<String,Tile>();
 	List<Token> inRoom = new ArrayList<Token>();
 	private String name;
-	private Set<Weapon> weapons;
+	private List<Weapon> weapons;
 
 
 	public Room(String name,int x, int y){
 		super(x,y);
 		this.name = name;
-		this.weapons = new HashSet<Weapon>();
+		this.weapons = new ArrayList<Weapon>();
 	}
 
 	public void draw(Graphics g,BoardPanel panel){
 		int size = 34;
 		int offset = 10;
-		for(int i = 0; i < inRoom.size(); i++){
+		int i;
+		for(i = 0; i < inRoom.size(); i++){
 			inRoom.get(i).draw(g, panel, getX()+(i%4), getY()+(i/4));
 			System.out.println("room " + getX() +" " + getY() + " drawing: " + inRoom.get(i).toString());
+		}
+		for(int j = 0; j < weapons.size(); j++){
+			weapons.get(j).draw(g, panel, getX()+((i+j)%4), getY()+((i+j)/4));
+			System.out.println("weapon " + getX() +" " + getY() + " drawing: " + weapons.get(j).toString());
 		}
 	}
 
@@ -80,8 +85,12 @@ public class Room extends Tile{
 		weapons.add(weapon);
 	}
 
-	public Set<Weapon> getWeapons() {
+	public List<Weapon> getWeapons() {
 		return weapons;
+	}
+
+	public void removeWeapon(Weapon weapon) {
+		weapons.remove(weapon);
 	}
 
 

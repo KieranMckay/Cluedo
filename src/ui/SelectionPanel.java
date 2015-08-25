@@ -1,10 +1,12 @@
 package ui;
 
+import java.awt.AWTEvent;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -13,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import com.sun.javafx.font.Disposer;
 
 import control.Game;
 
@@ -81,6 +85,7 @@ public class SelectionPanel extends JPanel{
 		panel.add(northPanel, BorderLayout.NORTH);
 
 		characterLabelPanel = new JPanel();
+		characterLabelPanel.setLayout(new GridLayout(2,3)); //
 		panel.add(characterLabelPanel, BorderLayout.CENTER);
 
 		charLabel0 = new JLabel();

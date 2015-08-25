@@ -1,10 +1,14 @@
 package game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
+import ui.BoardPanel;
 import ui.CluedoFrame;
 
 public class Door extends Tile{
+	public int size = 33;
+	public int offset = 10;
 	public Room room;
 	public Location location;
 	private String name;
@@ -28,8 +32,11 @@ public class Door extends Tile{
 		}
 	}
 
-	void draw(Graphics g, CluedoFrame frame){
-
+	public void draw(Graphics g,BoardPanel panel){
+		double squareSize = panel.getWidth()/25.0;
+		g.setColor(Color.red);
+		g.drawString(name, (int)(getX()*squareSize*1.01)+offset, (int)(getY()*squareSize*1.01)+offset);
+		//g.drawImage(icon, (int)((getX()*squareSize*1.01)+((offsetX%1)*squareSize))+offset, (int)((getY()*squareSize)+((offsetY%1)*squareSize))+offset, size, size, null);
 	}
 
 	@Override
