@@ -61,10 +61,11 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 
 	private JPanel options = new JPanel();
 
-	private JDialog playerDialog;
+	private JDialog playerSuspectsDialog = new JDialog();
 
 	private JButton dice = new JButton("Roll Dice");
 	private JButton move = new JButton("Move");
+	private JButton suspects = new JButton("Unresolved Clues");
 	private JButton suggest = new JButton("Make a suggestion");
 	private JButton accuse = new JButton("Make an accusation");
 	private JButton end = new JButton("End Turn");
@@ -86,12 +87,13 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		menu.add(file, 0);
 
 		//add components to options panel
-		options.setLayout(new GridLayout(5,1));
+		options.setLayout(new GridLayout(6,1));
 		options.add(dice, 0);
 		options.add(move, 1);
-		options.add(suggest, 2);
-		options.add(accuse, 3);
-		options.add(end, 4);
+		options.add(suspects, 2);
+		options.add(suggest, 3);
+		options.add(accuse, 4);
+		options.add(end, 5);
 
 		//add components to cards panel
 		cards = new CardsPanel(game);
@@ -175,28 +177,25 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		});
 	}
 
-	public void currentPlayer(){
-		playerDialog = new JDialog();
-		playerDialog.setTitle("Current Player");
-		playerDialog.setSize(300, 600);
-		playerDialog.getContentPane().setLayout(new BorderLayout());
-		JLabel playerIcon = new JLabel();
+	public void playersSuspects(){
+		playerSuspectsDialog = new JDialog();
+		playerSuspectsDialog.setTitle(String.format("%s's Remaining Suspects - Player %d",game.player.getName(), game.player.getPlayerNumber()));
+		playerSuspectsDialog.setSize(300, 600);
+		playerSuspectsDialog.setLayout(new GridLayout(3,6));
 
-		BufferedImage icon = cardImages.get(game.player.getToken().toString());
-		playerIcon.setIcon(new ImageIcon(icon));
+		int i = 0;
+		for (Card c : game.player.getSuspects().values()){
+			JLabel label = new JLabel();
+			ImageResize size = new ImageResize(label);
+			label.setIcon(new ImageIcon(BoardPanel.loadImage(c.toString()+".png")));
+			size.resize(.35);
+			playerSuspectsDialog.add(label, i);
+			i++;
+		}
+		playerSuspectsDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		playerSuspectsDialog.pack();
+		playerSuspectsDialog.setVisible(true);
 
-		JButton closeButton = new JButton("Close");
-		closeButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				playerDialog.dispose();
-			}
-		});
-
-		playerDialog.add(playerIcon, BorderLayout.CENTER);
-		playerDialog.add(closeButton, BorderLayout.SOUTH);
-
-		playerDialog.setVisible(true);
 	}
 
 	public void addActionListeners(){
@@ -256,6 +255,12 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		});
 
 
+		suspects.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				playersSuspects();
+			}
+		});
 
 		suggest.addActionListener(new ActionListener() {
 			@Override
@@ -328,7 +333,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 
 	public void endTurn(){
 		game.endPlayerTurn();
-		//playerDialog.dispose();
+		playerSuspectsDialog.dispose();
 		cards.update();
 		repaint();
 	}

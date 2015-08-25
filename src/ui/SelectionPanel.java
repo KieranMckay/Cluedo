@@ -79,7 +79,7 @@ public class SelectionPanel extends JPanel{
 		JLabel nameLabel = new JLabel();
 		nameLabel.setText("Please enter your name: ");
 		nameLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
-		playerName = new JTextField("abc");
+		playerName = new JTextField("Unnamed Player");
 		namePanel.setLayout(new BorderLayout());
 		namePanel.add(nameLabel, BorderLayout.WEST);
 		namePanel.add(playerName, BorderLayout.CENTER);
@@ -152,6 +152,7 @@ public class SelectionPanel extends JPanel{
 				titleLabel.setHorizontalAlignment(0); //sets to center
 				titleLabel.setFont(game.FONT);
 				northPanel.add(titleLabel, 0);
+				playerName.setText("Unnamed Player");
 				revalidate();
 				super.repaint();
 			}else {
