@@ -10,6 +10,7 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,6 +35,8 @@ public class SelectionPanel extends JPanel{
 	private JLabel titleLabel;
 	private JPanel northPanel;
 
+	JFrame frame;
+
 	JTextField playerName;
 
 	private List<String> remainingCharacters;
@@ -44,7 +47,8 @@ public class SelectionPanel extends JPanel{
 	/**
 	 * Create the application.
 	 */
-	public SelectionPanel(Game game, List<String>remainingCharacters, int remainingNumPlayers) {
+	public SelectionPanel(Game game, List<String>remainingCharacters, int remainingNumPlayers, JFrame frame) {
+		this.frame = frame;
 		this.playerNumber = game.numPlayers-remainingNumPlayers+1;
 		this.game = game;
 		this.remainingCharacters = remainingCharacters;
@@ -153,7 +157,7 @@ public class SelectionPanel extends JPanel{
 			}else {
 				game.dealCards();
 				game.game = new CluedoFrame(game);
-				//TODO dispose the frame containing this panel
+				frame.dispose();
 			}
 		}
 	}

@@ -131,10 +131,7 @@ public class Game{
 		Token suggestedCharacter = tokens.get(mySuggestion.getSuggestedCharacter());
 		Weapon suggestedWeapon = weapons.get(mySuggestion.getSuggestedWeapon());
 		suggestedRoom.moveTo(suggestedCharacter);
-		suggestedWeapon.getRoom().getWeapons().remove(suggestedWeapon); //remove weapon from old room
 		suggestedWeapon.setLocation(suggestedRoom);
-		suggestedRoom.addWeapon(suggestedWeapon);
-
 	}
 
 	public Card handleRefute(int pTurn, Suggestion mySuggestion) {
@@ -321,6 +318,7 @@ public class Game{
 
 		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
 		player = players.get(pTurn);
+		System.out.println(player.toString());
 		turn = new Turn(player, board, murderEnvelope);
 	}
 

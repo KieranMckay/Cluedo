@@ -73,7 +73,7 @@ public class StartPanel extends JPanel{
 					game.initialise();
 					int num = Integer.parseInt(numPlayers);
 					List<String> remainingCharacters = game.assignPlayers(num);
-					SelectionPanel select = new SelectionPanel(game, remainingCharacters, num);
+					SelectionPanel select = new SelectionPanel(game, remainingCharacters, num, frame);
 					frame.setWindow(select);
 				}else{
 					JOptionPane.showMessageDialog(getParent(), "INVALID ENTRY");

@@ -176,6 +176,7 @@ public class ChoiceFrame extends JFrame{
 						game.suggest(character, weapon, room);
 					}
 					frame.endTurn();
+					frame.repaint();
 					dispose();
 				} else {
 					JOptionPane.showMessageDialog(getParent(), "Please select one of each murder suspects");
