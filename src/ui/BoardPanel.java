@@ -61,7 +61,7 @@ public class BoardPanel extends JPanel implements MouseListener{
 	 */
 	public static BufferedImage loadImage(String filename) {
 		try {
-			BufferedImage img = ImageIO.read(new File("src/images/"+filename));
+			BufferedImage img = ImageIO.read(new File("src/assets/"+filename));
 			return img;
 		} catch (IOException e) {
 			// we've encountered an error loading the image. There's not much we
