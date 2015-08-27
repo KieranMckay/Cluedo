@@ -1,10 +1,5 @@
 package ui;
 
-import java.awt.EventQueue;
-
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-
 import javax.swing.JFrame;
 
 import java.awt.GridLayout;
@@ -12,20 +7,17 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import javax.swing.WindowConstants;
 
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.KeyEvent;
-
-import javax.swing.JSlider;
 
 import control.Game;
 
@@ -65,7 +57,7 @@ public class ChoiceFrame extends JFrame{
 		setTitle("Murder Selection");
 		getContentPane().setBackground(SystemColor.desktop);
 		setBounds(100, 100, 802, 531);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
 		JPanel selectionPanel = new JPanel();
 		selectionPanel.setBackground(SystemColor.desktop);
@@ -78,7 +70,7 @@ public class ChoiceFrame extends JFrame{
 		characterSelectionPanel.setLayout(new BorderLayout(0, 0));
 
 		characterLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		characterLabel.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/Questionmark.png")));
+		characterLabel.setIcon(new ImageIcon(BoardPanel.loadImage("Questionmark.png")));
 		characterSelectionPanel.add(characterLabel, BorderLayout.CENTER);
 
 
@@ -88,7 +80,7 @@ public class ChoiceFrame extends JFrame{
 		weaponSelectionPanel.setLayout(new BorderLayout(0, 0));
 
 		weaponLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		weaponLabel.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/Questionmark.png")));
+		weaponLabel.setIcon(new ImageIcon(BoardPanel.loadImage("Questionmark.png")));
 		weaponSelectionPanel.add(weaponLabel, BorderLayout.CENTER);
 
 
@@ -98,7 +90,7 @@ public class ChoiceFrame extends JFrame{
 		roomSelectionPanel.setLayout(new BorderLayout(0, 0));
 
 		roomLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		roomLabel.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/Questionmark.png")));
+		roomLabel.setIcon(new ImageIcon(BoardPanel.loadImage("Questionmark.png")));
 		roomSelectionPanel.add(roomLabel, BorderLayout.CENTER);
 
 		JPanel titlePanel = new JPanel();
@@ -163,6 +155,7 @@ public class ChoiceFrame extends JFrame{
 		});
 
 		confirmBtn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (charSelected && weaponSelected && roomSelected ){
 
@@ -194,11 +187,11 @@ public class ChoiceFrame extends JFrame{
 		charDialog.setLayout(new GridLayout(2,3));
 		charDialog.setVisible(true);
 
-		for(int i = 0; i < game.CHARACTER_LIST.length; i++){
+		for(int i = 0; i < Game.CHARACTER_LIST.length; i++){
 			JLabel label = new JLabel();
 			label.setBackground(SystemColor.desktop);
-			label.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/"+game.CHARACTER_LIST[i]+".png")));
-			label.setToolTipText(game.CHARACTER_LIST[i]);
+			label.setIcon(new ImageIcon(BoardPanel.loadImage("/"+Game.CHARACTER_LIST[i]+".png")));
+			label.setToolTipText(Game.CHARACTER_LIST[i]);
 
 			label.addMouseListener(new MouseListener() {
 				@Override
@@ -226,11 +219,11 @@ public class ChoiceFrame extends JFrame{
 		weaponDialog.setLayout(new GridLayout(2,3));
 		weaponDialog.setVisible(true);
 
-		for(int i = 0; i < game.WEAPONS_LIST.length; i++){
+		for(int i = 0; i < Game.WEAPONS_LIST.length; i++){
 			JLabel label = new JLabel();
 			label.setBackground(SystemColor.desktop);
-			label.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/"+game.WEAPONS_LIST[i]+".png")));
-			label.setToolTipText(game.WEAPONS_LIST[i]);
+			label.setIcon(new ImageIcon(BoardPanel.loadImage("/"+Game.WEAPONS_LIST[i]+".png")));
+			label.setToolTipText(Game.WEAPONS_LIST[i]);
 
 			label.addMouseListener(new MouseListener() {
 				@Override
@@ -258,11 +251,11 @@ public class ChoiceFrame extends JFrame{
 		roomDialog.setLayout(new GridLayout(2,5));
 		roomDialog.setVisible(true);
 
-		for(int i = 0; i < game.ROOM_LIST.length; i++){
+		for(int i = 0; i < Game.ROOM_LIST.length; i++){
 			JLabel label = new JLabel();
 			label.setBackground(SystemColor.desktop);
-			label.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/"+game.ROOM_LIST[i]+".png")));
-			label.setToolTipText(game.ROOM_LIST[i]);
+			label.setIcon(new ImageIcon(BoardPanel.loadImage("/"+Game.ROOM_LIST[i]+".png")));
+			label.setToolTipText(Game.ROOM_LIST[i]);
 
 			label.addMouseListener(new MouseListener() {
 				@Override
@@ -290,12 +283,12 @@ public class ChoiceFrame extends JFrame{
 		roomDialog.setLayout(new GridLayout(1,1));
 		roomDialog.setVisible(true);
 
-		for(int i = 0; i < game.ROOM_LIST.length; i++){
-			if (!choiceRoom.equals(game.ROOM_LIST[i])){continue;}
+		for(int i = 0; i < Game.ROOM_LIST.length; i++){
+			if (!choiceRoom.equals(Game.ROOM_LIST[i])){continue;}
 			JLabel label = new JLabel();
 			label.setBackground(SystemColor.desktop);
-			label.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/"+game.ROOM_LIST[i]+".png")));
-			label.setToolTipText(game.ROOM_LIST[i]);
+			label.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/"+Game.ROOM_LIST[i]+".png")));
+			label.setToolTipText(Game.ROOM_LIST[i]);
 
 			label.addMouseListener(new MouseListener() {
 				@Override

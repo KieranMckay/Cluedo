@@ -4,8 +4,6 @@ import game.*;
 
 import java.util.Random;
 
-import ui.*;
-
 /**
  * A basic class for handling a players turn.
  * Includes the ability to make an accusation at the start of their turn, or move.
@@ -17,7 +15,6 @@ import ui.*;
 public class Turn {
 	static Random dice = new Random();
 
-	Menu menu = new Menu(); //TODO remove when menu no longer exists
 
 	private Player player;
 	private Board board;
@@ -34,22 +31,7 @@ public class Turn {
 	 * Prompt for and move the player around the board until turns have run out
 	 */
 	public void movePlayer(String direction) {
-//		menu.println("It is " + player.toString() +"'s turn. ("
-//				+player.getToken().toString()+")");
-//		menu.println("You rolled a " + turns
-//				+ " please move to your destination");
-//		menu.println(board.toString());
-
-		//while (turns > 0) {
-			if (!singleMove(direction)) {
-				menu.println("Invalid Move, try again");
-				//continue;
-			} /*else if (player.getToken().getPosition().isRoom()) { // they have reached a room
-				return;
-			} else {
-				menu.println(board.toString());
-			}*/
-		//}
+		singleMove(direction);
 	}
 
 	/**
@@ -59,7 +41,6 @@ public class Turn {
 	 * @return Boolean successful move or not
 	 */
 	public boolean singleMove(String direction) {
-		//menu.println("Please choose a direction: ");
 		if (player.move(direction)){
 			turns--;
 			return true;

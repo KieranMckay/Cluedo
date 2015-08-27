@@ -2,7 +2,6 @@ package ui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -10,11 +9,8 @@ import java.awt.event.ActionListener;
 import java.util.Enumeration;
 import java.util.List;
 
-import javafx.scene.image.Image;
-
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -96,6 +92,13 @@ public class StartPanel extends JPanel{
 		add(btnPanel);
 	}
 
+	/**
+	 * Adds radio buttons to the input button group and jpanel.
+	 * Buttons used for selecting the number of players in the game
+	 *
+	 * @param rdbtnGroup a Button group to add the buttons to
+	 * @param parent a JPanel to add the buttons to
+	 */
 	private void createRadioBtns(ButtonGroup rdbtnGroup, JPanel parent) {
 		JRadioButton rdbtn3 = new JRadioButton("3");
 		JRadioButton rdbtn4 = new JRadioButton("4");
@@ -113,7 +116,13 @@ public class StartPanel extends JPanel{
 		parent.add(rdbtn6, 3);
 	}
 
-	public String getSelectedButtonText(ButtonGroup buttonGroup) {
+
+	/**
+	 * A static method for getting the string of a selected radio button from a ButtonGroup
+	 * @param buttonGroup
+	 * @return
+	 */
+	public static String getSelectedButtonText(ButtonGroup buttonGroup) {
         for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 
@@ -123,28 +132,4 @@ public class StartPanel extends JPanel{
         }
         return null;
     }
-
-	/*private class ImagePanel extends JPanel{
-		private Image img;
-
-		  public ImagePanel(String img) {
-			  this(new Image(img).getImage());
-		  }
-
-		  public ImagePanel(Image img) {
-		    this.img = img;
-		    Dimension size = new Dimension((int)img.getWidth(), (int)img.getHeight());
-		    setPreferredSize(size);
-		    setMinimumSize(size);
-		    setMaximumSize(size);
-		    setSize(size);
-		    setLayout(null);
-		  }
-
-		  public void paintComponent(Graphics g) {
-		    g.drawImage(img, 0, 0, null);
-		  }
-
-		}*/
-
 }

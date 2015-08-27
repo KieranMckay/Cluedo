@@ -3,8 +3,6 @@ package ui;
 import game.Room;
 import game.Tile;
 import game.Token;
-import game.Weapon;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -16,12 +14,22 @@ import javax.imageio.ImageIO;
 
 import control.Game;
 
+/**
+ * A panel to display the playing board and all character and weapon tokens on as the main game display
+ *
+ * @author Kieran Mckay
+ */
 public class BoardPanel extends JPanel implements MouseListener{
 
 	private static final String BOARD_NAME = "Cluedo Board.png";
 	private Game game;
 	public JLabel boardImage;
 
+	/**
+	 * Creates the panel with the game currently in play.
+	 *
+	 * @param game - the Game object currently in use
+	 */
 	public BoardPanel(Game game) {
 		this.game = game;
 		BufferedImage image = loadImage(BOARD_NAME);
@@ -31,19 +39,18 @@ public class BoardPanel extends JPanel implements MouseListener{
 		addMouseListener(this);
 	}
 
+	/**
+	 * Paint this component and any tokens and weapons on the board or in rooms.
+	 */
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-
-		for (Weapon w : game.weapons.values()){
-			//w.draw(g,this);
-		}
-		for(Token t : game.tokens.values()){
+		for(Token t : Game.tokens.values()){
 			t.draw(g,this);
 		}
-		for(Room r : game.rooms.values()){
+		for(Room r : Game.rooms.values()){
 			r.draw(g, this);
 		}
-		// finally, draw any messages
 	}
 
 	/**
@@ -52,14 +59,9 @@ public class BoardPanel extends JPanel implements MouseListener{
 	 * @param filename
 	 * @return
 	 */
-
 	public static BufferedImage loadImage(String filename) {
-		// using the URL means the image loads when stored
-		// in a jar or expanded into individual files.
-		java.net.URL imageURL = BoardPanel.class.getResource("/"+filename);
-
 		try {
-			BufferedImage img = ImageIO.read(new File("images/"+filename));
+			BufferedImage img = ImageIO.read(new File("src/images/"+filename));
 			return img;
 		} catch (IOException e) {
 			// we've encountered an error loading the image. There's not much we
@@ -68,26 +70,17 @@ public class BoardPanel extends JPanel implements MouseListener{
 		}
 	}
 
-	public static void main(String[] args){
-		new BoardPanel(new Game());
-	}
-
 	@Override
-	public void mouseClicked(MouseEvent e) {
-
-
-	}
-
+	public void mouseClicked(MouseEvent e) {}
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mousePressed(MouseEvent e) {}
 
-	}
-
+	/**
+	 * listens to when a mouse click is released on the board game
+	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		if(game.turn.turns <= 0)return;
-		// TODO Auto-generated method stub
 		int squareX = (int)((e.getX()-10)/33.0);
 		int squareY = (int)((e.getY()-10)/33.0);
 
@@ -105,13 +98,7 @@ public class BoardPanel extends JPanel implements MouseListener{
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-
-	}
-
+	public void mouseEntered(MouseEvent e) {}
 	@Override
-	public void mouseExited(MouseEvent e) {
-
-	}
-
+	public void mouseExited(MouseEvent e) {}
 }

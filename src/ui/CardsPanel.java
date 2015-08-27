@@ -12,6 +12,13 @@ import javax.swing.JPanel;
 
 import control.Game;
 
+/**
+ * A class that extends JPanel.
+ * Displays current player's Picture and all the cards in their hand in a panel in the main CluedoFrame
+ *
+ * @author Kieran Mckay
+ *
+ */
 public class CardsPanel extends JPanel {
 
 	private JPanel hand = new JPanel();
@@ -19,6 +26,11 @@ public class CardsPanel extends JPanel {
 
 	private Game game;
 
+	/**
+	 * Constructs the panel.
+	 *
+	 * @param game - the game which is currently being played
+	 */
 	public CardsPanel(Game game){
 		this.game = game;
 		update();
@@ -26,6 +38,9 @@ public class CardsPanel extends JPanel {
 		setVisible(true);
 	}
 
+	/**
+	 * updates the panel to display the information of the current player
+	 */
 	public void update() {
 		hand.removeAll();
 		playerLabel.removeAll();
@@ -46,6 +61,9 @@ public class CardsPanel extends JPanel {
 		hand.setVisible(true);
 	}
 
+	/**
+	 * Adds pictures of all the cards in the players hand to this panel
+	 */
 	private void addHand(){
 		int i = 0;
 		for(Card c : game.player.getHand()){
@@ -58,8 +76,8 @@ public class CardsPanel extends JPanel {
 		}
 	}
 
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		System.out.println("!!!!!!!!!!!!!!painting card panel"+game.player.toString());
 	}
 }

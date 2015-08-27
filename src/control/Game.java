@@ -329,7 +329,8 @@ public class Game{
 	private void animateNorth() {
 
 		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
             	boolean notDone = true;
         		while(notDone) {
                     // Do your processing

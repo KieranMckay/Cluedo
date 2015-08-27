@@ -1,13 +1,6 @@
 package main;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
-import javax.swing.*;
-
 import control.Game;
-import ui.BoardPanel;
 
 public class Main {
 	/**

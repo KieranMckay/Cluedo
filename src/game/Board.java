@@ -28,7 +28,7 @@ public class Board {
 	 */
 	public Board() {
 		try {
-			Scanner sc = new Scanner(new File("board.csv"));
+			Scanner sc = new Scanner(new File("src/board.csv"));
 			parseBoard(csvToArray(sc));
 		} catch (FileNotFoundException e) {
 			System.err.println("Invalid Board File");

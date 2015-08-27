@@ -1,22 +1,22 @@
 package ui;
 
-import javax.swing.AbstractButton;
-import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 import control.Game;
-
 import java.awt.SystemColor;
-import java.util.Enumeration;
 
+/**
+ * An initial frame to hold the initialisation panels of the cluedo game
+ *
+ * @author Kieran Mckay
+ */
 public class StartFrame extends JFrame{
 
 	private Game game;
 	private JPanel window;
+
 	/**
 	 * Create the application.
 	 */
@@ -48,21 +48,15 @@ public class StartFrame extends JFrame{
 		getContentPane().add(window);
 	}
 
+	/**
+	 * Loads in the current main window of the game into this frame.
+	 *
+	 * @param window - Jpanel
+	 */
 	public void setWindow(JPanel window){
 		setContentPane(window);
 		this.window = window;
 		revalidate();
 		repaint();
 	}
-
-	public static String getSelectedButtonText(ButtonGroup buttonGroup) {
-        for (Enumeration<AbstractButton> buttons = buttonGroup.getElements(); buttons.hasMoreElements();) {
-            AbstractButton button = buttons.nextElement();
-
-            if (button.isSelected()) {
-                return button.getText();
-            }
-        }
-        return null;
-    }
 }

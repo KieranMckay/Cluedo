@@ -1,13 +1,9 @@
 package ui;
 
 
-import game.Board;
 import game.Card;
-import game.Player;
 import game.Room;
 import game.Tile;
-import javafx.scene.control.RadioButton;
-
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -18,11 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JMenuBar;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
-
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
@@ -38,11 +30,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JMenu;
-import javax.swing.JTextField;
-
-import sun.tools.jar.Main;
 import control.Game;
-import control.Turn;
 
 public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 
@@ -54,8 +42,6 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 	private JMenuItem newMenuItem = new JMenuItem("New Game");
 	private JMenuItem quitMenuItem = new JMenuItem("Quit");
 
-
-	//TODO each of these needs to be a class that extends JPanel
 	private CardsPanel cards;
 	private BoardPanel board;
 
@@ -123,9 +109,10 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		addKeyListener(this);
 		cards.update();
 	}
-
+	/**
+	 * populate map with images
+	 */
 	private void importCards() {
-		//populate map with images
 
 		cardImages.put(Game.CHARACTER_LIST[0],BoardPanel.loadImage(Game.CHARACTER_LIST[0]+".png"));
 		cardImages.put(Game.CHARACTER_LIST[1],BoardPanel.loadImage(Game.CHARACTER_LIST[1]+".png"));
@@ -152,6 +139,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		cardImages.put(Game.ROOM_LIST[8],BoardPanel.loadImage(Game.ROOM_LIST[8]+".png"));
 	}
 
+	@Override
 	public void repaint() {
 		super.repaint();
 		board.repaint();
@@ -177,6 +165,9 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		});
 	}
 
+	/**
+	 * Displays the current players remaining suspects in a JDialog
+	 */
 	public void playersSuspects(){
 		playerSuspectsDialog = new JDialog();
 		playerSuspectsDialog.setTitle(String.format("%s's Remaining Suspects - Player %d",game.player.getName(), game.player.getPlayerNumber()));
@@ -237,7 +228,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 						acceptButton.addActionListener(new ActionListener(){
 							@Override
 							public void actionPerformed(ActionEvent e) {
-								String choice = StartFrame.getSelectedButtonText(bg);
+								String choice = StartPanel.getSelectedButtonText(bg);
 								curPosition.getNeighbour(choice).moveTo(game.player.getToken());
 								dialog.dispose();
 								repaint();
@@ -344,6 +335,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 	 *
 	 * @param e
 	 */
+	@Override
 	public void windowClosing(WindowEvent e) {
 		// Ask the user to confirm they wanted to do this
 		int r = JOptionPane.showConfirmDialog(this, new JLabel(
@@ -358,23 +350,31 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 	 * This method is called after the X button has been depressed.
 	 * @param e
 	 */
-    public void windowClosed(WindowEvent e) {}
+    @Override
+	public void windowClosed(WindowEvent e) {}
 
     // The following methods are part of the WindowListener interface,
     // but are not needed here.
-    public void windowActivated(WindowEvent e) {}
-    public void windowDeactivated(WindowEvent e) {}
-    public void windowDeiconified(WindowEvent e) {}
-    public void windowIconified(WindowEvent e) {}
-    public void windowOpened(WindowEvent e) {}
+    @Override
+	public void windowActivated(WindowEvent e) {}
+    @Override
+	public void windowDeactivated(WindowEvent e) {}
+    @Override
+	public void windowDeiconified(WindowEvent e) {}
+    @Override
+	public void windowIconified(WindowEvent e) {}
+    @Override
+	public void windowOpened(WindowEvent e) {}
 
 
+	@Override
 	public void keyTyped(KeyEvent e) {}
+	@Override
 	public void keyPressed(KeyEvent e) {}
 
+	@Override
 	public void keyReleased(KeyEvent e) {
-		if(game.turn.turns < 1)return;
-		if(game == null || game.turn == null)return;
+		if(game.turn.turns < 1||game == null || game.turn == null)return;
 		int keyCode = e.getKeyCode();
 		 switch( keyCode ) {
 	        case KeyEvent.VK_UP:

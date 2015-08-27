@@ -17,6 +17,7 @@ public class Card {
 	 *
 	 * @return String - the name of the card
 	 */
+	@Override
 	public String toString(){
 		return name;
 	}

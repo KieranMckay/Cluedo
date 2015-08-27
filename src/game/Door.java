@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import ui.BoardPanel;
-import ui.CluedoFrame;
 
 public class Door extends Tile{
 	public int size = 33;
