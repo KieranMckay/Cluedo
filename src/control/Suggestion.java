@@ -3,6 +3,7 @@ package control;
 import game.*;
 
 public class Suggestion {
+	
 	private Player player;
 	private Envelope guessEnvelope;
 
@@ -25,13 +26,5 @@ public class Suggestion {
 
 	public String getSuggestedRoom(){
 		return guessEnvelope.roomToString();
-	}
-
-	/**
-	 * Returns whether this is an accusation or not
-	 * @return false - because this is parent class Suggestion
-	 */
-	public boolean isAccusation(){
-		return false;
 	}
 }

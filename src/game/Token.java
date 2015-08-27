@@ -111,7 +111,6 @@ public class Token{
 	}
 
 	public boolean move(String direction) {
-		// TODO Auto-generated method stub
 		double drawIncrement = 0.01;
 		Tile tile = getPosition();
 		Tile newTile = tile.getNeighbour(direction);
@@ -119,7 +118,6 @@ public class Token{
 			newTile.moveTo(this);
 			return true;
 		}
-		System.out.println("Not a valid Move");
 		return false;
 	}
 }

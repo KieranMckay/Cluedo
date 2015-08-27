@@ -30,11 +30,9 @@ public class Room extends Tile{
 		int i;
 		for(i = 0; i < inRoom.size(); i++){
 			inRoom.get(i).draw(g, panel, getX()+(i%4), getY()+(i/4));
-			System.out.println("room " + getX() +" " + getY() + " drawing: " + inRoom.get(i).toString());
 		}
 		for(int j = 0; j < weapons.size(); j++){
 			weapons.get(j).draw(g, panel, getX()+((i+j)%4), getY()+((i+j)/4));
-			System.out.println("weapon " + getX() +" " + getY() + " drawing: " + weapons.get(j).toString());
 		}
 	}
 
@@ -91,6 +89,4 @@ public class Room extends Tile{
 	public void removeWeapon(Weapon weapon) {
 		weapons.remove(weapon);
 	}
-
-
 }

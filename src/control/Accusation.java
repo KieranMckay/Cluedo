@@ -2,14 +2,13 @@ package control;
 
 import game.*;
 
-public class Accusation extends Suggestion {
+public class Accusation{
 
 	private Player player;
 	private Envelope guessEnvelope;
 	private Envelope murderEnvelope;
 
 	public Accusation(Player player, Envelope guessEnvelope, Envelope murderEnvelope) {
-		super(player, guessEnvelope);
 		this.player = player;
 		this.guessEnvelope = guessEnvelope;
 		this.murderEnvelope = murderEnvelope;
@@ -29,14 +28,5 @@ public class Accusation extends Suggestion {
 	 */
 	public boolean isCorrect(){
 		return guessEnvelope.equals(murderEnvelope);
-	}
-
-	/**
-	 * Returns whether this is an accusation or not
-	 * @return true - because this is Accusation class
-	 */
-	@Override
-	public boolean isAccusation(){
-		return true;
 	}
 }

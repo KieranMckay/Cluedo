@@ -19,7 +19,6 @@ public class Location extends Tile {
 		return member == null;
 	}
 
-
 	@Override
 	public void moveTo(Token t) {
 		if(t != null){

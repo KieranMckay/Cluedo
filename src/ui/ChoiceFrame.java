@@ -190,7 +190,7 @@ public class ChoiceFrame extends JFrame{
 		for(int i = 0; i < Game.CHARACTER_LIST.length; i++){
 			JLabel label = new JLabel();
 			label.setBackground(SystemColor.desktop);
-			label.setIcon(new ImageIcon(BoardPanel.loadImage("/"+Game.CHARACTER_LIST[i]+".png")));
+			label.setIcon(new ImageIcon(BoardPanel.loadImage(Game.CHARACTER_LIST[i]+".png")));
 			label.setToolTipText(Game.CHARACTER_LIST[i]);
 
 			label.addMouseListener(new MouseListener() {
@@ -222,7 +222,7 @@ public class ChoiceFrame extends JFrame{
 		for(int i = 0; i < Game.WEAPONS_LIST.length; i++){
 			JLabel label = new JLabel();
 			label.setBackground(SystemColor.desktop);
-			label.setIcon(new ImageIcon(BoardPanel.loadImage("/"+Game.WEAPONS_LIST[i]+".png")));
+			label.setIcon(new ImageIcon(BoardPanel.loadImage(Game.WEAPONS_LIST[i]+".png")));
 			label.setToolTipText(Game.WEAPONS_LIST[i]);
 
 			label.addMouseListener(new MouseListener() {
@@ -254,7 +254,7 @@ public class ChoiceFrame extends JFrame{
 		for(int i = 0; i < Game.ROOM_LIST.length; i++){
 			JLabel label = new JLabel();
 			label.setBackground(SystemColor.desktop);
-			label.setIcon(new ImageIcon(BoardPanel.loadImage("/"+Game.ROOM_LIST[i]+".png")));
+			label.setIcon(new ImageIcon(BoardPanel.loadImage(Game.ROOM_LIST[i]+".png")));
 			label.setToolTipText(Game.ROOM_LIST[i]);
 
 			label.addMouseListener(new MouseListener() {
@@ -287,7 +287,7 @@ public class ChoiceFrame extends JFrame{
 			if (!choiceRoom.equals(Game.ROOM_LIST[i])){continue;}
 			JLabel label = new JLabel();
 			label.setBackground(SystemColor.desktop);
-			label.setIcon(new ImageIcon(ChoiceFrame.class.getResource("/"+Game.ROOM_LIST[i]+".png")));
+			label.setIcon(new ImageIcon(BoardPanel.loadImage(Game.ROOM_LIST[i]+".png")));
 			label.setToolTipText(Game.ROOM_LIST[i]);
 
 			label.addMouseListener(new MouseListener() {

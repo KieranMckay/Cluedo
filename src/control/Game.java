@@ -141,11 +141,12 @@ public class Game{
 			pTurn = 1;
 		}
 		player = players.get(pTurn);
+		turns = -1;
 
 		//update player again if player is not in the game
-		if (!player.isInGame()){endPlayerTurn();}
-		//turn = new Turn(player);
-		turns = -1;
+		if (!player.isInGame()){
+			endPlayerTurn();
+		}
 	}
 
 	public void handleSuggestion(Suggestion mySuggestion) {
@@ -340,50 +341,10 @@ public class Game{
 
 		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
 		player = players.get(pTurn);
-		System.out.println(player.toString());
-		//turn = new Turn(player);
 		turns = -1;
 	}
 
 	public Board getBoard(){
 		return board;
-	}
-	//-------------------------- TODO Animation Logic to be implemented or removed
-	private void animateNorth() {
-
-		SwingUtilities.invokeLater(new Runnable() {
-            @Override
-			public void run() {
-            	boolean notDone = true;
-        		while(notDone) {
-                    // Do your processing
-        			notDone = slideNorth();
-        			try {
-						Thread.sleep(50);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-                }
-               System.out.println("new thread painting");
-               //
-            }
-          });
-	}
-
-	boolean slideNorth(){
-		if(player.getToken().getYOffset() <= -1){
-			player.getToken().setYoffset(0);
-			System.out.println("player has finished sliding");
-			movePlayer("North");
-			return false; //finished moving
-		}
-		else{
-			System.out.println("player sliding: "+player.getToken().getYOffset());
-			player.getToken().setYoffset(player.getToken().getYOffset()-0.1);
-		}
-		game.repaint();
-		//board.paintImmediately((game.player.getToken().getX()-2)*34, (game.player.getToken().getY()-2)*34, 100, 100);
-		return true;
 	}
 }

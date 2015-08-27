@@ -70,10 +70,6 @@ public class BoardPanel extends JPanel implements MouseListener{
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {}
-	@Override
-	public void mousePressed(MouseEvent e) {}
 
 	/**
 	 * listens to when a mouse click is released on the board game
@@ -88,7 +84,6 @@ public class BoardPanel extends JPanel implements MouseListener{
 		int curYPos = game.player.getToken().getY();
 		for(String name:game.player.getToken().getPosition().neighbourNames()){
 			Tile t = game.player.getToken().getPosition().getNeighbour(name);
-			System.out.println("neighbour "+ name);
 			if(t.getX() == squareX && t.getY() == squareY){
 				game.movePlayer(name);
 				repaint();
@@ -97,8 +92,8 @@ public class BoardPanel extends JPanel implements MouseListener{
 		}
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent e) {}
-	@Override
 	public void mouseExited(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {}
 }

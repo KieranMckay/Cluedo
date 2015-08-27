@@ -35,7 +35,6 @@ public class Door extends Tile{
 		double squareSize = panel.getWidth()/25.0;
 		g.setColor(Color.red);
 		g.drawString(name, (int)(getX()*squareSize*1.01)+offset, (int)(getY()*squareSize*1.01)+offset);
-		//g.drawImage(icon, (int)((getX()*squareSize*1.01)+((offsetX%1)*squareSize))+offset, (int)((getY()*squareSize)+((offsetY%1)*squareSize))+offset, size, size, null);
 	}
 
 	@Override
