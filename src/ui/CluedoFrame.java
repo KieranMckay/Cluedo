@@ -109,6 +109,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		addKeyListener(this);
 		cards.update();
 	}
+	
 	/**
 	 * populate map with images
 	 */
@@ -193,11 +194,11 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		dice.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (game.turn.turns > -1){
+				if (game.turns > -1){
 					JOptionPane.showMessageDialog(getParent(), "You have already rolled the dice this turn.");
 				} else{
-					game.turn.rollDice();
-					JOptionPane.showMessageDialog(getParent(), String.format("You rolled a %d",game.turn.turns));
+					game.rollDice();
+					JOptionPane.showMessageDialog(getParent(), String.format("You rolled a %d",game.turns));
 				}
 			}
 		});
@@ -205,7 +206,7 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		move.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (game.turn.turns > 0){
+				if (game.turns > 0){
 					Tile curPosition = game.player.getToken().getPosition();
 					if(curPosition.isRoom()){
 						JDialog dialog = new JDialog();
@@ -278,7 +279,6 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 				promptEndTurn();
 			}
 		});
-
 	}
 
 	public void choice(String room){
@@ -346,54 +346,38 @@ public class CluedoFrame extends JFrame implements KeyListener, WindowListener{
 		}
 	}
 
-	/**
-	 * This method is called after the X button has been depressed.
-	 * @param e
-	 */
-    @Override
-	public void windowClosed(WindowEvent e) {}
-
     // The following methods are part of the WindowListener interface,
     // but are not needed here.
-    @Override
+	public void windowClosed(WindowEvent e) {}
 	public void windowActivated(WindowEvent e) {}
-    @Override
 	public void windowDeactivated(WindowEvent e) {}
-    @Override
 	public void windowDeiconified(WindowEvent e) {}
-    @Override
 	public void windowIconified(WindowEvent e) {}
-    @Override
 	public void windowOpened(WindowEvent e) {}
 
-
-	@Override
 	public void keyTyped(KeyEvent e) {}
-	@Override
 	public void keyPressed(KeyEvent e) {}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(game.turn.turns < 1||game == null || game.turn == null)return;
+		if(game.turns < 1||game == null || game == null)return;
 		int keyCode = e.getKeyCode();
 		 switch( keyCode ) {
 	        case KeyEvent.VK_UP:
 	        	//animateNorth();
-	        	game.turn.movePlayer("North");
+	        	game.movePlayer("North");
 	        	break;
 	        case KeyEvent.VK_DOWN:
-	    		game.turn.movePlayer("South");
+	    		game.movePlayer("South");
 	    		break;
 	        case KeyEvent.VK_LEFT:
-	    		game.turn.movePlayer("West");
+	    		game.movePlayer("West");
 	            break;
 	        case KeyEvent.VK_RIGHT :
-	    		game.turn.movePlayer("East");
+	    		game.movePlayer("East");
 
 	            break;
 	     }
     	repaint();
 	}
-
-
 }

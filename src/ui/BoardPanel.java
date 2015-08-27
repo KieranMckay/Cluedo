@@ -80,7 +80,7 @@ public class BoardPanel extends JPanel implements MouseListener{
 	 */
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		if(game.turn.turns <= 0)return;
+		if(game.turns <= 0)return;
 		int squareX = (int)((e.getX()-10)/33.0);
 		int squareY = (int)((e.getY()-10)/33.0);
 
@@ -90,7 +90,7 @@ public class BoardPanel extends JPanel implements MouseListener{
 			Tile t = game.player.getToken().getPosition().getNeighbour(name);
 			System.out.println("neighbour "+ name);
 			if(t.getX() == squareX && t.getY() == squareY){
-				game.turn.movePlayer(name);
+				game.movePlayer(name);
 				repaint();
 				return;
 			}

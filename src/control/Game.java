@@ -41,9 +41,12 @@ public class Game{
 	private Board board; //holds the board object of the game
 	private Envelope murderEnvelope; //contains the murder scene cards (one weapon, one character, one room)
 
+	static Random dice = new Random();
+	public int turns = -1;
+
 	public Player player;
 	public int playersLeft = 0;
-	public Turn turn;
+	//public Turn turn;
 	public CluedoFrame game;
 
 	public static Map<String, Token> tokens = new HashMap<String, Token>(); 	//all of the playable characters/suspects
@@ -110,6 +113,24 @@ public class Game{
 	}
 
 	/**
+	 * Move the player around the board until turns have run out
+	 */
+	public void movePlayer(String direction) {
+		if (player.move(direction)){
+			turns--;
+		}
+	}
+
+	/**
+	 * get a number between 2 and 12 inclusive
+	 *
+	 * @return
+	 */
+	public void rollDice() {
+		turns = dice.nextInt(11) + 2;
+	}
+
+	/**
 	 * Updates the current player of the game when a turn is ended
 	 */
 	public void endPlayerTurn(){
@@ -123,7 +144,8 @@ public class Game{
 
 		//update player again if player is not in the game
 		if (!player.isInGame()){endPlayerTurn();}
-		turn = new Turn(player, board, murderEnvelope);
+		//turn = new Turn(player);
+		turns = -1;
 	}
 
 	public void handleSuggestion(Suggestion mySuggestion) {
@@ -319,7 +341,8 @@ public class Game{
 		int pTurn = new Random().nextInt(numPlayers)+1; //which players turn it is, initialised with a random player
 		player = players.get(pTurn);
 		System.out.println(player.toString());
-		turn = new Turn(player, board, murderEnvelope);
+		//turn = new Turn(player);
+		turns = -1;
 	}
 
 	public Board getBoard(){
@@ -352,7 +375,7 @@ public class Game{
 		if(player.getToken().getYOffset() <= -1){
 			player.getToken().setYoffset(0);
 			System.out.println("player has finished sliding");
-			turn.movePlayer("North");
+			movePlayer("North");
 			return false; //finished moving
 		}
 		else{
