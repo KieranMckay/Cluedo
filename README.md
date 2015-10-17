@@ -1,6 +1,7 @@
-# cluedoGUI
-Victoria University SWEN222 Assignment
+# Cluedo
 
-Implementing the board game cluedo.
+An implementing the muder myster board game Cluedo.
 
-This version implements a GUI.
+Master branch 	- under development
+GUI branch	- has a java swing graphic user interface
+noGUI branch	- original implementation played through console
