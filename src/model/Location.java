@@ -1,12 +1,9 @@
-package game;
+package model;
 
 import java.util.*;
 
 
 public class Location extends Tile {
-	public Location(int x, int y) {
-		super(x, y);
-	}
 	private Token member;
 
 	@Override
@@ -18,6 +15,7 @@ public class Location extends Tile {
 	public boolean hasSpace() {
 		return member == null;
 	}
+
 
 	@Override
 	public void moveTo(Token t) {

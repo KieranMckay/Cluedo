@@ -1,19 +1,11 @@
-package game;
-
-import java.awt.Color;
-import java.awt.Graphics;
-
-import ui.BoardPanel;
+package model;
 
 public class Door extends Tile{
-	public int size = 33;
-	public int offset = 10;
 	public Room room;
 	public Location location;
 	private String name;
 
-	public Door(String name,int x, int y){
-		super(x,y);
+	public Door(String name){
 		this.name = name;
 	}
 	@Override
@@ -29,12 +21,6 @@ public class Door extends Tile{
 		else{ //must be a location
 			room.moveTo(t);
 		}
-	}
-
-	public void draw(Graphics g,BoardPanel panel){
-		double squareSize = panel.getWidth()/25.0;
-		g.setColor(Color.red);
-		g.drawString(name, (int)(getX()*squareSize*1.01)+offset, (int)(getY()*squareSize*1.01)+offset);
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package game;
+package model;
 
 import java.util.*;
 /**
@@ -11,13 +11,6 @@ public abstract class Tile {
 
 	Map<String,Tile> neighbours = new HashMap<String,Tile>();
 
-	private int x;
-	private int y;
-
-	public Tile(int x, int y){
-		this.x = x;
-		this.y = y;
-	}
 	/**
 	 * get a list of all the neighbours
 	 *
@@ -25,14 +18,6 @@ public abstract class Tile {
 	 */
 	public List<String> neighbourNames() {
 		return new ArrayList<String>(neighbours.keySet());
-	}
-
-	public int getX(){
-		return this.x;
-	}
-
-	public int getY(){
-		return this.y;
 	}
 
 	/**	Decides whether a player can move to this square or not
@@ -81,7 +66,4 @@ public abstract class Tile {
 
 	public abstract boolean isRoom();
 
-	public List<Tile> getNeighbourTiles(){
-		return new ArrayList<Tile>(neighbours.values());
-	}
 }
